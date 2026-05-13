@@ -1,0 +1,421 @@
+@using System
+@using Sandbox
+@using Sandbox.UI
+@inherits PanelComponent
+@namespace Sandbox.TailBox
+
+@* tailbox safelist: absolute relative inset-0 top-3 right-3 left-3 bottom-3 z-10 z-20 flex flex-row flex-col flex-wrap flex-nowrap flex-1 flex-auto flex-none grow shrink-0 items-start items-center items-end items-stretch self-start self-center justify-start justify-center justify-between justify-around justify-evenly content-center order-1 order-2 basis-1/2 basis-1/3 basis-2/3 basis-1/4 w-full w-screen w-1/2 w-1/3 w-2/3 w-1/4 w-[284px] w-[1180px] h-full h-screen h-[54px] h-[78px] h-[112px] h-[160px] h-[220px] min-w-0 min-h-0 max-w-full max-w-[1180px] max-h-full size-3 size-4 size-6 size-8 size-10 aspect-square aspect-video p-0 p-1 p-2 p-3 p-4 p-5 p-6 p-8 px-2 px-3 px-4 px-5 px-[14px] py-1 py-2 py-3 py-4 m-0 mt-1 mt-2 -mt-2 mb-2 ml-auto gap-1 gap-2 gap-3 gap-4 gap-5 gap-6 gap-x-3 gap-y-2 bg-bg bg-bg-soft bg-panel bg-panel-strong bg-border bg-accent bg-accent-dark bg-danger bg-good bg-white/5 bg-white/10 bg-black/20 bg-[#0d1418] bg-[#101820] bg-[color:#1b2730] text-text text-muted text-accent text-accent-dark text-danger text-good text-white text-white/70 text-[#0d1418] border border-0 border-2 border-t border-b border-l border-r border-border border-accent border-white/10 rounded rounded-sm rounded-md rounded-lg rounded-xl rounded-full rounded-[18px] rounded-t-lg rounded-b-md text-left text-center text-right text-xs text-sm text-base text-lg text-xl text-2xl text-3xl text-[34px] leading-none leading-tight leading-snug leading-normal leading-relaxed leading-[42px] font-sans font-mono font-normal font-medium font-semibold font-bold font-black uppercase lowercase capitalize normal-case italic not-italic tracking-normal tracking-wide tracking-wider tracking-[0.18em] underline line-through no-underline decoration-accent decoration-2 underline-offset-4 truncate whitespace-nowrap whitespace-pre-wrap break-words overflow-hidden overflow-scroll overflow-y-scroll overflow-x-hidden opacity-0 opacity-50 opacity-70 opacity-90 opacity-95 opacity-100 pointer-events-all pointer-events-auto cursor-pointer cursor-text cursor-not-allowed select-none select-text z-0 z-10 z-20 z-50 transition transition-all transition-colors transition-opacity transition-shadow transition-transform duration-75 duration-150 duration-300 duration-500 delay-75 ease-out shadow shadow-sm shadow-md shadow-lg shadow-none text-shadow-sm text-shadow-lg blur-sm blur-md brightness-50 brightness-125 contrast-125 grayscale invert hue-rotate-15 saturate-150 sepia backdrop-blur-sm backdrop-blur-lg mix-blend-normal animate-none transform-[translateX(4px)_scale(1.04)] transform-[rotate(2deg)_scale(0.98)] origin-top-left origin-center hover:bg-accent hover:bg-panel-strong hover:text-[#0d1418] hover:text-white hover:border-accent hover:shadow-lg hover:opacity-100 hover:transform-[translateX(4px)_scale(1.04)] active:bg-accent-dark active:opacity-70 focus:border-accent focus:bg-panel-strong intro:opacity-0 outro:opacity-0 !p-4 !border-accent [background-color:#101820] [text-shadow:0_2px_8px_rgba(0,0,0,0.45)] *@
+
+<root class="absolute inset-0 pointer-events-all bg-[#0d1418] text-text font-sans select-none">
+	<div class="absolute inset-0 flex flex-row overflow-hidden">
+		<aside class="w-[284px] h-full shrink-0 bg-bg border-r border-border p-4 flex flex-col gap-4">
+			<div class="flex flex-col gap-2 p-2">
+				<div class="text-xs uppercase tracking-[0.18em] text-muted">TailBox SandWind</div>
+				<div class="text-2xl leading-tight font-black text-text">Feature Demo</div>
+				<div class="text-sm leading-normal text-muted">Pure C# Tailwind-shaped utilities emitted as s&amp;box-safe SCSS.</div>
+			</div>
+
+			<nav class="flex flex-col gap-2 overflow-y-scroll flex-1 min-h-0">
+				@for ( var i = 0; i < ScreenTitles.Length; i++ )
+				{
+					var index = i;
+					<button class="@NavClass( index )" onclick="@(() => SelectScreen( index ))">
+						<div class="text-xs uppercase tracking-wider opacity-70">Screen @(index + 1)</div>
+						<div class="text-base leading-snug font-bold">@ScreenTitles[index]</div>
+					</button>
+				}
+			</nav>
+
+			<div class="p-3 rounded-lg border border-white/10 bg-white/5 text-xs leading-relaxed text-muted">
+				<div class="font-bold text-accent uppercase tracking-wider mb-2">Scene bootstrap</div>
+				<div>Add the TailBox Demo component to any GameObject. It keeps a ScreenPanel, camera, mouse UI, and this menu alive.</div>
+			</div>
+		</aside>
+
+		<main class="flex-1 min-w-0 min-h-0 overflow-y-scroll p-6 bg-bg-soft">
+			<div class="max-w-[1180px] w-full min-h-full flex flex-col gap-6">
+				<header class="flex flex-row items-center justify-between gap-4 border-b border-border pb-4">
+					<div class="flex flex-col gap-1">
+						<div class="text-xs uppercase tracking-[0.18em] text-accent">Screen @(SafeActiveScreen + 1) of @ScreenTitles.Length</div>
+						<div class="text-[34px] leading-[42px] font-black text-text text-shadow-sm">@ScreenTitles[SafeActiveScreen]</div>
+					</div>
+					<div class="flex flex-row items-center gap-2">
+						<button class="@StepperClass" onclick="@Previous">Previous</button>
+						<button class="@StepperClass" onclick="@Next">Next</button>
+					</div>
+				</header>
+
+				@if ( SafeActiveScreen == 0 )
+				{
+					<section class="@ScreenClass">
+						<div class="@HeroPanelClass">
+							<div class="flex flex-col gap-3 flex-1">
+								<div class="text-xs uppercase tracking-[0.18em] text-accent">Generator pipeline</div>
+								<div class="text-3xl leading-tight font-black text-text">Razor classes in, ordinary SCSS out.</div>
+								<div class="text-base leading-relaxed text-muted max-w-[720px]">
+									The demo uses the same class syntax the generator scans: variants, arbitrary values, spacing, typography, effects, and stable unsupported reporting.
+								</div>
+							</div>
+							<div class="w-1/3 min-w-0 p-4 rounded-xl bg-[#101820] border border-white/10 shadow-lg">
+								<div class="text-xs uppercase tracking-wider text-muted">Current surface</div>
+								<div class="text-2xl font-black text-accent mt-1">ScreenPanel</div>
+								<div class="text-sm text-muted mt-2">Fullscreen menu, mouse-ready, backed by generated utilities.</div>
+							</div>
+						</div>
+
+						<div class="flex flex-row flex-wrap gap-4">
+							@foreach ( var card in OverviewCards )
+							{
+								<div class="@FeatureCardClass">
+									<div class="text-xs uppercase tracking-wider text-accent">@card.Label</div>
+									<div class="text-xl font-bold text-text">@card.Title</div>
+									<div class="text-sm leading-relaxed text-muted">@card.Body</div>
+								</div>
+							}
+						</div>
+					</section>
+				}
+				else if ( SafeActiveScreen == 1 )
+				{
+					<section class="@ScreenClass">
+						<div class="@PanelTitleClass">
+							<div>
+								<div class="text-xs uppercase tracking-wider text-accent">Layout</div>
+								<div class="text-2xl font-black">Flex, basis, order, grow, shrink</div>
+							</div>
+							<div class="text-sm text-muted">s&amp;box-safe display is intentionally focused on flex and none.</div>
+						</div>
+
+						<div class="flex flex-row gap-4">
+							<div class="basis-1/3 p-4 rounded-lg bg-panel border border-border flex flex-col gap-3">
+								<div class="font-bold text-accent">Column</div>
+								<div class="flex flex-col gap-2 h-[220px] justify-between">
+									<div class="h-[54px] rounded-md bg-accent text-[#0d1418] flex items-center justify-center font-bold">top</div>
+									<div class="h-[54px] rounded-md bg-white/10 flex items-center justify-center">middle</div>
+									<div class="h-[54px] rounded-md bg-panel-strong flex items-center justify-center">bottom</div>
+								</div>
+							</div>
+							<div class="basis-2/3 p-4 rounded-lg bg-panel border border-border flex flex-col gap-3">
+								<div class="font-bold text-accent">Wrapped row</div>
+								<div class="flex flex-row flex-wrap content-center gap-3 h-[220px]">
+									<div class="order-2 basis-1/3 h-[78px] rounded-md bg-white/10 flex items-center justify-center">order 2</div>
+									<div class="order-1 basis-1/3 h-[78px] rounded-md bg-accent text-[#0d1418] flex items-center justify-center font-bold">order 1</div>
+									<div class="grow h-[78px] rounded-md bg-good text-[#0d1418] flex items-center justify-center font-bold">grow</div>
+									<div class="flex-none w-1/4 h-[78px] rounded-md bg-danger flex items-center justify-center">flex-none</div>
+									<div class="flex-1 h-[78px] rounded-md bg-panel-strong flex items-center justify-center">flex-1</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				}
+				else if ( SafeActiveScreen == 2 )
+				{
+					<section class="@ScreenClass">
+						<div class="@PanelTitleClass">
+							<div>
+								<div class="text-xs uppercase tracking-wider text-accent">Spacing and sizing</div>
+								<div class="text-2xl font-black">Scale tokens, fractions, arbitrary lengths</div>
+							</div>
+							<div class="text-sm text-muted">Padding, margin, gap, width, height, min/max, size, and aspect-ratio.</div>
+						</div>
+
+						<div class="flex flex-row gap-4 items-stretch">
+							<div class="w-1/2 p-6 rounded-lg border border-border bg-panel flex flex-col gap-4">
+								<div class="p-1 bg-white/5 rounded-md">
+									<div class="p-2 bg-white/10 rounded-md">
+										<div class="p-3 bg-white/10 rounded-md">
+											<div class="p-4 bg-accent text-[#0d1418] rounded-md font-bold text-center">p-4 nested scale</div>
+										</div>
+									</div>
+								</div>
+								<div class="flex flex-row gap-x-3 gap-y-2 flex-wrap">
+									<div class="size-6 rounded bg-good"></div>
+									<div class="size-8 rounded bg-accent"></div>
+									<div class="size-10 rounded bg-danger"></div>
+									<div class="w-[1180px] max-w-full h-[54px] rounded-md bg-panel-strong flex items-center justify-center text-muted">w-[1180px] capped by max-w-full</div>
+								</div>
+							</div>
+							<div class="w-1/2 p-6 rounded-lg border border-border bg-panel flex flex-col gap-4">
+								<div class="aspect-video w-full rounded-lg bg-[#101820] border border-white/10 flex items-center justify-center text-accent font-bold">aspect-video</div>
+								<div class="flex flex-row gap-3 items-end">
+									<div class="w-1/4 h-[78px] rounded-md bg-white/10 flex items-center justify-center">1/4</div>
+									<div class="w-1/3 h-[112px] rounded-md bg-white/10 flex items-center justify-center">1/3</div>
+									<div class="w-1/2 h-[160px] rounded-md bg-accent text-[#0d1418] flex items-center justify-center font-bold">1/2</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				}
+				else if ( SafeActiveScreen == 3 )
+				{
+					<section class="@ScreenClass">
+						<div class="@PanelTitleClass">
+							<div>
+								<div class="text-xs uppercase tracking-wider text-accent">Color</div>
+								<div class="text-2xl font-black">Theme tokens, opacity modifiers, arbitrary colors</div>
+							</div>
+							<div class="text-sm text-muted">The generator resolves configured colors plus Tailwind-style slash alpha.</div>
+						</div>
+
+						<div class="flex flex-row flex-wrap gap-4">
+							<div class="@(SwatchClass + " bg-bg text-text")">bg-bg</div>
+							<div class="@(SwatchClass + " bg-panel text-text")">bg-panel</div>
+							<div class="@(SwatchClass + " bg-panel-strong text-text")">panel-strong</div>
+							<div class="@(SwatchClass + " bg-accent text-[#0d1418]")">accent</div>
+							<div class="@(SwatchClass + " bg-danger text-white")">danger</div>
+							<div class="@(SwatchClass + " bg-good text-[#0d1418]")">good</div>
+							<div class="@(SwatchClass + " bg-white/10 text-white")">white/10</div>
+							<div class="@(SwatchClass + " bg-[#101820] text-accent")">arbitrary</div>
+						</div>
+
+						<div class="p-5 rounded-xl border border-white/10 bg-[color:#1b2730] flex flex-col gap-3">
+							<div class="text-xl font-bold text-white">Arbitrary color hints</div>
+							<div class="text-sm text-white/70 leading-relaxed">Classes like bg-[color:#1b2730], bg-[#101820], text-white/70, and border-white/10 are parsed, escaped, and emitted as normal SCSS declarations.</div>
+						</div>
+					</section>
+				}
+				else if ( SafeActiveScreen == 4 )
+				{
+					<section class="@ScreenClass">
+						<div class="@PanelTitleClass">
+							<div>
+								<div class="text-xs uppercase tracking-wider text-accent">Borders</div>
+								<div class="text-2xl font-black">Widths, sides, colors, and radii</div>
+							</div>
+							<div class="text-sm text-muted">Border-style stays out because s&amp;box property support is intentionally verified.</div>
+						</div>
+
+						<div class="flex flex-row gap-4">
+							<div class="w-1/3 p-5 rounded-sm border border-border bg-panel flex flex-col gap-3">
+								<div class="font-bold text-accent">rounded-sm</div>
+								<div class="h-[112px] border-t border-l border-accent bg-white/5 rounded-sm flex items-center justify-center">top + left</div>
+							</div>
+							<div class="w-1/3 p-5 rounded-lg border-2 border-accent bg-panel flex flex-col gap-3">
+								<div class="font-bold text-accent">border-2</div>
+								<div class="h-[112px] border-b border-r border-white/10 rounded-lg bg-white/5 flex items-center justify-center">bottom + right</div>
+							</div>
+							<div class="w-1/3 p-5 rounded-[18px] border border-white/10 bg-panel flex flex-col gap-3">
+								<div class="font-bold text-accent">rounded-[18px]</div>
+								<div class="h-[112px] rounded-full bg-accent text-[#0d1418] flex items-center justify-center font-bold">rounded-full</div>
+							</div>
+						</div>
+					</section>
+				}
+				else if ( SafeActiveScreen == 5 )
+				{
+					<section class="@ScreenClass">
+						<div class="@PanelTitleClass">
+							<div>
+								<div class="text-xs uppercase tracking-wider text-accent">Typography</div>
+								<div class="text-2xl font-black">Size, line-height, weight, transform, decoration</div>
+							</div>
+							<div class="text-sm text-muted">Text utilities are regular s&amp;box text declarations where supported.</div>
+						</div>
+
+						<div class="p-6 rounded-xl bg-panel border border-border flex flex-col gap-5">
+							<div class="text-[34px] leading-[42px] font-black text-text text-shadow-lg">Tailwind-shaped typography</div>
+							<div class="text-lg leading-relaxed text-muted max-w-[1180px]">This line uses text-lg, leading-relaxed, muted color, and a stable max width. The next row shows casing, tracking, font style, decoration, truncation, and wrapping behavior.</div>
+							<div class="flex flex-row flex-wrap gap-3">
+								<div class="px-4 py-3 rounded-md bg-white/5 uppercase tracking-wider font-bold text-accent">uppercase</div>
+								<div class="px-4 py-3 rounded-md bg-white/5 lowercase italic text-white">LOWERCASE ITALIC</div>
+								<div class="px-4 py-3 rounded-md bg-white/5 capitalize underline decoration-accent decoration-2 underline-offset-4">capitalized underline</div>
+								<div class="px-4 py-3 rounded-md bg-white/5 line-through text-danger">line-through</div>
+								<div class="w-1/3 min-w-0 px-4 py-3 rounded-md bg-white/5 truncate">truncate makes long UI strings stay inside their panel instead of spilling into neighbors</div>
+								<div class="w-1/3 min-w-0 px-4 py-3 rounded-md bg-white/5 whitespace-pre-wrap break-words">whitespace-pre-wrap and break-words keep dense labels readable.</div>
+							</div>
+						</div>
+					</section>
+				}
+				else if ( SafeActiveScreen == 6 )
+				{
+					<section class="@ScreenClass">
+						<div class="@PanelTitleClass">
+							<div>
+								<div class="text-xs uppercase tracking-wider text-accent">Position</div>
+								<div class="text-2xl font-black">Absolute overlays, insets, z-index, overflow</div>
+							</div>
+							<div class="text-sm text-muted">Static, relative, and absolute are the verified position modes.</div>
+						</div>
+
+						<div class="relative h-[220px] rounded-xl bg-panel border border-border overflow-hidden">
+							<div class="absolute inset-0 bg-[#101820] opacity-90"></div>
+							<div class="absolute top-3 left-3 z-10 p-3 rounded-md bg-accent text-[#0d1418] font-bold">top-3 left-3 z-10</div>
+							<div class="absolute top-3 right-3 z-20 p-3 rounded-md bg-panel-strong border border-accent">top-3 right-3 z-20</div>
+							<div class="absolute bottom-3 left-3 right-3 p-4 rounded-lg bg-white/10 border border-white/10">
+								<div class="text-sm text-white/70">Overflow-hidden clips the layer stack, while the active content area uses overflow-y-scroll.</div>
+							</div>
+						</div>
+
+						<div class="flex flex-row gap-4">
+							<div class="w-1/2 h-[160px] overflow-hidden rounded-lg bg-panel border border-border p-4">
+								<div class="w-[1180px] h-[112px] bg-accent text-[#0d1418] rounded-md flex items-center justify-center font-bold">overflow-hidden</div>
+							</div>
+							<div class="w-1/2 h-[160px] overflow-scroll rounded-lg bg-panel border border-border p-4">
+								<div class="w-[1180px] h-[112px] bg-panel-strong rounded-md flex items-center justify-center">overflow-scroll</div>
+							</div>
+						</div>
+					</section>
+				}
+				else if ( SafeActiveScreen == 7 )
+				{
+					<section class="@ScreenClass">
+						<div class="@PanelTitleClass">
+							<div>
+								<div class="text-xs uppercase tracking-wider text-accent">Interaction</div>
+								<div class="text-2xl font-black">Hover, active, focus, intro, outro</div>
+							</div>
+							<div class="text-sm text-muted">Only variants verified against s&amp;box selectors are emitted.</div>
+						</div>
+
+						<div class="flex flex-row flex-wrap gap-4">
+							<button class="p-5 rounded-lg bg-panel border border-border cursor-pointer transition-colors duration-150 hover:bg-accent hover:text-[#0d1418] active:bg-accent-dark active:opacity-70 focus:border-accent">
+								<div class="font-bold">hover + active + focus</div>
+								<div class="text-sm opacity-70 mt-1">Button selectors are escaped like .hover\\:bg-accent:hover</div>
+							</button>
+							<button class="p-5 rounded-lg bg-panel border border-border cursor-pointer transition-shadow duration-300 hover:shadow-lg hover:border-accent">
+								<div class="font-bold">hover shadow</div>
+								<div class="text-sm opacity-70 mt-1">Transitions stay in the s&amp;box subset.</div>
+							</button>
+							<div class="p-5 rounded-lg bg-panel border border-border intro:opacity-0 outro:opacity-0 transition-opacity duration-500">
+								<div class="font-bold text-accent">intro/outro</div>
+								<div class="text-sm text-muted mt-1">s&amp;box UI pseudo states are first-class variants.</div>
+							</div>
+						</div>
+					</section>
+				}
+				else if ( SafeActiveScreen == 8 )
+				{
+					<section class="@ScreenClass">
+						<div class="@PanelTitleClass">
+							<div>
+								<div class="text-xs uppercase tracking-wider text-accent">Effects</div>
+								<div class="text-2xl font-black">Shadows, filters, transforms, transitions</div>
+							</div>
+							<div class="text-sm text-muted">Tailwind transform variables are replaced with direct s&amp;box-safe transform values.</div>
+						</div>
+
+						<div class="flex flex-row flex-wrap gap-4">
+							<div class="@(EffectCardClass + " shadow-sm")">shadow-sm</div>
+							<div class="@(EffectCardClass + " shadow-md")">shadow-md</div>
+							<div class="@(EffectCardClass + " shadow-lg")">shadow-lg</div>
+							<div class="@(EffectCardClass + " blur-sm")">blur-sm</div>
+							<div class="@(EffectCardClass + " brightness-125 contrast-125")">brightness + contrast</div>
+							<div class="@(EffectCardClass + " grayscale")">grayscale</div>
+							<div class="@(EffectCardClass + " invert")">invert</div>
+							<div class="@(EffectCardClass + " hue-rotate-15 saturate-150")">hue + saturate</div>
+							<div class="@(EffectCardClass + " sepia")">sepia</div>
+							<div class="@(EffectCardClass + " transform-[rotate(2deg)_scale(0.98)] origin-top-left")">arbitrary transform</div>
+						</div>
+					</section>
+				}
+				else
+				{
+					<section class="@ScreenClass">
+						<div class="@PanelTitleClass">
+							<div>
+								<div class="text-xs uppercase tracking-wider text-accent">Arbitrary and important</div>
+								<div class="text-2xl font-black">Bracket syntax, underscores, bang important</div>
+							</div>
+							<div class="text-sm text-muted">Every parseable candidate emits or reports a deterministic skip reason.</div>
+						</div>
+
+						<div class="flex flex-row gap-4">
+							<div class="w-1/2 rounded-xl border border-border p-5 [background-color:#101820] [text-shadow:0_2px_8px_rgba(0,0,0,0.45)] flex flex-col gap-3">
+								<div class="text-xl font-bold text-accent">Arbitrary properties</div>
+								<div class="text-sm leading-relaxed text-white/70">Property utilities use square brackets and decode underscores so values can live inside class attributes.</div>
+								<div class="px-[14px] py-3 rounded-md bg-white/10">px-[14px]</div>
+							</div>
+							<div class="w-1/2 rounded-xl border border-border p-5 bg-panel flex flex-col gap-3">
+								<div class="text-xl font-bold text-accent">Important and negative</div>
+								<div class="!p-4 -mt-2 rounded-lg border !border-accent bg-white/5 text-sm leading-relaxed">!p-4, !border-accent, and -mt-2 demonstrate important flags and negative spacing.</div>
+								<div class="text-sm text-muted">Unsupported families like grid or responsive media variants are parsed and reported instead of silently generating weird CSS.</div>
+							</div>
+						</div>
+					</section>
+				}
+			</div>
+		</main>
+	</div>
+</root>
+
+@code
+{
+	private static readonly string[] ScreenTitles =
+	{
+		"Overview",
+		"Layout",
+		"Spacing",
+		"Color",
+		"Borders",
+		"Typography",
+		"Position",
+		"Interaction",
+		"Effects",
+		"Arbitrary"
+	};
+
+	private static readonly DemoCard[] OverviewCards =
+	{
+		new( "Parser", "Tailwind-shaped candidates", "Variants, important flags, negatives, slash modifiers, arbitrary values, and arbitrary properties are understood before generation." ),
+		new( "Theme", "s&box-safe tokens", "Spacing, colors, type, radii, shadows, opacity, z-index, durations, easings, filters, transforms, and animation tokens merge with config overrides." ),
+		new( "Registry", "Supported utility families", "Each utility family owns its s&box declarations and skips browser-only output with structured reasons." ),
+		new( "Editor", "Watch and regenerate", "Razor changes, safelist comments, and config edits regenerate Code/tailbox.generated.scss through the editor watcher." )
+	};
+
+	private const string ScreenClass = "flex flex-col gap-5";
+	private const string HeroPanelClass = "p-6 rounded-xl bg-panel border border-border shadow-lg flex flex-row gap-6 items-stretch";
+	private const string FeatureCardClass = "basis-1/2 flex-1 min-w-0 p-5 rounded-lg bg-panel border border-border flex flex-col gap-3 hover:bg-panel-strong hover:border-accent transition-colors duration-150";
+	private const string PanelTitleClass = "p-5 rounded-xl bg-panel border border-border flex flex-row items-center justify-between gap-4";
+	private const string StepperClass = "px-4 py-2 rounded-md bg-panel border border-border text-text cursor-pointer hover:bg-accent hover:text-[#0d1418] active:bg-accent-dark transition-colors duration-150";
+	private const string SwatchClass = "w-1/4 min-w-0 h-[112px] p-4 rounded-lg border border-white/10 flex flex-col items-center justify-center text-center font-bold shadow-sm";
+	private const string EffectCardClass = "w-1/4 min-w-0 h-[112px] rounded-lg bg-accent text-[#0d1418] border border-white/10 flex items-center justify-center text-center font-bold transition-transform duration-300 hover:transform-[translateX(4px)_scale(1.04)]";
+
+	private int ActiveScreen { get; set; }
+
+	private int SafeActiveScreen
+	{
+		get
+		{
+			if ( ActiveScreen < 0 )
+				return 0;
+
+			if ( ActiveScreen >= ScreenTitles.Length )
+				return ScreenTitles.Length - 1;
+
+			return ActiveScreen;
+		}
+	}
+
+	private string NavClass( int index )
+	{
+		if ( index == SafeActiveScreen )
+			return "w-full p-3 rounded-lg bg-accent text-[#0d1418] cursor-pointer text-left border border-accent shadow-sm transition-colors duration-150";
+
+		return "w-full p-3 rounded-lg bg-white/5 text-muted cursor-pointer text-left border border-white/10 hover:bg-panel-strong hover:text-white hover:border-accent transition-colors duration-150";
+	}
+
+	private void SelectScreen( int index )
+	{
+		ActiveScreen = index;
+		StateHasChanged();
+	}
+
+	private void Previous()
+	{
+		ActiveScreen = SafeActiveScreen == 0 ? ScreenTitles.Length - 1 : SafeActiveScreen - 1;
+		StateHasChanged();
+	}
+
+	private void Next()
+	{
+		ActiveScreen = SafeActiveScreen == ScreenTitles.Length - 1 ? 0 : SafeActiveScreen + 1;
+		StateHasChanged();
+	}
+
+	protected override int BuildHash()
+	{
+		return HashCode.Combine( ActiveScreen, EnableMouseUi, CaptureMouse );
+	}
+
+	private readonly record struct DemoCard( string Label, string Title, string Body );
+}

@@ -1,0 +1,76 @@
+@using Sandbox
+
+@* tailbox safelist: hover:bg-site active:bg-accent-dark focus:border-accent *@
+
+<root class="absolute inset-0 p-6 text-text">
+	<div class="w-full h-full flex flex-col gap-4 bg-bg border rounded-lg shadow-lg p-5">
+		<header class="flex items-center justify-between gap-4 pb-4 border-accent">
+			<div class="flex flex-col gap-1">
+				<label class="text-sm text-muted uppercase tracking-[2px]">Site Control</label>
+				<label class="text-[28px] font-bold text-site">Koji Construction Yard</label>
+			</div>
+
+			<div class="flex items-center gap-2">
+				<button class="px-4 py-2 rounded bg-panel hover:bg-panel-strong active:bg-accent-dark text-text transition-colors duration-150 cursor-pointer">
+					Materials
+				</button>
+				<button class="px-4 py-2 rounded bg-site text-[#0d1418] hover:bg-white active:bg-accent-dark transition-colors duration-150 cursor-pointer">
+					Dispatch
+				</button>
+			</div>
+		</header>
+
+		<section class="flex gap-4 grow min-h-0">
+			<aside class="w-1/4 min-w-[240px] flex flex-col gap-3 overflow-y-scroll pr-2">
+				@foreach ( var task in Tasks )
+				{
+					<div class="p-4 rounded-md border bg-panel hover:bg-panel-strong transition-colors duration-150">
+						<label class="text-sm text-muted uppercase">@task.Zone</label>
+						<label class="text-lg font-semibold text-text">@task.Name</label>
+						<label class="text-sm text-muted">@task.Status</label>
+					</div>
+				}
+			</aside>
+
+			<main class="grow flex flex-col gap-4 min-w-0">
+				<div class="flex gap-4">
+					@foreach ( var stat in Stats )
+					{
+						<div class="basis-1/3 p-4 rounded-md bg-panel border">
+							<label class="text-sm text-muted uppercase">@stat.Label</label>
+							<label class="text-3xl font-bold text-site">@stat.Value</label>
+						</div>
+					}
+				</div>
+
+				<div class="grow min-h-0 relative overflow-hidden rounded-md bg-[#0d1418] border">
+					<div class="absolute inset-4 border border-accent rounded"></div>
+					<div class="absolute left-6 bottom-6 w-1/2 p-4 rounded bg-bg-soft shadow">
+						<label class="text-sm text-muted uppercase">Current Focus</label>
+						<label class="text-xl font-bold text-text">Frame alignment and staged delivery</label>
+						<label class="text-sm text-steel">Crew two is waiting on the north crane lane.</label>
+					</div>
+				</div>
+			</main>
+		</section>
+	</div>
+</root>
+
+@code
+{
+	private readonly (string Zone, string Name, string Status)[] Tasks =
+	[
+		("North", "Crane lane prep", "Ready"),
+		("East", "Panel staging", "Blocked"),
+		("South", "Concrete check", "In progress"),
+		("West", "Road sweep", "Ready")
+	];
+
+	private readonly (string Label, string Value)[] Stats =
+	[
+		("Crew", "18"),
+		("Loads", "42"),
+		("Risk", "Low")
+	];
+}
+
