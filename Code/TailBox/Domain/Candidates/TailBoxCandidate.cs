@@ -5,7 +5,6 @@ namespace Sandbox.TailBox;
 internal enum TailBoxVariantKind
 {
 	Pseudo,
-	Media,
 	Selector,
 	Unsupported
 }

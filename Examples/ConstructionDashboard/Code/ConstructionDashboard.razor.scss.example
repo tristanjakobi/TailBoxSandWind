@@ -1,4 +1,4 @@
-@import "/tailbox.generated.scss";
+@import "/tailwand.generated.scss";
 
 root {
 	width: 100%;

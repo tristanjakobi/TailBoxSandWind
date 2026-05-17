@@ -18,14 +18,12 @@ public sealed class TailBoxDemoTests
 			new[] { new TailBoxSourceText( demoPath, File.ReadAllText( demoPath ) ) },
 			TailBoxConfig.CreateDefault(),
 			repoRoot,
-			"Code/tailbox.generated.scss" );
+			"Code/tailwand.generated.scss" );
 
 		Assert.IsTrue( result.GeneratedClassCount > 130, "Expected the demo to exercise a broad utility set." );
 		Assert.AreEqual( 0, result.SkippedClassCount, string.Join( Environment.NewLine, result.Skipped.Select( item => $"{item.ClassName}: {item.Detail}" ) ) );
-		StringAssert.Contains( result.GeneratedScss, RuleSelector( "hover:bg-accent" ) + ":hover" );
-		StringAssert.Contains( result.GeneratedScss, RuleStart( "transform-[rotate(2deg)_scale(0.98)]" ) );
-		StringAssert.Contains( result.GeneratedScss, "transform: rotate(2deg) scale(0.98);" );
-		StringAssert.Contains( result.GeneratedScss, RuleStart( "[text-shadow:0_2px_8px_rgba(0,0,0,0.45)]" ) );
+		StringAssert.Contains( result.GeneratedScss, RuleStart( "blur-sm" ) );
+		StringAssert.Contains( result.GeneratedScss, "filter-blur: 4px;" );
 	}
 
 	private static string RuleSelector( string className )

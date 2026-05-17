@@ -1,6 +1,6 @@
 # Domain
 
-Pure TailBox utility semantics live here:
+Pure tailw& utility semantics live here:
 
 - Tailwind-shaped candidate parsing.
 - Candidate diagnostics and unsupported reasons.

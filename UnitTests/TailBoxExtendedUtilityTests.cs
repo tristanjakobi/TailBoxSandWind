@@ -13,8 +13,44 @@ public sealed class TailBoxExtendedUtilityTests
 	[DataRow( "order-3", "order: 3;" )]
 	[DataRow( "-order-2", "order: -2;" )]
 	[DataRow( "h-full", "height: 100%;" )]
+	[DataRow( "min-w-0", "min-width: 0;" )]
+	[DataRow( "min-w-[220px]", "min-width: 220px;" )]
+	[DataRow( "min-h-[24px]", "min-height: 24px;" )]
 	[DataRow( "max-w-screen", "max-width: 100vw;" )]
+	[DataRow( "aspect-square", "aspect-ratio: 1;" )]
+	[DataRow( "aspect-[4/3]", "aspect-ratio: 4/3;" )]
 	public void GeneratesAdditionalLayoutAndSizingUtilities( string className, string declaration )
+	{
+		AssertUtility( className, declaration );
+	}
+
+	[DataTestMethod]
+	[DataRow( "border-x", "border-left: 1px solid rgba( 139, 154, 164, 0.32 );" )]
+	[DataRow( "border-y-accent", "border-bottom: 1px solid #d7b46a;" )]
+	[DataRow( "border-l-[3px]", "border-left: 3px solid rgba( 139, 154, 164, 0.32 );" )]
+	[DataRow( "border-[3px]", "border-width: 3px;" )]
+	[DataRow( "border-[#123456]/25", "border-color: rgba( 18, 52, 86, 0.25 );" )]
+	[DataRow( "rounded-br-md", "border-radius: 0px 0px 8px 0px;" )]
+	[DataRow( "rounded-s-lg", "border-radius: 12px 0px 0px 12px;" )]
+	[DataRow( "rounded-ee-[9px]", "border-radius: 0px 0px 9px 0px;" )]
+	public void GeneratesAdditionalBorderAndRadiusUtilities( string className, string declaration )
+	{
+		AssertUtility( className, declaration );
+	}
+
+	[DataTestMethod]
+	[DataRow( "text-right", "text-align: right;" )]
+	[DataRow( "lowercase", "text-transform: lowercase;" )]
+	[DataRow( "capitalize", "text-transform: capitalize;" )]
+	[DataRow( "text-[length:22px]/7", "line-height: 28px;" )]
+	[DataRow( "font-[Roboto_Slab]", "font-family: Roboto Slab;" )]
+	[DataRow( "-tracking-wide", "letter-spacing: -0.025em;" )]
+	[DataRow( "decoration-[3px]", "text-decoration-thickness: 3px;" )]
+	[DataRow( "underline-offset-4", "text-decoration-underline-offset: 4px;" )]
+	[DataRow( "-underline-offset-2", "text-decoration-underline-offset: -2px;" )]
+	[DataRow( "text-[color:#123456]/50", "color: rgba( 18, 52, 86, 0.5 );" )]
+	[DataRow( "text-accent/50", "color: rgba( 215, 180, 106, 0.5 );" )]
+	public void GeneratesAdditionalTypographyUtilities( string className, string declaration )
 	{
 		AssertUtility( className, declaration );
 	}
@@ -25,54 +61,50 @@ public sealed class TailBoxExtendedUtilityTests
 	[DataRow( "bg-no-repeat", "background-repeat: no-repeat;" )]
 	[DataRow( "bg-[linear-gradient(red,_blue)]", "background-image: linear-gradient(red, blue);" )]
 	[DataRow( "bg-[image:url(/ui/panel.png)]", "background-image: url(/ui/panel.png);" )]
-	[DataRow( "bg-[paint-token]", "background: paint-token;" )]
-	public void GeneratesAdditionalBackgroundUtilities( string className, string declaration )
+	public void GeneratesAdditionalBackgroundSurfaceUtilities( string className, string declaration )
 	{
 		AssertUtility( className, declaration );
 	}
 
 	[DataTestMethod]
-	[DataRow( "border-x", "border-left-width: 1px;" )]
-	[DataRow( "border-y-accent", "border-bottom-color: #d7b46a;" )]
-	[DataRow( "border-l-[3px]", "border-left-width: 3px;" )]
-	[DataRow( "border-[#123456]/25", "border-color: rgba( 18, 52, 86, 0.25 );" )]
-	[DataRow( "rounded-br-md", "border-bottom-right-radius: 8px;" )]
-	public void GeneratesAdditionalBorderAndRadiusUtilities( string className, string declaration )
-	{
-		AssertUtility( className, declaration );
-	}
-
-	[DataTestMethod]
-	[DataRow( "text-right", "text-align: right;" )]
-	[DataRow( "lowercase", "text-transform: lowercase;" )]
-	[DataRow( "capitalize", "text-transform: capitalize;" )]
-	[DataRow( "text-[color:#123456]/50", "color: rgba( 18, 52, 86, 0.5 );" )]
-	[DataRow( "text-[length:22px]/7", "line-height: 28px;" )]
-	[DataRow( "font-[Roboto_Slab]", "font-family: Roboto Slab;" )]
-	[DataRow( "-tracking-wide", "letter-spacing: -0.025em;" )]
-	[DataRow( "-underline-offset-2", "text-decoration-underline-offset: -2px;" )]
-	public void GeneratesAdditionalTypographyUtilities( string className, string declaration )
-	{
-		AssertUtility( className, declaration );
-	}
-
-	[DataTestMethod]
-	[DataRow( "transition-transform", "transition-property: transform;" )]
-	[DataRow( "duration-[275ms]", "transition-duration: 275ms;" )]
-	[DataRow( "delay-300", "transition-delay: 0.3s;" )]
-	[DataRow( "ease-[cubic-bezier(0.2,_0,_0,_1)]", "transition-timing-function: cubic-bezier(0.2, 0, 0, 1);" )]
+	[DataRow( "opacity-75", "opacity: 0.75;" )]
+	[DataRow( "opacity-[0.35]", "opacity: 0.35;" )]
+	[DataRow( "shadow", "box-shadow: 0 12px 32px rgba( 0, 0, 0, 0.34 );" )]
+	[DataRow( "shadow-none", "box-shadow: none;" )]
+	[DataRow( "shadow-[0_0_12px_black]", "box-shadow: 0 0 12px black;" )]
+	[DataRow( "text-shadow", "text-shadow: 0 2px 4px rgba( 0, 0, 0, 0.4 );" )]
+	[DataRow( "text-shadow-[0_0_12px_black]", "text-shadow: 0 0 12px black;" )]
 	[DataRow( "blur", "filter-blur: 8px;" )]
-	[DataRow( "backdrop-brightness-125", "backdrop-filter-brightness: 1.25;" )]
 	[DataRow( "contrast-125", "filter-contrast: 1.25;" )]
 	[DataRow( "saturate-[1.25]", "filter-saturate: 1.25;" )]
 	[DataRow( "-hue-rotate-30", "filter-hue-rotate: -30deg;" )]
 	[DataRow( "invert", "filter-invert: 1;" )]
 	[DataRow( "grayscale-0", "filter-saturate: 0;" )]
 	[DataRow( "drop-shadow-sm", "filter-drop-shadow: 0 2px 8px rgba( 0, 0, 0, 0.24 );" )]
+	[DataRow( "backdrop-brightness-125", "backdrop-filter-brightness: 1.25;" )]
+	[DataRow( "backdrop-blur-sm", "backdrop-filter-blur: 4px;" )]
+	[DataRow( "mix-blend-multiply", "mix-blend-mode: multiply;" )]
+	public void GeneratesAdditionalEffectsUtilities( string className, string declaration )
+	{
+		AssertUtility( className, declaration );
+	}
+
+	[DataTestMethod]
+	[DataRow( "transition", "transition-property: all;" )]
+	[DataRow( "transition-all", "transition-property: all;" )]
+	[DataRow( "transition-colors", "transition-property: color, background-color, border-color, text-decoration-color;" )]
+	[DataRow( "transition-opacity", "transition-property: opacity;" )]
+	[DataRow( "transition-shadow", "transition-property: box-shadow, text-shadow, filter-drop-shadow;" )]
+	[DataRow( "transition-transform", "transition-property: transform;" )]
+	[DataRow( "duration-[275ms]", "transition-duration: 275ms;" )]
+	[DataRow( "delay-300", "transition-delay: 0.3s;" )]
+	[DataRow( "ease-[cubic-bezier(0.2,_0,_0,_1)]", "transition-timing-function: cubic-bezier(0.2, 0, 0, 1);" )]
 	[DataRow( "transform-none", "transform: none;" )]
+	[DataRow( "transform-[translateX(4px)_scale(1.04)]", "transform: translateX(4px) scale(1.04);" )]
 	[DataRow( "origin-bottom-right", "transform-origin: bottom right;" )]
+	[DataRow( "animate-none", "animation: none;" )]
 	[DataRow( "animate-[fade_1s_ease]", "animation: fade 1s ease;" )]
-	public void GeneratesAdditionalEffectsAndTransformUtilities( string className, string declaration )
+	public void GeneratesMotionUtilities( string className, string declaration )
 	{
 		AssertUtility( className, declaration );
 	}
@@ -81,6 +113,7 @@ public sealed class TailBoxExtendedUtilityTests
 	[DataRow( "fixed", TailBoxSkipReason.UnsupportedValue )]
 	[DataRow( "space-x-4", TailBoxSkipReason.UnsupportedSelectorVariant )]
 	[DataRow( "bg-gradient-to-r", TailBoxSkipReason.UnsupportedUtility )]
+	[DataRow( "bg-[paint-token]", TailBoxSkipReason.UnsupportedProperty )]
 	[DataRow( "border-dashed", TailBoxSkipReason.UnsupportedProperty )]
 	[DataRow( "decoration-wavy", TailBoxSkipReason.UnsupportedProperty )]
 	[DataRow( "text-lg/unknown", TailBoxSkipReason.UnsupportedModifier )]
@@ -98,12 +131,12 @@ public sealed class TailBoxExtendedUtilityTests
 	}
 
 	[TestMethod]
-	public void ImportantVariantAndArbitraryPropertyComposeInOneRule()
+	public void ImportantArbitraryPropertyComposesInOneRule()
 	{
-		var result = GenerateSafelist( "hover:![opacity:0.5]" );
+		var result = GenerateSafelist( "![z-index:5]" );
 
-		StringAssert.Contains( result.GeneratedScss, RuleStart( "hover:![opacity:0.5]" ) );
-		StringAssert.Contains( result.GeneratedScss, "opacity: 0.5 !important;" );
+		StringAssert.Contains( result.GeneratedScss, RuleStart( "![z-index:5]" ) );
+		StringAssert.Contains( result.GeneratedScss, "z-index: 5 !important;" );
 		Assert.AreEqual( 1, result.GeneratedClassCount );
 	}
 

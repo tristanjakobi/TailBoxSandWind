@@ -31,7 +31,6 @@ internal static class TailBoxUtilityCompiler
 				ClassName = className,
 				Reason = variant.Kind switch
 				{
-					TailBoxVariantKind.Media => TailBoxSkipReason.UnsupportedMediaVariant,
 					TailBoxVariantKind.Selector => TailBoxSkipReason.UnsupportedSelectorVariant,
 					_ => TailBoxSkipReason.UnsupportedVariant
 				},

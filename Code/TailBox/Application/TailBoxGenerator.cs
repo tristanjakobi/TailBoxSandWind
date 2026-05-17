@@ -5,7 +5,7 @@ using System.Linq;
 namespace Sandbox.TailBox;
 
 /// <summary>
-/// Public entry point for pure, in-memory TailBox generation. Editor project
+/// Public entry point for pure, in-memory tailw&amp; generation. Editor project
 /// file discovery and output writes live in the editor assembly.
 /// </summary>
 public sealed class TailBoxGenerator

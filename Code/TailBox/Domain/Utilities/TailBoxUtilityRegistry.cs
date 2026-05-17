@@ -77,47 +77,92 @@ internal static class TailBoxUtilityRegistry
 		if ( TryFlex( candidate, theme, declarations, out skipped ) )
 			return true;
 
+		if ( skipped is not null )
+			return false;
+
 		if ( TryPosition( candidate, theme, declarations, out skipped ) )
 			return true;
+
+		if ( skipped is not null )
+			return false;
 
 		if ( TrySizing( candidate, theme, declarations, out skipped ) )
 			return true;
 
+		if ( skipped is not null )
+			return false;
+
 		if ( TrySpacing( candidate, theme, declarations, out skipped ) )
 			return true;
+
+		if ( skipped is not null )
+			return false;
 
 		if ( TryBackground( candidate, theme, declarations, out skipped ) )
 			return true;
 
+		if ( skipped is not null )
+			return false;
+
 		if ( TryColorBorderAndRadius( candidate, theme, declarations, out skipped ) )
 			return true;
+
+		if ( skipped is not null )
+			return false;
 
 		if ( TryTypography( candidate, theme, declarations, out skipped ) )
 			return true;
 
+		if ( skipped is not null )
+			return false;
+
 		if ( TryOverflow( candidate, declarations, out skipped ) )
 			return true;
+
+		if ( skipped is not null )
+			return false;
 
 		if ( TryOpacity( candidate, theme, declarations, out skipped ) )
 			return true;
 
+		if ( skipped is not null )
+			return false;
+
 		if ( TryPointerCursorAndInteraction( candidate, theme, declarations, out skipped ) )
 			return true;
+
+		if ( skipped is not null )
+			return false;
 
 		if ( TryZIndex( candidate, theme, declarations, out skipped ) )
 			return true;
 
+		if ( skipped is not null )
+			return false;
+
 		if ( TryTransition( candidate, theme, declarations, out skipped ) )
 			return true;
+
+		if ( skipped is not null )
+			return false;
 
 		if ( TryEffects( candidate, theme, declarations, out skipped ) )
 			return true;
 
+		if ( skipped is not null )
+			return false;
+
 		if ( TryTransforms( candidate, theme, declarations, out skipped ) )
 			return true;
 
+		if ( skipped is not null )
+			return false;
+
 		if ( TryAspectRatio( candidate, theme, declarations, out skipped ) )
 			return true;
+
+		if ( skipped is not null )
+			return false;
 
 		if ( IsKnownTailwindUtility( candidate.Base ) )
 			skipped = Skip( candidate, TailBoxSkipReason.UnsupportedUtility, $"Tailwind utility '{candidate.Base}' is parsed but is not supported by the s&box-safe registry." );
@@ -337,6 +382,13 @@ internal static class TailBoxUtilityRegistry
 	private static bool TrySpacing( TailBoxCandidate candidate, TailBoxTheme theme, List<TailBoxDeclaration> declarations, out TailBoxCompileDiagnostic skipped )
 	{
 		skipped = null;
+
+		if ( TryGapAxis( candidate, "gap-x-", false, theme, declarations ) )
+			return true;
+
+		if ( TryGapAxis( candidate, "gap-y-", true, theme, declarations ) )
+			return true;
+
 		var specs = new (string Prefix, string[] Properties, bool AllowsNegative)[]
 		{
 			("px-", new[] { "padding-left", "padding-right" }, false),
@@ -353,8 +405,6 @@ internal static class TailBoxUtilityRegistry
 			("mb-", new[] { "margin-bottom" }, true),
 			("ml-", new[] { "margin-left" }, true),
 			("m-", new[] { "margin" }, true),
-			("gap-x-", new[] { "column-gap" }, false),
-			("gap-y-", new[] { "row-gap" }, false),
 			("gap-", new[] { "gap" }, false)
 		};
 
@@ -389,9 +439,23 @@ internal static class TailBoxUtilityRegistry
 		return false;
 	}
 
+	private static bool TryGapAxis( TailBoxCandidate candidate, string prefix, bool isRowGap, TailBoxTheme theme, List<TailBoxDeclaration> declarations )
+	{
+		if ( !candidate.Base.StartsWith( prefix, StringComparison.Ordinal ) )
+			return false;
+
+		if ( !TryResolveLength( candidate.Base[prefix.Length..], false, theme, out var value ) )
+			return false;
+
+		declarations.Add( new TailBoxDeclaration( "gap", isRowGap ? $"{value} 0" : $"0 {value}", candidate.Important ) );
+		declarations.Add( new TailBoxDeclaration( isRowGap ? "row-gap" : "column-gap", value, candidate.Important ) );
+		return true;
+	}
+
 	private static bool TryBackground( TailBoxCandidate candidate, TailBoxTheme theme, List<TailBoxDeclaration> declarations, out TailBoxCompileDiagnostic skipped )
 	{
 		skipped = null;
+
 		if ( AddExact( candidate, declarations, new Dictionary<string, TailBoxDeclaration[]>( StringComparer.Ordinal )
 		{
 			["bg-cover"] = new[] { new TailBoxDeclaration( "background-size", "cover" ) },
@@ -427,7 +491,9 @@ internal static class TailBoxUtilityRegistry
 		if ( TryArbitraryWithHint( theme, key, out var hint, out var arbitrary ) )
 		{
 			if ( hint is "image" or "url" || LooksLikeImageValue( arbitrary ) )
+			{
 				return Add( candidate, declarations, "background-image", arbitrary );
+			}
 
 			if ( hint is "color" || LooksLikeColorValue( arbitrary ) )
 			{
@@ -436,7 +502,8 @@ internal static class TailBoxUtilityRegistry
 				return Add( candidate, declarations, "background-color", color );
 			}
 
-			return Add( candidate, declarations, "background", arbitrary );
+			skipped = Skip( candidate, TailBoxSkipReason.UnsupportedProperty, "Only background color or image arbitrary values are emitted for s&box-safe output." );
+			return false;
 		}
 
 		if ( TryResolveColor( candidate, key, theme, out var backgroundColor, out skipped ) )
@@ -454,8 +521,11 @@ internal static class TailBoxUtilityRegistry
 		if ( skipped is not null )
 			return false;
 
-		if ( TryRadius( candidate, theme, declarations ) )
+		if ( TryRadius( candidate, theme, declarations, out skipped ) )
 			return true;
+
+		if ( skipped is not null )
+			return false;
 
 		if ( candidate.Base.StartsWith( "accent-", StringComparison.Ordinal )
 			|| candidate.Base.StartsWith( "fill-", StringComparison.Ordinal )
@@ -475,15 +545,14 @@ internal static class TailBoxUtilityRegistry
 		skipped = null;
 		if ( candidate.Base == "border" )
 		{
-			var color = theme.Colors.TryGetValue( "border", out var borderColor ) ? borderColor : "rgba( 255, 255, 255, 0.16 )";
-			return Add( candidate, declarations, "border", $"1px solid {color}" );
+			return Add( candidate, declarations, "border", $"{theme.BorderWidths["default"]} solid {DefaultBorderColor( theme )}" );
 		}
 
 		if ( candidate.Base is "border-x" or "border-y" or "border-t" or "border-r" or "border-b" or "border-l" )
 		{
-			foreach ( var property in BorderSideProperties( candidate.Base, "width" ) )
+			foreach ( var property in BorderSideShorthandProperties( candidate.Base ) )
 			{
-				declarations.Add( new TailBoxDeclaration( property, theme.BorderWidths["default"], candidate.Important ) );
+				declarations.Add( new TailBoxDeclaration( property, $"{theme.BorderWidths["default"]} solid {DefaultBorderColor( theme )}", candidate.Important ) );
 			}
 			return true;
 		}
@@ -498,9 +567,9 @@ internal static class TailBoxUtilityRegistry
 			var sideKey = key.Length == sidePrefix.Length ? "default" : key[(sidePrefix.Length + 1)..];
 			if ( TryResolveColor( candidate, sideKey, theme, out var sideColor, out skipped ) )
 			{
-				foreach ( var property in BorderSideProperties( "border-" + sidePrefix, "color" ) )
+				foreach ( var property in BorderSideShorthandProperties( "border-" + sidePrefix ) )
 				{
-					declarations.Add( new TailBoxDeclaration( property, sideColor, candidate.Important ) );
+					declarations.Add( new TailBoxDeclaration( property, $"{theme.BorderWidths["default"]} solid {sideColor}", candidate.Important ) );
 				}
 				return true;
 			}
@@ -516,9 +585,9 @@ internal static class TailBoxUtilityRegistry
 
 			if ( TryResolveBorderWidth( sideKey, theme, out var sideWidth ) )
 			{
-				foreach ( var property in BorderSideProperties( "border-" + sidePrefix, "width" ) )
+				foreach ( var property in BorderSideShorthandProperties( "border-" + sidePrefix ) )
 				{
-					declarations.Add( new TailBoxDeclaration( property, sideWidth, candidate.Important ) );
+					declarations.Add( new TailBoxDeclaration( property, $"{sideWidth} solid {DefaultBorderColor( theme )}", candidate.Important ) );
 				}
 				return true;
 			}
@@ -550,22 +619,28 @@ internal static class TailBoxUtilityRegistry
 		return false;
 	}
 
-	private static IEnumerable<string> BorderSideProperties( string baseName, string suffix )
+	private static IEnumerable<string> BorderSideShorthandProperties( string baseName )
 	{
 		return baseName switch
 		{
-			"border-x" => new[] { "border-left-" + suffix, "border-right-" + suffix },
-			"border-y" => new[] { "border-top-" + suffix, "border-bottom-" + suffix },
-			"border-t" => new[] { "border-top-" + suffix },
-			"border-r" => new[] { "border-right-" + suffix },
-			"border-b" => new[] { "border-bottom-" + suffix },
-			"border-l" => new[] { "border-left-" + suffix },
+			"border-x" => new[] { "border-left", "border-right" },
+			"border-y" => new[] { "border-top", "border-bottom" },
+			"border-t" => new[] { "border-top" },
+			"border-r" => new[] { "border-right" },
+			"border-b" => new[] { "border-bottom" },
+			"border-l" => new[] { "border-left" },
 			_ => Array.Empty<string>()
 		};
 	}
 
-	private static bool TryRadius( TailBoxCandidate candidate, TailBoxTheme theme, List<TailBoxDeclaration> declarations )
+	private static string DefaultBorderColor( TailBoxTheme theme )
 	{
+		return theme.Colors.TryGetValue( "border", out var borderColor ) ? borderColor : "rgba( 255, 255, 255, 0.16 )";
+	}
+
+	private static bool TryRadius( TailBoxCandidate candidate, TailBoxTheme theme, List<TailBoxDeclaration> declarations, out TailBoxCompileDiagnostic skipped )
+	{
+		skipped = null;
 		if ( candidate.Base == "rounded" )
 			return Add( candidate, declarations, "border-radius", theme.Radii["default"] );
 
@@ -573,16 +648,8 @@ internal static class TailBoxUtilityRegistry
 			return false;
 
 		var key = candidate.Base[8..];
-		var parts = key.Split( '-', 2 );
-		if ( parts.Length == 2 && TryResolveRadius( parts[1], theme, out var sideRadius ) )
-		{
-			foreach ( var property in RadiusProperties( parts[0] ) )
-			{
-				declarations.Add( new TailBoxDeclaration( property, sideRadius, candidate.Important ) );
-			}
-
-			return declarations.Count > 0;
-		}
+		if ( TryResolveRadiusShorthand( key, theme, out var radiusShorthand ) )
+			return Add( candidate, declarations, "border-radius", radiusShorthand );
 
 		if ( TryResolveRadius( key, theme, out var radius ) )
 			return Add( candidate, declarations, "border-radius", radius );
@@ -590,21 +657,54 @@ internal static class TailBoxUtilityRegistry
 		return false;
 	}
 
-	private static IEnumerable<string> RadiusProperties( string side )
+	private static bool TryResolveRadiusShorthand( string key, TailBoxTheme theme, out string shorthand )
 	{
-		return side switch
+		shorthand = null;
+		if ( string.IsNullOrWhiteSpace( key ) )
+			return false;
+
+		var prefix = key;
+		var radiusKey = "default";
+		var parts = key.Split( '-', 2 );
+		if ( parts.Length == 2 )
 		{
-			"t" => new[] { "border-top-left-radius", "border-top-right-radius" },
-			"r" => new[] { "border-top-right-radius", "border-bottom-right-radius" },
-			"b" => new[] { "border-bottom-right-radius", "border-bottom-left-radius" },
-			"l" => new[] { "border-top-left-radius", "border-bottom-left-radius" },
-			"tl" => new[] { "border-top-left-radius" },
-			"tr" => new[] { "border-top-right-radius" },
-			"br" => new[] { "border-bottom-right-radius" },
-			"bl" => new[] { "border-bottom-left-radius" },
-			_ => Array.Empty<string>()
-		};
+			prefix = parts[0];
+			radiusKey = parts[1];
+		}
+
+		if ( !RadiusShorthandCorners.TryGetValue( prefix, out var corners ) )
+			return false;
+
+		if ( !TryResolveRadius( radiusKey, theme, out var radius ) )
+			return false;
+
+		var values = new[] { "0px", "0px", "0px", "0px" };
+		foreach ( var corner in corners )
+		{
+			values[corner] = radius;
+		}
+
+		shorthand = string.Join( " ", values );
+		return true;
 	}
+
+	private static readonly Dictionary<string, int[]> RadiusShorthandCorners = new( StringComparer.Ordinal )
+	{
+		["t"] = new[] { 0, 1 },
+		["r"] = new[] { 1, 2 },
+		["b"] = new[] { 2, 3 },
+		["l"] = new[] { 0, 3 },
+		["tl"] = new[] { 0 },
+		["tr"] = new[] { 1 },
+		["br"] = new[] { 2 },
+		["bl"] = new[] { 3 },
+		["s"] = new[] { 0, 3 },
+		["e"] = new[] { 1, 2 },
+		["ss"] = new[] { 0 },
+		["se"] = new[] { 1 },
+		["ee"] = new[] { 2 },
+		["es"] = new[] { 3 }
+	};
 
 	private static bool TryTypography( TailBoxCandidate candidate, TailBoxTheme theme, List<TailBoxDeclaration> declarations, out TailBoxCompileDiagnostic skipped )
 	{
@@ -913,39 +1013,53 @@ internal static class TailBoxUtilityRegistry
 	private static bool TryTransition( TailBoxCandidate candidate, TailBoxTheme theme, List<TailBoxDeclaration> declarations, out TailBoxCompileDiagnostic skipped )
 	{
 		skipped = null;
+		var defaultDuration = theme.Durations.TryGetValue( "150", out var duration ) ? duration : "0.15s";
+		var defaultTiming = theme.Easings.TryGetValue( "out", out var timing ) ? timing : "ease-out";
+
 		if ( AddExact( candidate, declarations, new Dictionary<string, TailBoxDeclaration[]>( StringComparer.Ordinal )
 		{
-			["transition"] = new[] { new TailBoxDeclaration( "transition", "all 0.15s ease" ) },
-			["transition-none"] = new[] { new TailBoxDeclaration( "transition-property", "none" ) },
+			["transition"] = new[]
+			{
+				new TailBoxDeclaration( "transition-property", "all" ),
+				new TailBoxDeclaration( "transition-duration", defaultDuration ),
+				new TailBoxDeclaration( "transition-timing-function", defaultTiming )
+			},
 			["transition-all"] = new[] { new TailBoxDeclaration( "transition-property", "all" ) },
-			["transition-colors"] = new[] { new TailBoxDeclaration( "transition-property", "background-color, border-color, color, text-decoration-color" ) },
+			["transition-none"] = new[] { new TailBoxDeclaration( "transition-property", "none" ) },
+			["transition-colors"] = new[] { new TailBoxDeclaration( "transition-property", "color, background-color, border-color, text-decoration-color" ) },
 			["transition-opacity"] = new[] { new TailBoxDeclaration( "transition-property", "opacity" ) },
-			["transition-shadow"] = new[] { new TailBoxDeclaration( "transition-property", "box-shadow" ) },
+			["transition-shadow"] = new[] { new TailBoxDeclaration( "transition-property", "box-shadow, text-shadow, filter-drop-shadow" ) },
 			["transition-transform"] = new[] { new TailBoxDeclaration( "transition-property", "transform" ) }
 		} ) )
 		{
 			return true;
 		}
 
+		if ( candidate.Base.StartsWith( "transition-[", StringComparison.Ordinal ) && TryArbitraryWithHint( theme, candidate.Base[11..], out _, out var transitionProperty ) )
+			return Add( candidate, declarations, "transition-property", transitionProperty );
+
 		if ( candidate.Base.StartsWith( "duration-", StringComparison.Ordinal ) )
 		{
-			if ( TryResolveDuration( candidate.Base[9..], theme, out var duration ) )
-				return Add( candidate, declarations, "transition-duration", duration );
+			if ( TryResolveDuration( candidate.Base[9..], theme, out var value ) )
+				return Add( candidate, declarations, "transition-duration", value );
+
 			return false;
 		}
 
 		if ( candidate.Base.StartsWith( "delay-", StringComparison.Ordinal ) )
 		{
-			if ( TryResolveDuration( candidate.Base[6..], theme, out var delay ) )
-				return Add( candidate, declarations, "transition-delay", delay );
+			if ( TryResolveDuration( candidate.Base[6..], theme, out var value ) )
+				return Add( candidate, declarations, "transition-delay", value );
+
 			return false;
 		}
 
 		if ( candidate.Base.StartsWith( "ease-", StringComparison.Ordinal ) )
 		{
 			var key = candidate.Base[5..];
-			if ( theme.Easings.TryGetValue( key, out var easing ) || TryArbitraryWithHint( theme, key, out _, out easing ) )
-				return Add( candidate, declarations, "transition-timing-function", easing );
+			if ( theme.Easings.TryGetValue( key, out var value ) || TryArbitraryWithHint( theme, key, out _, out value ) )
+				return Add( candidate, declarations, "transition-timing-function", value );
+
 			return false;
 		}
 
@@ -1139,7 +1253,7 @@ internal static class TailBoxUtilityRegistry
 			|| candidate.Base.StartsWith( "skew-x-", StringComparison.Ordinal )
 			|| candidate.Base.StartsWith( "skew-y-", StringComparison.Ordinal ) )
 		{
-			skipped = Skip( candidate, TailBoxSkipReason.UnsupportedUtility, "Compositional transform utilities require Tailwind CSS variables; use transform-[...] for a single s&box transform value." );
+			skipped = Skip( candidate, TailBoxSkipReason.UnsupportedUtility, "Compositional transform utilities require Tailwind CSS variables, and transform output is not verified against s&box runtime UI." );
 			return false;
 		}
 
@@ -1339,7 +1453,10 @@ internal static class TailBoxUtilityRegistry
 
 		if ( TryArbitraryWithHint( theme, key, out var hint, out var arbitrary ) )
 		{
-			if ( hint is not null && hint != "color" && !LooksLikeColorValue( arbitrary ) )
+			if ( hint is not null && hint != "color" )
+				return false;
+
+			if ( !LooksLikeColorValue( arbitrary ) )
 				return false;
 
 			if ( !TryApplyAlphaModifier( candidate, arbitrary, theme, out color, out skipped ) )
@@ -1520,7 +1637,9 @@ internal static class TailBoxUtilityRegistry
 			|| baseName.StartsWith( "z-", StringComparison.Ordinal )
 			|| baseName.StartsWith( "order-", StringComparison.Ordinal )
 			|| baseName.StartsWith( "tracking-", StringComparison.Ordinal )
-			|| baseName.StartsWith( "underline-offset-", StringComparison.Ordinal );
+			|| baseName.StartsWith( "underline-offset-", StringComparison.Ordinal )
+			|| baseName.StartsWith( "hue-rotate-", StringComparison.Ordinal )
+			|| baseName.StartsWith( "backdrop-hue-rotate-", StringComparison.Ordinal );
 	}
 
 	private static bool Add( TailBoxCandidate candidate, List<TailBoxDeclaration> declarations, string property, string value )

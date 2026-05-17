@@ -1,0 +1,18 @@
+{
+  "outputPath": "Code/tailwand.generated.scss",
+  "content": [
+    "Code/**/*.razor"
+  ],
+  "safelist": [
+    "bg-panel-strong bg-accent-dark border-accent z-10",
+    "bg-[#0d1418] text-[18px]"
+  ],
+  "colors": {
+    "site": "#d7b46a",
+    "steel": "#8fa4ad",
+    "warning": "#c95d5d"
+  },
+  "spacing": {
+    "18": "72px"
+  }
+}

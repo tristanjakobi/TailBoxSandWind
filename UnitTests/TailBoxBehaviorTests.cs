@@ -49,6 +49,25 @@ public sealed class TailBoxBehaviorTests
 	}
 
 	[TestMethod]
+	public void ExtractorIgnoresPlainProseInBroadStringLiterals()
+	{
+		var text = """
+			<div class="transition"></div>
+			@code {
+				private const string Copy = "transform transition.";
+				private const string Conditional = IsReady ? "flex" : "bg-good";
+			}
+			""";
+
+		var classes = TailBoxClassExtractor.ExtractClassesFromText( text );
+
+		Assert.IsTrue( classes.Contains( "transition" ) );
+		Assert.IsTrue( classes.Contains( "flex" ) );
+		Assert.IsTrue( classes.Contains( "bg-good" ) );
+		Assert.IsFalse( classes.Contains( "transform" ) );
+	}
+
+	[TestMethod]
 	public void GeneratorUsesConfigSafelistAndDeduplicatesClasses()
 	{
 		var root = CreateTempProject();
@@ -56,12 +75,12 @@ public sealed class TailBoxBehaviorTests
 		{
 			WriteFile( root, "Code/Screen.razor", "<div class=\"flex flex\"></div>" );
 			var config = TailBoxConfig.CreateDefault();
-			config.Safelist.Add( "flex p-4, hover:bg-accent" );
+			config.Safelist.Add( "flex p-4, text-accent" );
 
 			var result = TailBoxEditorProject.Generate( root, config, writeFile: false );
 
 			Assert.AreEqual( 3, result.GeneratedClassCount );
-			AssertContainsAll( result.GeneratedClasses, "flex", "p-4", "hover:bg-accent" );
+			AssertContainsAll( result.GeneratedClasses, "flex", "p-4", "text-accent" );
 		}
 		finally
 		{
@@ -125,7 +144,7 @@ public sealed class TailBoxBehaviorTests
 		try
 		{
 			WriteFile( root, "Code/Screen.razor", "<div class=\"flex\"></div>" );
-			WriteFile( root, "Code/tailbox.generated.scss", "\"text-danger\"" );
+			WriteFile( root, "Code/tailwand.generated.scss", "\"text-danger\"" );
 			WriteFile( root, "Code/bin/Bogus.razor", "<div class=\"p-4\"></div>" );
 			WriteFile( root, "Code/obj/Bogus.razor", "<div class=\"px-4\"></div>" );
 			WriteFile( root, ".sbox/Bogus.razor", "<div class=\"py-4\"></div>" );
@@ -232,7 +251,7 @@ public sealed class TailBoxBehaviorTests
 		{
 			var config = TailBoxConfig.CreateDefault();
 			Assert.AreEqual(
-				Path.GetFullPath( Path.Combine( root, "Code", "tailbox.generated.scss" ) ),
+				Path.GetFullPath( Path.Combine( root, "Code", "tailwand.generated.scss" ) ),
 				TailBoxEditorProject.ResolveOutputPath( root, config ) );
 
 			var absolute = Path.Combine( root, "Custom", "tailbox.scss" );
@@ -251,7 +270,7 @@ public sealed class TailBoxBehaviorTests
 		var root = CreateTempProject();
 		try
 		{
-			var output = Path.Combine( root, "Code", "tailbox.generated.scss" );
+			var output = Path.Combine( root, "Code", "tailwand.generated.scss" );
 
 			Assert.IsTrue( TailBoxEditorWatcher.ShouldHandleChangedPath( root, output, Path.Combine( root, TailBoxConfig.FileName ) ) );
 			Assert.IsTrue( TailBoxEditorWatcher.ShouldHandleChangedPath( root, output, Path.Combine( root, "Code", "Screen.razor" ) ) );
@@ -270,7 +289,7 @@ public sealed class TailBoxBehaviorTests
 		var root = CreateTempProject();
 		try
 		{
-			var output = Path.Combine( root, "Code", "tailbox.generated.scss" );
+			var output = Path.Combine( root, "Code", "tailwand.generated.scss" );
 			var outside = Path.Combine( Path.GetDirectoryName( root )!, Guid.NewGuid().ToString( "N" ), "Screen.razor" );
 
 			Assert.IsFalse( TailBoxEditorWatcher.ShouldHandleChangedPath( root, output, Path.Combine( root, "bin", "Screen.razor" ) ) );

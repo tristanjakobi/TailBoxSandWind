@@ -52,7 +52,7 @@ public sealed class TailBoxFileSystemTests
 			WriteFile( root, "Code/Screen.razor", "<div />" );
 			WriteFile( root, "Ui/Nested/Panel.razor", "<div />" );
 			WriteFile( root, "Code/Screen.razor.scss", ".ignored {}" );
-			WriteFile( root, "Code/tailbox.generated.scss", ".ignored {}" );
+			WriteFile( root, "Code/tailwand.generated.scss", ".ignored {}" );
 			WriteFile( root, "Code/bin/Skip.razor", "<div />" );
 			WriteFile( root, "obj/Skip.razor", "<div />" );
 			WriteFile( root, ".vs/Skip.razor", "<div />" );
@@ -63,7 +63,7 @@ public sealed class TailBoxFileSystemTests
 			config.Content.Clear();
 			config.Content.Add( "Code/**/*.razor" );
 			config.Content.Add( "Ui/**/*.razor" );
-			var output = Path.Combine( root, "Code", "tailbox.generated.scss" );
+			var output = Path.Combine( root, "Code", "tailwand.generated.scss" );
 
 			var files = TailBoxProjectFileSystem.FindContentFiles( root, config, output )
 				.Select( file => Path.GetRelativePath( root, file ).Replace( '\\', '/' ) )
@@ -102,7 +102,7 @@ public sealed class TailBoxFileSystemTests
 		var root = CreateTempProject();
 		try
 		{
-			var expected = Path.GetFullPath( Path.Combine( root, "Code", "tailbox.generated.scss" ) );
+			var expected = Path.GetFullPath( Path.Combine( root, "Code", "tailwand.generated.scss" ) );
 			Assert.AreEqual( expected, TailBoxProjectFileSystem.ResolveOutputPath( root, null ) );
 
 			var config = TailBoxConfig.CreateDefault();
@@ -121,7 +121,7 @@ public sealed class TailBoxFileSystemTests
 		var root = CreateTempProject();
 		try
 		{
-			var output = Path.Combine( root, "Code", "tailbox.generated.scss" );
+			var output = Path.Combine( root, "Code", "tailwand.generated.scss" );
 			var ordinary = Path.Combine( root, "Code", "Screen.razor" );
 			var outside = Path.Combine( Path.GetDirectoryName( root )!, Guid.NewGuid().ToString( "N" ), "Screen.razor" );
 

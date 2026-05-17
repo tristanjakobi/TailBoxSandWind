@@ -15,13 +15,6 @@ internal static class TailBoxCandidateParser
 		["outro"] = ":outro"
 	};
 
-	private static readonly HashSet<string> MediaVariants = new( StringComparer.Ordinal )
-	{
-		"sm", "md", "lg", "xl", "2xl", "max-sm", "max-md", "max-lg", "max-xl", "max-2xl",
-		"motion-safe", "motion-reduce", "contrast-more", "contrast-less", "portrait", "landscape",
-		"print"
-	};
-
 	private static readonly HashSet<string> BrowserSelectorVariants = new( StringComparer.Ordinal )
 	{
 		"first", "last", "only", "odd", "even", "first-of-type", "last-of-type", "only-of-type",
@@ -139,18 +132,6 @@ internal static class TailBoxCandidateParser
 				Raw = raw,
 				Kind = TailBoxVariantKind.Pseudo,
 				SelectorSuffix = pseudo
-			};
-		}
-
-		if ( MediaVariants.Contains( raw )
-			|| raw.StartsWith( "min-", StringComparison.Ordinal )
-			|| raw.StartsWith( "max-", StringComparison.Ordinal ) )
-		{
-			return new TailBoxVariant
-			{
-				Raw = raw,
-				Kind = TailBoxVariantKind.Media,
-				Detail = $"Responsive/media variant '{raw}' is parsed but not emitted until s&box media query support is verified."
 			};
 		}
 

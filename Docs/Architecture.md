@@ -1,6 +1,6 @@
-# TailBox SandWind Architecture
+# tailw& Architecture
 
-TailBox is organized as layered code while keeping the public namespace `Sandbox.TailBox` stable:
+tailw& is organized as layered code while keeping the public namespace `Sandbox.TailBox` stable:
 
 - `Code/TailBox/Domain`: Tailwind-shaped parsing, theme lookup, utility rules, selector escaping, and s&box style capability decisions. This layer is pure and has no project filesystem access.
 - `Code/TailBox/Application`: generation use cases and contracts: config DTOs, source text DTOs, extraction, pipeline orchestration, results, and the public in-memory generator facade.
@@ -39,7 +39,7 @@ flowchart LR
     I --> N["rules + structured skips"]
     N --> O["rendered SCSS"]
     O --> B
-    B --> P["Code/tailbox.generated.scss"]
+    B --> P["Code/tailwand.generated.scss"]
 ```
 
 ## Responsibilities
@@ -48,7 +48,7 @@ flowchart LR
 
 `TailBoxCandidateParser`
 
-Turns one raw class string into a Tailwind-shaped candidate. It owns variant splitting, important flags, negatives, slash modifiers, arbitrary values, arbitrary properties, and selector/media variant classification.
+Turns one raw class string into a Tailwind-shaped candidate. It owns variant splitting, important flags, negatives, slash modifiers, arbitrary values, arbitrary properties, and report-only selector variant classification.
 
 `TailBoxText`
 
@@ -127,7 +127,7 @@ Editor-only use-case facade between the user's s&box project and the pure genera
 
 `TailBoxProjectFileSystem`
 
-Editor-only raw IO adapter. It loads/saves `tailbox.config.json`, applies content globs, ignores generated/build paths, reads Razor files into `TailBoxSourceText`, and writes generated SCSS only when it changed.
+Editor-only raw IO adapter. It loads/saves `tailwand.config.json`, still recognizes legacy `tailbox.config.json`, applies content globs, ignores generated/build paths, reads Razor files into `TailBoxSourceText`, and writes generated SCSS only when it changed.
 
 `TailBoxEditorWatcher`
 
@@ -145,7 +145,7 @@ Scene bootstrap component. When present on a GameObject, it resolves or creates 
 
 `TailBoxDemoMenu`
 
-Razor `PanelComponent` showcase. It is split into screens for layout, spacing/sizing, color, borders/radius, typography, position/overflow, interaction variants, effects/transforms, and arbitrary/important syntax. It uses TailBox utility classes so the normal generator output powers the demo styling.
+Razor `PanelComponent` showcase. It is split into screens for display, flex behavior, position, sizing, spacing, text colors, background colors, borders/radius, typography, overflow, z layering, pointer/cursor, filters, negative values, unsupported reporting, and the current support matrix. It uses tailw& utility classes so the normal generator output powers the demo styling.
 
 ## Adding A Utility
 
@@ -157,7 +157,7 @@ Razor `PanelComponent` showcase. It is split into screens for layout, spacing/si
 ## Adding A Variant
 
 1. Add classification in `Code/TailBox/Domain/Candidates/TailBoxCandidateParser.cs`.
-2. Only emit it in `TailBoxUtilityCompiler` if the generated selector/media form is verified in s&box.
+2. Only emit it in `TailBoxUtilityCompiler` if the generated selector form is verified in s&box.
 3. Otherwise return a stable `TailBoxSkipReason` so users see why it did not emit.
 
 ## Adding Editor Integration

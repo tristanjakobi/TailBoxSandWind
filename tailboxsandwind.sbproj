@@ -1,7 +1,14 @@
 {
-  "Title": "TailBox SandWind ",
+  "Title": "Tailw&",
   "Type": "library",
-  "Org": "local",
-  "Ident": "tailboxsandwind",
-  "Schema": 1
+  "Org": "tristan",
+  "Ident": "tailwand",
+  "Schema": 1,
+  "IncludeSourceFiles": false,
+  "Resources": null,
+  "PackageReferences": [],
+  "EditorReferences": null,
+  "Mounts": null,
+  "IsStandaloneOnly": false,
+  "Metadata": {}
 }

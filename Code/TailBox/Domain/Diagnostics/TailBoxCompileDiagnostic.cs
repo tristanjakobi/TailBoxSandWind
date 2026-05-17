@@ -9,7 +9,6 @@ public enum TailBoxSkipReason
 	UnsupportedProperty,
 	UnsupportedValue,
 	UnsupportedArbitraryProperty,
-	UnsupportedMediaVariant,
 	UnsupportedSelectorVariant
 }
 

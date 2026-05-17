@@ -9,7 +9,7 @@ namespace Sandbox.TailBox;
 
 public sealed class TailBoxEditorWatcher
 {
-	private const string WatcherCookie = "TailBoxSandWind.WatcherEnabled";
+	private const string WatcherCookie = "tailwand.WatcherEnabled";
 	private const double DebounceSeconds = 0.35;
 
 	private static TailBoxEditorWatcher instance;
@@ -42,11 +42,11 @@ public sealed class TailBoxEditorWatcher
 	public static TailBoxGenerationResult GenerateNow( string projectRoot )
 	{
 		var result = TailBoxEditorProject.Generate( projectRoot );
-		Log.Info( $"TailBox generated {result.GeneratedClassCount} utilities, skipped {result.SkippedClassCount}, warnings {result.Warnings.Count}: {result.OutputPath}" );
+		Log.Info( $"tailw& generated {result.GeneratedClassCount} utilities, skipped {result.SkippedClassCount}, warnings {result.Warnings.Count}: {result.OutputPath}" );
 
 		foreach ( var skipped in result.Skipped.Take( 12 ) )
 		{
-			Log.Warning( $"TailBox skipped '{skipped.ClassName}' ({skipped.Reason}): {skipped.Detail}" );
+			Log.Warning( $"tailw& skipped '{skipped.ClassName}' ({skipped.Reason}): {skipped.Detail}" );
 		}
 
 		return result;
@@ -99,7 +99,7 @@ public sealed class TailBoxEditorWatcher
 		watcher.Deleted += OnFileChanged;
 		watcher.Renamed += OnFileChanged;
 		watcher.EnableRaisingEvents = true;
-		Log.Info( $"TailBox watcher enabled for {root}" );
+		Log.Info( $"tailw& watcher enabled for {root}" );
 	}
 
 	[EditorEvent.Frame]
@@ -130,7 +130,7 @@ public sealed class TailBoxEditorWatcher
 		}
 		catch ( Exception ex )
 		{
-			Log.Error( $"TailBox generation failed: {ex.Message}" );
+			Log.Error( $"tailw& generation failed: {ex.Message}" );
 		}
 	}
 
@@ -184,6 +184,7 @@ public sealed class TailBoxEditorWatcher
 			return false;
 
 		return string.Equals( relative, TailBoxConfig.FileName, StringComparison.OrdinalIgnoreCase )
+			|| string.Equals( relative, TailBoxConfig.LegacyFileName, StringComparison.OrdinalIgnoreCase )
 			|| string.Equals( Path.GetExtension( fullPath ), ".razor", StringComparison.OrdinalIgnoreCase );
 	}
 }

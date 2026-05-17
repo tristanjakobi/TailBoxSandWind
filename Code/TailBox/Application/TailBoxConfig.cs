@@ -6,13 +6,14 @@ using System.Text.Json.Serialization;
 namespace Sandbox.TailBox;
 
 /// <summary>
-/// Configuration for TailBox utility generation in a consuming s&box project.
+/// Configuration for tailw&amp; utility generation in a consuming s&box project.
 /// </summary>
 public sealed class TailBoxConfig
 {
-	public const string FileName = "tailbox.config.json";
+	public const string FileName = "tailwand.config.json";
+	public const string LegacyFileName = "tailbox.config.json";
 
-	public string OutputPath { get; set; } = "Code/tailbox.generated.scss";
+	public string OutputPath { get; set; } = "Code/tailwand.generated.scss";
 	public List<string> Content { get; set; } = CreateDefaultContentGlobs();
 	public List<string> Safelist { get; set; } = new();
 	public Dictionary<string, string> Spacing { get; set; } = new( StringComparer.OrdinalIgnoreCase );
@@ -44,7 +45,7 @@ public sealed class TailBoxConfig
 	{
 		return new TailBoxConfig
 		{
-			OutputPath = "Code/tailbox.generated.scss",
+			OutputPath = "Code/tailwand.generated.scss",
 			Content = CreateDefaultContentGlobs(),
 			Safelist = new(),
 			Spacing = new( StringComparer.OrdinalIgnoreCase )
@@ -115,7 +116,7 @@ public sealed class TailBoxConfig
 			},
 			Radii = new( StringComparer.OrdinalIgnoreCase )
 			{
-				["none"] = "0",
+				["none"] = "0px",
 				["sm"] = "4px",
 				["default"] = "6px",
 				["md"] = "8px",
@@ -131,14 +132,7 @@ public sealed class TailBoxConfig
 				["md"] = "0 14px 36px rgba( 0, 0, 0, 0.38 )",
 				["lg"] = "0 18px 48px rgba( 0, 0, 0, 0.44 )"
 			},
-			Screens = new( StringComparer.OrdinalIgnoreCase )
-			{
-				["sm"] = "640px",
-				["md"] = "768px",
-				["lg"] = "1024px",
-				["xl"] = "1280px",
-				["2xl"] = "1536px"
-			},
+			Screens = new( StringComparer.OrdinalIgnoreCase ),
 			BorderWidths = new( StringComparer.OrdinalIgnoreCase )
 			{
 				["0"] = "0",
@@ -202,12 +196,12 @@ public sealed class TailBoxConfig
 			},
 			LineHeights = new( StringComparer.OrdinalIgnoreCase )
 			{
-				["none"] = "1",
-				["tight"] = "1.25",
-				["snug"] = "1.375",
-				["normal"] = "1.5",
-				["relaxed"] = "1.625",
-				["loose"] = "2",
+				["none"] = "1em",
+				["tight"] = "1.25em",
+				["snug"] = "1.375em",
+				["normal"] = "1.5em",
+				["relaxed"] = "1.625em",
+				["loose"] = "2em",
 				["3"] = "12px",
 				["4"] = "16px",
 				["5"] = "20px",
@@ -295,17 +289,17 @@ public sealed class TailBoxConfig
 
 	public static bool Exists( string projectRoot )
 	{
-		throw new NotSupportedException( "TailBox config file checks are editor-only in s&box. Use the editor project facade from the infrastructure layer." );
+		throw new NotSupportedException( "tailw& config file checks are editor-only in s&box. Use the editor project facade from the infrastructure layer." );
 	}
 
 	public static TailBoxConfig Load( string projectRoot )
 	{
-		throw new NotSupportedException( "TailBox config file loading is editor-only in s&box. Use TailBoxConfig.LoadJson for in-memory JSON." );
+		throw new NotSupportedException( "tailw& config file loading is editor-only in s&box. Use TailBoxConfig.LoadJson for in-memory JSON." );
 	}
 
 	public static TailBoxConfig LoadFile( string path )
 	{
-		throw new NotSupportedException( "TailBox config file loading is editor-only in s&box. Use TailBoxConfig.LoadJson for in-memory JSON." );
+		throw new NotSupportedException( "tailw& config file loading is editor-only in s&box. Use TailBoxConfig.LoadJson for in-memory JSON." );
 	}
 
 	public static TailBoxConfig LoadJson( string json, string path = null )
@@ -320,18 +314,18 @@ public sealed class TailBoxConfig
 		}
 		catch ( Exception ex )
 		{
-			throw new InvalidOperationException( $"Unable to load TailBox config JSON{(string.IsNullOrWhiteSpace( path ) ? "" : $": {path}")}", ex );
+			throw new InvalidOperationException( $"Unable to load tailw& config JSON{(string.IsNullOrWhiteSpace( path ) ? "" : $": {path}")}", ex );
 		}
 	}
 
 	public static TailBoxConfig SaveDefault( string projectRoot )
 	{
-		throw new NotSupportedException( "TailBox config file saving is editor-only in s&box. Use TailBoxConfig.ToJson for in-memory JSON." );
+		throw new NotSupportedException( "tailw& config file saving is editor-only in s&box. Use TailBoxConfig.ToJson for in-memory JSON." );
 	}
 
 	public void Save( string projectRoot )
 	{
-		throw new NotSupportedException( "TailBox config file saving is editor-only in s&box. Use TailBoxConfig.ToJson for in-memory JSON." );
+		throw new NotSupportedException( "tailw& config file saving is editor-only in s&box. Use TailBoxConfig.ToJson for in-memory JSON." );
 	}
 
 	public string ToJson()
@@ -403,6 +397,7 @@ public sealed class TailBoxConfig
 		return new()
 		{
 			"Code/**/*.razor",
+			"Libraries/tailwand/Code/**/*.razor",
 			"Libraries/TailBoxSandWind/Code/**/*.razor"
 		};
 	}

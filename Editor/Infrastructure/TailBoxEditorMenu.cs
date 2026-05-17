@@ -6,7 +6,7 @@ namespace Sandbox.TailBox;
 
 public static class TailBoxEditorMenu
 {
-	[Menu( "Editor", "TailBox SandWind/Initialize", "auto_awesome" )]
+	[Menu( "Editor", "tailw&/Initialize", "auto_awesome" )]
 	public static void Initialize()
 	{
 		var root = GetProjectRoot();
@@ -23,11 +23,11 @@ public static class TailBoxEditorMenu
 		TailBoxEditorWatcher.EnsureStarted().Reconfigure();
 
 		ShowDialog(
-			"TailBox SandWind",
-			$"Initialized TailBox SandWind.\n\nConfig: {configPath}\nGenerated: {result.GeneratedClassCount} utilities\nSkipped: {result.SkippedClassCount}\nWarnings: {result.Warnings.Count}" );
+			"tailw&",
+			$"Initialized tailw&.\n\nConfig: {configPath}\nGenerated: {result.GeneratedClassCount} utilities\nSkipped: {result.SkippedClassCount}\nWarnings: {result.Warnings.Count}" );
 	}
 
-	[Menu( "Editor", "TailBox SandWind/Generate Now", "refresh" )]
+	[Menu( "Editor", "tailw&/Generate Now", "refresh" )]
 	public static void GenerateNow()
 	{
 		var root = GetProjectRoot();
@@ -37,8 +37,8 @@ public static class TailBoxEditorMenu
 		if ( !TailBoxEditorProject.ConfigExists( root ) )
 		{
 			ShowDialog(
-				"TailBox SandWind",
-				"tailbox.config.json was not found in this project. Use TailBox SandWind/Initialize to opt in." );
+				"tailw&",
+				"tailwand.config.json was not found in this project. Use tailw&/Initialize to opt in. Existing tailbox.config.json files are still supported." );
 			return;
 		}
 
@@ -46,11 +46,11 @@ public static class TailBoxEditorMenu
 		TailBoxEditorWatcher.EnsureStarted().Reconfigure();
 
 		ShowDialog(
-			"TailBox SandWind",
+			"tailw&",
 			$"Generated {result.GeneratedClassCount} utilities from {result.ScannedFileCount} Razor files.\nSkipped: {result.SkippedClassCount}\nWarnings: {result.Warnings.Count}\n\nOutput: {result.OutputPath}" );
 	}
 
-	[Menu( "Editor", "TailBox SandWind/Toggle Watcher", "sync" )]
+	[Menu( "Editor", "tailw&/Toggle Watcher", "sync" )]
 	public static void ToggleWatcher()
 	{
 		var root = GetProjectRoot();
@@ -62,8 +62,8 @@ public static class TailBoxEditorMenu
 		TailBoxEditorWatcher.EnsureStarted().Reconfigure();
 
 		ShowDialog(
-			"TailBox SandWind",
-			$"TailBox watcher is now {(TailBoxEditorWatcher.WatcherEnabled ? "enabled" : "disabled")}." );
+			"tailw&",
+			$"tailw& watcher is now {(TailBoxEditorWatcher.WatcherEnabled ? "enabled" : "disabled")}." );
 	}
 
 	private static string GetProjectRoot()
@@ -71,7 +71,7 @@ public static class TailBoxEditorMenu
 		var root = Project.Current?.GetRootPath();
 		if ( string.IsNullOrWhiteSpace( root ) )
 		{
-			ShowDialog( "TailBox SandWind", "No active s&box project was found." );
+			ShowDialog( "tailw&", "No active s&box project was found." );
 			return null;
 		}
 

@@ -8,11 +8,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Editor", "Editor", "{282514
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{2F646680-91A4-F107-74F4-9BF3126A0F16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tailboxsandwind", "Code\tailboxsandwind.csproj", "{C55478E8-B880-9AC1-0AFC-2B33EEDF309D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tailwand", "Code\tailboxsandwind.csproj", "{C55478E8-B880-9AC1-0AFC-2B33EEDF309D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tailboxsandwind.editor", "Editor\tailboxsandwind.editor.csproj", "{6FB9D464-68ED-ADC4-0100-82EE11A521A5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tailwand.editor", "Editor\tailboxsandwind.editor.csproj", "{6FB9D464-68ED-ADC4-0100-82EE11A521A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tailboxsandwind.unittest", "UnitTests\tailboxsandwind.unittest.csproj", "{84B3B811-917B-6AB8-4EE6-C56FA8471532}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tailwand.unittest", "UnitTests\tailboxsandwind.unittest.csproj", "{84B3B811-917B-6AB8-4EE6-C56FA8471532}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

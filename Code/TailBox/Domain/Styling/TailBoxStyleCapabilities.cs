@@ -6,12 +6,13 @@ internal static class TailBoxStyleCapabilities
 {
 	private static readonly HashSet<string> SupportedProperties = new( System.StringComparer.Ordinal )
 	{
-		"align-content", "align-items", "align-self", "animation", "animation-delay", "animation-direction",
-		"animation-duration", "animation-fill-mode", "animation-iteration-count", "animation-name",
-		"animation-play-state", "animation-timing-function", "aspect-ratio", "backdrop-filter",
-		"backdrop-filter-blur", "backdrop-filter-brightness", "backdrop-filter-contrast",
+		"align-content", "align-items", "align-self", "animation", "animation-delay",
+		"animation-direction", "animation-duration", "animation-fill-mode", "animation-iteration-count",
+		"animation-name", "animation-play-state", "animation-timing-function", "aspect-ratio",
+		"backdrop-filter", "backdrop-filter-blur", "backdrop-filter-brightness", "backdrop-filter-contrast",
 		"backdrop-filter-hue-rotate", "backdrop-filter-invert", "backdrop-filter-saturate",
-		"backdrop-filter-sepia", "background", "background-angle", "background-blend-mode",
+		"backdrop-filter-sepia",
+		"background", "background-angle", "background-blend-mode",
 		"background-color", "background-image", "background-image-tint", "background-position",
 		"background-position-x", "background-position-y", "background-repeat", "background-size",
 		"background-size-x", "background-size-y", "border", "border-bottom", "border-bottom-color",
@@ -28,8 +29,8 @@ internal static class TailBoxStyleCapabilities
 		"font-size", "font-smooth", "font-style", "font-variant-numeric", "font-weight", "gap",
 		"height", "image-rendering", "justify-content", "left", "letter-spacing", "line-height",
 		"margin", "margin-bottom", "margin-left", "margin-right", "margin-top", "mask", "mask-angle",
-		"mask-image", "mask-mode", "mask-position", "mask-position-x", "mask-position-y",
-		"mask-repeat", "mask-size", "mask-size-x", "mask-size-y", "max-height", "max-width",
+		"mask-image", "mask-mode", "mask-position", "mask-position-x", "mask-position-y", "mask-repeat",
+		"mask-scope", "mask-size", "mask-size-x", "mask-size-y", "max-height", "max-width",
 		"min-height", "min-width", "mix-blend-mode", "opacity", "order", "overflow", "overflow-x",
 		"overflow-y", "padding", "padding-bottom", "padding-left", "padding-right", "padding-top",
 		"perspective-origin", "perspective-origin-x", "perspective-origin-y", "pointer-events",
@@ -63,8 +64,11 @@ internal static class TailBoxStyleCapabilities
 		{
 			"display" => declaration.Value is "flex" or "none",
 			"position" => declaration.Value is "static" or "relative" or "absolute",
+			"cursor" => true,
 			"overflow" or "overflow-x" or "overflow-y" => declaration.Value is "visible" or "hidden" or "scroll",
 			"pointer-events" => declaration.Value is "none" or "all" or "auto",
+			"white-space" => declaration.Value is "normal" or "nowrap" or "pre" or "pre-line",
+			"word-break" => declaration.Value is "normal" or "break-all",
 			_ => true
 		};
 	}

@@ -237,7 +237,7 @@ internal static class TailBoxText
 				continue;
 			}
 
-			result.Append( '\\' ).Append( ((int)codeUnit).ToString( "x6" ) );
+			result.Append( '\\' ).Append( ((int)codeUnit).ToString( "x6" ) ).Append( ' ' );
 		}
 
 		return result.ToString();
@@ -245,17 +245,23 @@ internal static class TailBoxText
 
 	private static bool IsIdentifierSafe( char codeUnit, int index, string value )
 	{
-		if ( codeUnit >= 0x0080 || codeUnit == '-' || codeUnit == '_' )
+		if ( codeUnit >= 0x0080 || codeUnit == '_' )
 			return true;
+
+		if ( codeUnit == '-' )
+			return index > 0;
+
+		if ( index == 1 && value[0] == '-' && codeUnit >= '0' && codeUnit <= '9' )
+			return false;
+
+		if ( codeUnit >= '0' && codeUnit <= '9' )
+			return index > 0;
 
 		if ( codeUnit >= 'A' && codeUnit <= 'Z' )
 			return true;
 
 		if ( codeUnit >= 'a' && codeUnit <= 'z' )
 			return true;
-
-		if ( codeUnit >= '0' && codeUnit <= '9' )
-			return index > 0;
 
 		return false;
 	}

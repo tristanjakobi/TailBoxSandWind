@@ -18,7 +18,7 @@ public sealed class TailBoxPipelineTests
 		Assert.AreEqual( 0, result.SkippedClassCount );
 		Assert.IsFalse( result.WroteFile );
 		StringAssert.Contains( result.GeneratedScss, "Source files scanned: 0" );
-		StringAssert.Contains( result.GeneratedScss, "Config: tailbox.config.json" );
+		StringAssert.Contains( result.GeneratedScss, "Config: tailwand.config.json" );
 	}
 
 	[TestMethod]
@@ -47,7 +47,7 @@ public sealed class TailBoxPipelineTests
 	public void GenerateFromSourcesRendersConfigFileNameAndScannedFileCount()
 	{
 		var config = TailBoxConfig.CreateDefault();
-		config.ConfigPath = "C:/Project/Config/tailbox.custom.json";
+		config.ConfigPath = "C:/Project/Config/tailwand.custom.json";
 		var sources = new[]
 		{
 			new TailBoxSourceText( "C:/Project/Code/Screen.razor", "<div class=\"flex\"></div>" ),
@@ -58,7 +58,7 @@ public sealed class TailBoxPipelineTests
 
 		Assert.AreEqual( 2, result.ScannedFileCount );
 		StringAssert.Contains( result.GeneratedScss, "Source files scanned: 2" );
-		StringAssert.Contains( result.GeneratedScss, "Config: tailbox.custom.json" );
+		StringAssert.Contains( result.GeneratedScss, "Config: tailwand.custom.json" );
 		StringAssert.Contains( result.GeneratedScss, ".flex {" );
 	}
 
@@ -80,14 +80,14 @@ public sealed class TailBoxPipelineTests
 	public void SafelistSkipsHaveWarningsButNoSourcePath()
 	{
 		var config = TailBoxConfig.CreateDefault();
-		config.Safelist.Add( "grid md:flex" );
+		config.Safelist.Add( "grid unknown:flex" );
 
 		var result = new TailBoxGenerator().GenerateFromSources( Array.Empty<TailBoxSourceText>(), config );
 
-		CollectionAssert.AreEqual( new[] { "grid", "md:flex" }, result.SkippedClasses.ToArray() );
+		CollectionAssert.AreEqual( new[] { "grid", "unknown:flex" }, result.SkippedClasses.ToArray() );
 		Assert.IsTrue( result.Skipped.All( item => item.SourcePath is null ) );
 		Assert.IsTrue( result.Warnings.Any( warning => warning.StartsWith( "grid:", StringComparison.Ordinal ) ) );
-		Assert.IsTrue( result.Warnings.Any( warning => warning.StartsWith( "md:flex:", StringComparison.Ordinal ) ) );
+		Assert.IsTrue( result.Warnings.Any( warning => warning.StartsWith( "unknown:flex:", StringComparison.Ordinal ) ) );
 	}
 
 	[TestMethod]

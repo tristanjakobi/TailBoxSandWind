@@ -2,8 +2,8 @@ using System.Linq;
 
 namespace Sandbox.TailBox;
 
-[Title( "TailBox Demo" )]
-[Category( "TailBox SandWind" )]
+[Title( "tailw& Demo" )]
+[Category( "tailw&" )]
 [Icon( "dashboard" )]
 public sealed class TailBoxDemo : Component, Component.ExecuteInEditor
 {
@@ -48,23 +48,31 @@ public sealed class TailBoxDemo : Component, Component.ExecuteInEditor
 		if ( Game.IsEditor && !RunInEditor )
 			return;
 
-		var screen = ResolveScreenPanel();
+		var scene = Scene;
+		if ( scene is null )
+			return;
+
+		var screen = ResolveScreenPanel( scene );
 		if ( screen is null )
 			return;
 
-		ResolveCamera();
+		var camera = ResolveCamera( scene );
+		if ( camera is not null )
+			screen.TargetCamera = camera;
+
 		ResolveMenu( screen );
 		ConfigureMouse();
 
 		ensuredOnce = true;
 	}
 
-	private ScreenPanel ResolveScreenPanel()
+	private ScreenPanel ResolveScreenPanel( Scene scene )
 	{
-		var existingScreen = Scene.GetAllComponents<ScreenPanel>()
+		var screens = scene.GetAllComponents<ScreenPanel>().ToArray();
+		var existingScreen = screens
 			.FirstOrDefault( screen => screen.GameObject.GetComponent<TailBoxDemoMenu>( true ) is not null )
-			?? Scene.GetAllComponents<ScreenPanel>().FirstOrDefault( screen => screen.Enabled )
-			?? Scene.GetAllComponents<ScreenPanel>().FirstOrDefault();
+			?? screens.FirstOrDefault( screen => screen.Enabled )
+			?? screens.FirstOrDefault();
 
 		if ( existingScreen is not null )
 		{
@@ -80,18 +88,22 @@ public sealed class TailBoxDemo : Component, Component.ExecuteInEditor
 		return screenPanel;
 	}
 
-	private CameraComponent ResolveCamera()
+	private CameraComponent ResolveCamera( Scene scene )
 	{
-		var existingCamera = Scene.GetAllComponents<CameraComponent>()
-			.FirstOrDefault( camera => camera.IsMainCamera && camera.Enabled )
-			?? Scene.GetAllComponents<CameraComponent>().FirstOrDefault( camera => camera.Enabled )
-			?? Scene.GetAllComponents<CameraComponent>().FirstOrDefault();
+		var cameras = scene.GetAllComponents<CameraComponent>().ToArray();
+		var mainCamera = cameras.FirstOrDefault( camera => camera.IsMainCamera && camera.Enabled );
+		if ( mainCamera is not null )
+			return mainCamera;
 
-		if ( existingCamera is not null )
-			return existingCamera;
+		var enabledCamera = cameras.FirstOrDefault( camera => camera.Enabled );
+		if ( enabledCamera is not null )
+		{
+			enabledCamera.IsMainCamera = true;
+			return enabledCamera;
+		}
 
 		if ( !CreateCameraIfMissing )
-			return null;
+			return cameras.FirstOrDefault();
 
 		var camera = GameObject.GetComponent<CameraComponent>( true ) ?? GameObject.GetOrAddComponent<CameraComponent>();
 		camera.Enabled = true;

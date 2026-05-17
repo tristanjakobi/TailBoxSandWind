@@ -25,16 +25,16 @@ public sealed class TailBoxConfigTests
 				}
 			}
 			""",
-			"C:/Project/tailbox.config.json" );
+			"C:/Project/tailwand.config.json" );
 
-		Assert.AreEqual( "Code/tailbox.generated.scss", loaded.OutputPath );
+		Assert.AreEqual( "Code/tailwand.generated.scss", loaded.OutputPath );
 		CollectionAssert.AreEqual( new[] { "Code/**/*.razor" }, loaded.Content.ToArray() );
 		Assert.AreEqual( 0, loaded.Safelist.Count );
 		Assert.AreEqual( "22px", loaded.Spacing["CARD"] );
 		Assert.IsFalse( loaded.Spacing.ContainsKey( "empty" ) );
 		Assert.AreEqual( "#111111", loaded.Colors["ACCENT"] );
 		Assert.AreEqual( "#234567", loaded.Colors["brand"] );
-		Assert.AreEqual( "C:/Project/tailbox.config.json", loaded.ConfigPath );
+		Assert.AreEqual( "C:/Project/tailwand.config.json", loaded.ConfigPath );
 	}
 
 	[TestMethod]
@@ -42,7 +42,7 @@ public sealed class TailBoxConfigTests
 	{
 		var config = TailBoxConfig.CreateDefault();
 		config.OutputPath = "Assets/Generated/tailbox.scss";
-		config.ConfigPath = "C:/Project/tailbox.config.json";
+		config.ConfigPath = "C:/Project/tailwand.config.json";
 		config.Safelist.Add( "flex" );
 
 		var json = config.ToJson();
@@ -74,9 +74,9 @@ public sealed class TailBoxConfigTests
 	public void InvalidJsonReportsTheConfigPath()
 	{
 		var exception = Assert.ThrowsException<InvalidOperationException>(
-			() => TailBoxConfig.LoadJson( "{", "C:/Project/tailbox.config.json" ) );
+			() => TailBoxConfig.LoadJson( "{", "C:/Project/tailwand.config.json" ) );
 
-		StringAssert.Contains( exception.Message, "C:/Project/tailbox.config.json" );
+		StringAssert.Contains( exception.Message, "C:/Project/tailwand.config.json" );
 		Assert.IsNotNull( exception.InnerException );
 	}
 
@@ -85,7 +85,7 @@ public sealed class TailBoxConfigTests
 	{
 		Assert.ThrowsException<NotSupportedException>( () => TailBoxConfig.Exists( "C:/Project" ) );
 		Assert.ThrowsException<NotSupportedException>( () => TailBoxConfig.Load( "C:/Project" ) );
-		Assert.ThrowsException<NotSupportedException>( () => TailBoxConfig.LoadFile( "C:/Project/tailbox.config.json" ) );
+		Assert.ThrowsException<NotSupportedException>( () => TailBoxConfig.LoadFile( "C:/Project/tailwand.config.json" ) );
 		Assert.ThrowsException<NotSupportedException>( () => TailBoxConfig.SaveDefault( "C:/Project" ) );
 		Assert.ThrowsException<NotSupportedException>( () => TailBoxConfig.CreateDefault().Save( "C:/Project" ) );
 	}

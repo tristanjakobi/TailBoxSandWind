@@ -66,7 +66,148 @@ internal static class TailBoxGenerationPipeline
 				warnings.Add( $"{className}: {withSource.Detail}" );
 		}
 
+		AddGapPairRules( rules );
+		AddBorderSidePairRules( rules, theme );
 		return new TailBoxCompilationOutput( rules, generatedClasses, skippedClasses, skippedItems, warnings );
+	}
+
+	private static void AddGapPairRules( List<TailBoxUtilityRule> rules )
+	{
+		var xRules = rules
+			.Where( rule => rule.ClassName.StartsWith( "gap-x-", StringComparison.Ordinal ) )
+			.Select( rule => new { Rule = rule, Value = GetDeclarationValue( rule, "column-gap" ) } )
+			.Where( item => !string.IsNullOrWhiteSpace( item.Value ) )
+			.ToArray();
+
+		var yRules = rules
+			.Where( rule => rule.ClassName.StartsWith( "gap-y-", StringComparison.Ordinal ) )
+			.Select( rule => new { Rule = rule, Value = GetDeclarationValue( rule, "row-gap" ) } )
+			.Where( item => !string.IsNullOrWhiteSpace( item.Value ) )
+			.ToArray();
+
+		foreach ( var x in xRules )
+		{
+			foreach ( var y in yRules )
+			{
+				var rule = new TailBoxUtilityRule
+				{
+					ClassName = $"{x.Rule.ClassName}+{y.Rule.ClassName}",
+					Selector = $"{x.Rule.Selector}{y.Rule.Selector}"
+				};
+				rule.Declarations.Add( new TailBoxDeclaration( "gap", $"{y.Value} {x.Value}" ) );
+				rule.Declarations.Add( new TailBoxDeclaration( "row-gap", y.Value ) );
+				rule.Declarations.Add( new TailBoxDeclaration( "column-gap", x.Value ) );
+				rules.Add( rule );
+			}
+		}
+	}
+
+	private static string GetDeclarationValue( TailBoxUtilityRule rule, string property )
+	{
+		return rule.Declarations.FirstOrDefault( declaration => declaration.Property == property ).Value;
+	}
+
+	private static void AddBorderSidePairRules( List<TailBoxUtilityRule> rules, TailBoxTheme theme )
+	{
+		foreach ( var side in new[] { "t", "r", "b", "l" } )
+		{
+			var property = side switch
+			{
+				"t" => "border-top",
+				"r" => "border-right",
+				"b" => "border-bottom",
+				"l" => "border-left",
+				_ => ""
+			};
+
+			var prefix = "border-" + side;
+			var sideRules = rules
+				.Where( rule => rule.ClassName == prefix || rule.ClassName.StartsWith( prefix + "-", StringComparison.Ordinal ) )
+				.Select( rule => new
+				{
+					Rule = rule,
+					Value = GetDeclarationValue( rule, property ),
+					Kind = GetBorderSideRuleKind( rule.ClassName, prefix, theme )
+				} )
+				.Where( item => !string.IsNullOrWhiteSpace( item.Value ) )
+				.ToArray();
+
+			var widthRules = sideRules.Where( item => item.Kind == BorderSideRuleKind.Width ).ToArray();
+			var colorRules = sideRules.Where( item => item.Kind == BorderSideRuleKind.Color ).ToArray();
+
+			foreach ( var width in widthRules )
+			{
+				foreach ( var color in colorRules )
+				{
+					var borderWidth = GetBorderShorthandWidth( width.Value );
+					var borderColor = GetBorderShorthandColor( color.Value );
+					if ( string.IsNullOrWhiteSpace( borderWidth ) || string.IsNullOrWhiteSpace( borderColor ) )
+						continue;
+
+					var rule = new TailBoxUtilityRule
+					{
+						ClassName = $"{width.Rule.ClassName}+{color.Rule.ClassName}",
+						Selector = $"{width.Rule.Selector}{color.Rule.Selector}"
+					};
+					rule.Declarations.Add( new TailBoxDeclaration( property, $"{borderWidth} solid {borderColor}" ) );
+					rules.Add( rule );
+				}
+			}
+		}
+	}
+
+	private enum BorderSideRuleKind
+	{
+		Unknown,
+		Width,
+		Color
+	}
+
+	private static BorderSideRuleKind GetBorderSideRuleKind( string className, string prefix, TailBoxTheme theme )
+	{
+		if ( className == prefix )
+			return BorderSideRuleKind.Width;
+
+		var key = className[(prefix.Length + 1)..];
+		if ( IsArbitraryValue( key ) )
+		{
+			var arbitrary = TailBoxText.DecodeArbitraryValue( key[1..^1] );
+			return LooksLikeColorValue( arbitrary ) ? BorderSideRuleKind.Color : BorderSideRuleKind.Width;
+		}
+
+		if ( theme.BorderWidths.ContainsKey( key ) || double.TryParse( key, out _ ) )
+			return BorderSideRuleKind.Width;
+
+		return BorderSideRuleKind.Color;
+	}
+
+	private static bool IsArbitraryValue( string key )
+	{
+		return key.StartsWith( "[", StringComparison.Ordinal ) && key.EndsWith( "]", StringComparison.Ordinal );
+	}
+
+	private static bool LooksLikeColorValue( string value )
+	{
+		var lower = value.Trim().ToLowerInvariant();
+		return lower.StartsWith( "#", StringComparison.Ordinal )
+			|| lower.StartsWith( "rgb(", StringComparison.Ordinal )
+			|| lower.StartsWith( "rgba(", StringComparison.Ordinal )
+			|| lower.StartsWith( "hsl(", StringComparison.Ordinal )
+			|| lower.StartsWith( "hsla(", StringComparison.Ordinal );
+	}
+
+	private static string GetBorderShorthandWidth( string value )
+	{
+		var marker = " solid ";
+		var index = value.IndexOf( marker, StringComparison.Ordinal );
+		return index < 0 ? "" : value[..index];
+	}
+
+	private static string GetBorderShorthandColor( string value )
+	{
+		var marker = " solid ";
+		var index = value.IndexOf( marker, StringComparison.Ordinal );
+		return index < 0 ? "" : value[(index + marker.Length)..];
 	}
 
 	private static TailBoxGenerationResult BuildResult(

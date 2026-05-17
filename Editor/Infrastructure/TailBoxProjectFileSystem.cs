@@ -14,7 +14,7 @@ internal static class TailBoxProjectFileSystem
 
 	public static string GetConfigPath( string projectRoot )
 	{
-		return Path.GetFullPath( TailBoxConfig.GetConfigPath( projectRoot ) );
+		return Path.GetFullPath( GetActiveConfigPath( projectRoot ) );
 	}
 
 	public static bool ConfigExists( string projectRoot )
@@ -41,6 +41,19 @@ internal static class TailBoxProjectFileSystem
 		Directory.CreateDirectory( Path.GetDirectoryName( path )! );
 		File.WriteAllText( path, config.ToJson() );
 		config.ConfigPath = path;
+	}
+
+	private static string GetActiveConfigPath( string projectRoot )
+	{
+		var modernPath = TailBoxConfig.GetConfigPath( projectRoot );
+		if ( File.Exists( modernPath ) )
+			return modernPath;
+
+		var legacyPath = Path.Combine( projectRoot, TailBoxConfig.LegacyFileName );
+		if ( File.Exists( legacyPath ) )
+			return legacyPath;
+
+		return modernPath;
 	}
 
 	public static IReadOnlyCollection<string> FindContentFiles( string projectRoot, TailBoxConfig config, string outputPath )

@@ -7,8 +7,15 @@ namespace Sandbox.TailBox;
 
 public static class TailBoxClassExtractor
 {
+	private static readonly HashSet<string> StrictLiteralExactUtilities = new( StringComparer.Ordinal )
+	{
+		"absolute", "relative", "static", "flex", "hidden", "border", "rounded", "underline",
+		"overline", "truncate", "uppercase", "lowercase", "capitalize", "italic", "shadow",
+		"blur", "grayscale", "invert", "sepia"
+	};
+
 	private static readonly Regex SafelistRegex = new(
-		@"tailbox\s+safelist\s*:\s*(?<value>[^\r\n*<]+)",
+		@"(?:tailw&|tailwand|tailbox)\s+safelist\s*:\s*(?<value>[^\r\n*<]+)",
 		RegexOptions.IgnoreCase | RegexOptions.Compiled );
 
 	private static readonly Regex ClassAttributeRegex = new(
@@ -21,12 +28,12 @@ public static class TailBoxClassExtractor
 
 	public static IReadOnlyCollection<string> ExtractClassesFromFiles( IEnumerable<string> files )
 	{
-		throw new NotSupportedException( "TailBox file scanning is editor-only in s&box. Use ExtractClassesFromText or TailBoxGenerator.GenerateFromSources in runtime code." );
+		throw new NotSupportedException( "tailw& file scanning is editor-only in s&box. Use ExtractClassesFromText or TailBoxGenerator.GenerateFromSources in runtime code." );
 	}
 
 	internal static IReadOnlyCollection<TailBoxClassOccurrence> ExtractClassOccurrencesFromFiles( IEnumerable<string> files )
 	{
-		throw new NotSupportedException( "TailBox file scanning is editor-only in s&box. Use ExtractClassOccurrencesFromSources instead." );
+		throw new NotSupportedException( "tailw& file scanning is editor-only in s&box. Use ExtractClassOccurrencesFromSources instead." );
 	}
 
 	internal static IReadOnlyCollection<TailBoxClassOccurrence> ExtractClassOccurrencesFromSources( IEnumerable<TailBoxSourceText> sources )
@@ -68,12 +75,12 @@ public static class TailBoxClassExtractor
 		// while unsupported UI copy is filtered later by the utility compiler.
 		foreach ( Match match in StringLiteralRegex.Matches( text ) )
 		{
-			AddTokens( classes, match.Groups["value"].Value );
+			AddTokens( classes, match.Groups["value"].Value, strictLiteral: true );
 		}
 
 		foreach ( var literal in ExtractOverlappingStringLiterals( text ) )
 		{
-			AddTokens( classes, literal );
+			AddTokens( classes, literal, strictLiteral: true );
 		}
 
 		return classes;
@@ -112,7 +119,7 @@ public static class TailBoxClassExtractor
 		}
 	}
 
-	private static void AddTokens( ISet<string> classes, string value )
+	private static void AddTokens( ISet<string> classes, string value, bool strictLiteral = false )
 	{
 		if ( string.IsNullOrWhiteSpace( value ) )
 			return;
@@ -121,7 +128,7 @@ public static class TailBoxClassExtractor
 		foreach ( var token in tokens )
 		{
 			var cleaned = CleanToken( token );
-			if ( IsCandidateClass( cleaned ) )
+			if ( IsCandidateClass( cleaned, strictLiteral ) )
 			{
 				classes.Add( cleaned );
 			}
@@ -132,10 +139,10 @@ public static class TailBoxClassExtractor
 	{
 		return token
 			.Trim()
-			.Trim( '"', '\'', '`', ',', ';', '<', '>', '(', ')', '{', '}' );
+			.Trim( '"', '\'', '`', ',', ';', '.', '<', '>', '(', ')', '{', '}' );
 	}
 
-	private static bool IsCandidateClass( string token )
+	private static bool IsCandidateClass( string token, bool strictLiteral )
 	{
 		if ( string.IsNullOrWhiteSpace( token ) )
 			return false;
@@ -154,6 +161,13 @@ public static class TailBoxClassExtractor
 
 		if ( !token.Any( c => char.IsLetterOrDigit( c ) || c == '[' ) )
 			return false;
+
+		if ( strictLiteral
+			&& !StrictLiteralExactUtilities.Contains( token )
+			&& !token.Any( c => c is '-' or ':' or '[' or '/' or '!' ) )
+		{
+			return false;
+		}
 
 		return true;
 	}

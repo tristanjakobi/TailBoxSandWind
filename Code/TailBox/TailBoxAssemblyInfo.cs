@@ -1,3 +1,3 @@
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo( "tailboxsandwind.unittest" )]
+[assembly: InternalsVisibleTo( "tailwand.unittest" )]

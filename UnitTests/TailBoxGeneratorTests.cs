@@ -40,10 +40,10 @@ public sealed class TailBoxGeneratorTests
 
 			var loaded = TailBoxEditorProject.LoadConfig( root );
 
-			Assert.AreEqual( "Code/tailbox.generated.scss", loaded.OutputPath );
+			Assert.AreEqual( "Code/tailwand.generated.scss", loaded.OutputPath );
 			Assert.AreEqual( "#d7b46a", loaded.Colors["accent"] );
 			Assert.AreEqual( "#123456", loaded.Colors["brand"] );
-			Assert.AreEqual( "768px", loaded.Screens["md"] );
+			Assert.IsFalse( loaded.Screens.ContainsKey( "md" ) );
 			Assert.AreEqual( "0.15s", loaded.Durations["150"] );
 			Assert.AreEqual( "1", loaded.Opacity["100"] );
 			Assert.IsTrue( loaded.Safelist.Contains( "text-brand" ) );
@@ -61,7 +61,7 @@ public sealed class TailBoxGeneratorTests
 		try
 		{
 			File.WriteAllText( Path.Combine( root, "Code", "Screen.razor" ), """
-				<div class="flex w-full w-1/2 p-4 px-[14px] bg-[#0d1418] text-accent hover:bg-panel intro:opacity-0"></div>
+				<div class="flex w-full w-1/2 p-4 px-[14px] bg-[#0d1418] text-accent z-10"></div>
 				""" );
 
 			var result = TailBoxEditorProject.Generate( root, TailBoxConfig.CreateDefault() );
@@ -80,12 +80,11 @@ public sealed class TailBoxGeneratorTests
 			StringAssert.Contains( scss, "background-color: #0d1418;" );
 			StringAssert.Contains( scss, ".text-accent {" );
 			StringAssert.Contains( scss, "color: #d7b46a;" );
-			StringAssert.Contains( scss, RuleStart( "hover:bg-panel" ) );
-			StringAssert.Contains( scss, RuleStart( "intro:opacity-0" ) );
-			StringAssert.Contains( scss, "opacity: 0;" );
+			StringAssert.Contains( scss, RuleStart( "z-10" ) );
+			StringAssert.Contains( scss, "z-index: 10;" );
 
-			Assert.AreEqual( 9, result.GeneratedClassCount );
-			Assert.IsTrue( File.Exists( Path.Combine( root, "Code", "tailbox.generated.scss" ) ) );
+			Assert.AreEqual( 8, result.GeneratedClassCount );
+			Assert.IsTrue( File.Exists( Path.Combine( root, "Code", "tailwand.generated.scss" ) ) );
 		}
 		finally
 		{
@@ -102,21 +101,22 @@ public sealed class TailBoxGeneratorTests
 			var config = TailBoxConfig.CreateDefault();
 			config.Safelist.AddRange( new[]
 			{
-				"hover:bg-accent",
 				"w-1/2",
 				"bg-[#0d1418]",
 				"z-[100%]",
-				"opacity-[0.5]"
+				"rounded-[10px]",
+				"-mt-2"
 			} );
 
 			var result = TailBoxEditorProject.Generate( root, config, writeFile: false );
 			var scss = result.GeneratedScss;
 
-			StringAssert.Contains( scss, RuleSelector( "hover:bg-accent" ) + ":hover" );
 			StringAssert.Contains( scss, RuleSelector( "w-1/2" ) );
 			StringAssert.Contains( scss, RuleSelector( "bg-[#0d1418]" ) );
 			StringAssert.Contains( scss, RuleSelector( "z-[100%]" ) );
-			StringAssert.Contains( scss, RuleSelector( "opacity-[0.5]" ) );
+			StringAssert.Contains( scss, RuleSelector( "rounded-[10px]" ) );
+			StringAssert.Contains( scss, RuleSelector( "-mt-2" ) );
+			StringAssert.Contains( scss, "margin-top: -8px;" );
 		}
 		finally
 		{
@@ -132,14 +132,15 @@ public sealed class TailBoxGeneratorTests
 		{
 			var razor = Path.Combine( root, "Code", "Screen.razor" );
 			File.WriteAllText( razor, """
-				<div class="grid md:flex first:flex rotate-45 [--brand:#fff]"></div>
+				<div class="grid unknown:flex hover:flex first:flex rotate-45 [--brand:#fff]"></div>
 				""" );
 
 			var result = TailBoxEditorProject.Generate( root, TailBoxConfig.CreateDefault(), writeFile: false );
 
 			Assert.AreEqual( 0, result.GeneratedClassCount );
 			AssertSkip( result, "grid", TailBoxSkipReason.UnsupportedValue, razor );
-			AssertSkip( result, "md:flex", TailBoxSkipReason.UnsupportedMediaVariant, razor );
+			AssertSkip( result, "unknown:flex", TailBoxSkipReason.UnsupportedVariant, razor );
+			AssertSkip( result, "hover:flex", TailBoxSkipReason.UnsupportedSelectorVariant, razor );
 			AssertSkip( result, "first:flex", TailBoxSkipReason.UnsupportedSelectorVariant, razor );
 			AssertSkip( result, "rotate-45", TailBoxSkipReason.UnsupportedUtility, razor );
 			AssertSkip( result, "[--brand:#fff]", TailBoxSkipReason.UnsupportedArbitraryProperty, razor );
@@ -174,7 +175,6 @@ public sealed class TailBoxGeneratorTests
 			Assert.AreEqual( 0, first.SkippedClassCount );
 			Assert.AreEqual( first.GeneratedScss, second.GeneratedScss );
 			CollectionAssert.AreEqual( first.GeneratedClasses.ToArray(), second.GeneratedClasses.ToArray() );
-			StringAssert.Contains( first.GeneratedScss, RuleSelector( "hover:bg-site" ) + ":hover" );
 			StringAssert.Contains( first.GeneratedScss, RuleStart( "w-1/4" ) );
 			StringAssert.Contains( first.GeneratedScss, "color: #d7b46a;" );
 		}
@@ -197,7 +197,7 @@ public sealed class TailBoxGeneratorTests
 				styleSheet,
 				new object[]
 				{
-					RuleStart( "hover:bg-accent" ) + " background-color: #d7b46a; }\n" + RuleStart( "w-1/2" ) + " width: 50%; }",
+					RuleStart( "bg-accent" ) + " background-color: #d7b46a; }\n" + RuleStart( "w-1/2" ) + " width: 50%; }",
 					false
 				} );
 		}
@@ -213,7 +213,7 @@ public sealed class TailBoxGeneratorTests
 		var root = CreateTempProject();
 		try
 		{
-			var output = Path.Combine( root, "Code", "tailbox.generated.scss" );
+			var output = Path.Combine( root, "Code", "tailwand.generated.scss" );
 			var razor = Path.Combine( root, "Code", "Screen.razor" );
 			File.WriteAllText( razor, "<div class=\"flex\"></div>" );
 

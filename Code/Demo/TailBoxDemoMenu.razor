@@ -3,41 +3,43 @@
 @using Sandbox.UI
 @inherits PanelComponent
 @namespace Sandbox.TailBox
+@attribute [Sandbox.UI.StyleSheet( "TailBoxDemoMenu.cs.scss" )]
 
-@* tailbox safelist: absolute relative inset-0 top-3 right-3 left-3 bottom-3 z-10 z-20 flex flex-row flex-col flex-wrap flex-nowrap flex-1 flex-auto flex-none grow shrink-0 items-start items-center items-end items-stretch self-start self-center justify-start justify-center justify-between justify-around justify-evenly content-center order-1 order-2 basis-1/2 basis-1/3 basis-2/3 basis-1/4 w-full w-screen w-1/2 w-1/3 w-2/3 w-1/4 w-[284px] w-[1180px] h-full h-screen h-[54px] h-[78px] h-[112px] h-[160px] h-[220px] min-w-0 min-h-0 max-w-full max-w-[1180px] max-h-full size-3 size-4 size-6 size-8 size-10 aspect-square aspect-video p-0 p-1 p-2 p-3 p-4 p-5 p-6 p-8 px-2 px-3 px-4 px-5 px-[14px] py-1 py-2 py-3 py-4 m-0 mt-1 mt-2 -mt-2 mb-2 ml-auto gap-1 gap-2 gap-3 gap-4 gap-5 gap-6 gap-x-3 gap-y-2 bg-bg bg-bg-soft bg-panel bg-panel-strong bg-border bg-accent bg-accent-dark bg-danger bg-good bg-white/5 bg-white/10 bg-black/20 bg-[#0d1418] bg-[#101820] bg-[color:#1b2730] text-text text-muted text-accent text-accent-dark text-danger text-good text-white text-white/70 text-[#0d1418] border border-0 border-2 border-t border-b border-l border-r border-border border-accent border-white/10 rounded rounded-sm rounded-md rounded-lg rounded-xl rounded-full rounded-[18px] rounded-t-lg rounded-b-md text-left text-center text-right text-xs text-sm text-base text-lg text-xl text-2xl text-3xl text-[34px] leading-none leading-tight leading-snug leading-normal leading-relaxed leading-[42px] font-sans font-mono font-normal font-medium font-semibold font-bold font-black uppercase lowercase capitalize normal-case italic not-italic tracking-normal tracking-wide tracking-wider tracking-[0.18em] underline line-through no-underline decoration-accent decoration-2 underline-offset-4 truncate whitespace-nowrap whitespace-pre-wrap break-words overflow-hidden overflow-scroll overflow-y-scroll overflow-x-hidden opacity-0 opacity-50 opacity-70 opacity-90 opacity-95 opacity-100 pointer-events-all pointer-events-auto cursor-pointer cursor-text cursor-not-allowed select-none select-text z-0 z-10 z-20 z-50 transition transition-all transition-colors transition-opacity transition-shadow transition-transform duration-75 duration-150 duration-300 duration-500 delay-75 ease-out shadow shadow-sm shadow-md shadow-lg shadow-none text-shadow-sm text-shadow-lg blur-sm blur-md brightness-50 brightness-125 contrast-125 grayscale invert hue-rotate-15 saturate-150 sepia backdrop-blur-sm backdrop-blur-lg mix-blend-normal animate-none transform-[translateX(4px)_scale(1.04)] transform-[rotate(2deg)_scale(0.98)] origin-top-left origin-center hover:bg-accent hover:bg-panel-strong hover:text-[#0d1418] hover:text-white hover:border-accent hover:shadow-lg hover:opacity-100 hover:transform-[translateX(4px)_scale(1.04)] active:bg-accent-dark active:opacity-70 focus:border-accent focus:bg-panel-strong intro:opacity-0 outro:opacity-0 !p-4 !border-accent [background-color:#101820] [text-shadow:0_2px_8px_rgba(0,0,0,0.45)] *@
+@* tailw& safelist: absolute relative inset-0 top-3 right-3 left-3 bottom-3 z-10 z-20 flex flex-row flex-col flex-wrap flex-nowrap flex-1 flex-auto flex-none grow shrink-0 items-start items-center items-end items-stretch self-start self-center justify-start justify-between justify-around justify-evenly content-center order-1 order-2 basis-1/2 basis-1/3 basis-2/3 basis-1/4 w-0 w-full w-screen w-1/2 w-1/3 w-2/3 w-1/4 w-[112px] w-[220px] w-[280px] w-[284px] w-[320px] w-[1180px] h-full h-screen h-[54px] h-[78px] h-[112px] h-[124px] h-[150px] h-[160px] h-[176px] h-[220px] max-w-full max-w-[1180px] max-h-full min-w-0 min-w-[220px] min-h-[24px] aspect-square aspect-video aspect-[4/3] size-3 size-4 size-6 size-8 size-10 p-0 p-1 p-2 p-3 p-4 p-5 p-6 p-8 px-2 px-3 px-4 px-5 px-[14px] py-1 py-2 py-3 py-4 m-0 mt-1 mt-2 -mt-2 mb-2 ml-auto gap-1 gap-2 gap-3 gap-4 gap-5 gap-6 gap-x-3 gap-y-2 bg-bg bg-bg-soft bg-panel bg-panel-strong bg-border bg-accent bg-accent-dark bg-danger bg-good bg-white/5 bg-white/10 bg-black/20 bg-[#0d1418] bg-[#101820] bg-[color:#1b2730] bg-cover bg-contain bg-center bg-no-repeat bg-repeat-x bg-[url(/Libraries/TailBoxSandWind/Code/TailBox/untitled.png)] text-text text-muted text-accent text-accent-dark text-danger text-good text-white text-[#0d1418] text-accent/50 text-white/70 border border-0 border-2 border-t border-b border-l border-r border-t-[8px] border-b-[8px] border-l-[8px] border-r-[8px] border-t-accent border-b-accent border-l-accent border-r-accent border-border border-accent border-white/10 rounded rounded-none rounded-sm rounded-md rounded-lg rounded-xl rounded-full rounded-[18px] text-left text-center text-right text-xs text-sm text-base text-lg text-xl text-2xl text-3xl text-[34px] leading-none leading-tight leading-snug leading-normal leading-relaxed leading-[42px] font-sans font-mono font-normal font-medium font-semibold font-bold font-black uppercase lowercase capitalize normal-case italic not-italic tracking-normal tracking-wide tracking-wider tracking-[0.18em] underline line-through no-underline decoration-accent decoration-2 underline-offset-4 -underline-offset-2 truncate whitespace-nowrap whitespace-pre whitespace-pre-line break-all overflow-hidden overflow-scroll overflow-y-scroll overflow-x-hidden pointer-events-all pointer-events-auto cursor-none cursor-pointer cursor-progress cursor-wait cursor-crosshair cursor-text cursor-move cursor-not-allowed cursor-[crosshair] z-0 z-10 z-20 z-50 blur-sm blur-md brightness-50 brightness-125 contrast-125 grayscale invert hue-rotate-15 saturate-150 sepia opacity-75 opacity-[0.35] shadow shadow-lg shadow-none shadow-[0_0_12px_black] text-shadow text-shadow-lg text-shadow-[0_0_12px_black] backdrop-blur-lg backdrop-brightness-125 backdrop-contrast-125 backdrop-grayscale backdrop-hue-rotate-15 backdrop-invert backdrop-saturate-150 backdrop-sepia mix-blend-normal mix-blend-multiply transform-none transform-[translateX(4px)_scale(1.1)] origin-top-left origin-bottom-right transition transition-all transition-colors transition-opacity transition-shadow transition-transform duration-150 delay-75 ease-in-out animate-none animate-[fade_1s_ease] hover:bg-accent active:bg-accent focus:border-accent intro:opacity-0 outro:opacity-0 [background-color:#101820] [box-shadow:0_0_12px_black] [text-shadow:0_0_12px_black] [backdrop-filter:blur(10px)] [mask-scope:default] [mask-scope:filter] [perspective-origin:50%_50%] [perspective-origin-x:50%] [perspective-origin-y:50%] [transform-origin-x:50%] [transform-origin-y:50%] [border-top-left-radius:18px] [border-top-right-radius:18px] [border-bottom-left-radius:18px] [border-bottom-right-radius:18px] [animation-delay:0.1s] [animation-direction:alternate] [animation-duration:1s] [animation-fill-mode:both] [animation-iteration-count:infinite] [animation-name:fade] [animation-play-state:running] [animation-timing-function:ease-out] *@
 
-<root class="absolute inset-0 pointer-events-all bg-[#0d1418] text-text font-sans select-none">
+<root class="absolute inset-0 pointer-events-all bg-[#0d1418] text-text font-sans">
 	<div class="absolute inset-0 flex flex-row overflow-hidden">
-		<aside class="w-[284px] h-full shrink-0 bg-bg border-r border-border p-4 flex flex-col gap-4">
+		<aside class="tb-demo-sidebar h-full shrink-0 bg-bg border-r border-border p-4 flex flex-col gap-4">
 			<div class="flex flex-col gap-2 p-2">
-				<div class="text-xs uppercase tracking-[0.18em] text-muted">TailBox SandWind</div>
+				<img class="tailwand-logo" src="/Libraries/TailBoxSandWind/Code/TailBox/untitled.png" />
+				<div class="text-xs uppercase tracking-[0.18em] text-muted">tailw&amp;</div>
 				<div class="text-2xl leading-tight font-black text-text">Feature Demo</div>
 				<div class="text-sm leading-normal text-muted">Pure C# Tailwind-shaped utilities emitted as s&amp;box-safe SCSS.</div>
 			</div>
 
-			<nav class="flex flex-col gap-2 overflow-y-scroll flex-1 min-h-0">
-				@for ( var i = 0; i < ScreenTitles.Length; i++ )
+			<nav class="flex flex-col gap-2 overflow-y-scroll flex-1">
+				@for ( var i = 0; i < ScreenCount; i++ )
 				{
 					var index = i;
 					<button class="@NavClass( index )" onclick="@(() => SelectScreen( index ))">
-						<div class="text-xs uppercase tracking-wider opacity-70">Screen @(index + 1)</div>
-						<div class="text-base leading-snug font-bold">@ScreenTitles[index]</div>
+						<div class="tb-demo-nav-index shrink-0 text-xs leading-normal uppercase tracking-wider whitespace-normal">Screen @(index + 1)</div>
+						<div class="flex-1 text-sm leading-normal font-bold whitespace-normal">@GetScreenTitle( index )</div>
 					</button>
 				}
 			</nav>
 
 			<div class="p-3 rounded-lg border border-white/10 bg-white/5 text-xs leading-relaxed text-muted">
 				<div class="font-bold text-accent uppercase tracking-wider mb-2">Scene bootstrap</div>
-				<div>Add the TailBox Demo component to any GameObject. It keeps a ScreenPanel, camera, mouse UI, and this menu alive.</div>
+				<div>Add the tailw&amp; Demo component to any GameObject. It keeps a ScreenPanel, camera, mouse UI, and this menu alive.</div>
 			</div>
 		</aside>
 
-		<main class="flex-1 min-w-0 min-h-0 overflow-y-scroll p-6 bg-bg-soft">
-			<div class="max-w-[1180px] w-full min-h-full flex flex-col gap-6">
-				<header class="flex flex-row items-center justify-between gap-4 border-b border-border pb-4">
+		<main class="flex-1 h-full overflow-hidden bg-bg-soft">
+			<div @key="SafeActiveScreen" class="w-full h-full overflow-y-scroll p-6 flex flex-col gap-6">
+				<header class="flex flex-row flex-wrap items-center justify-between gap-4 border-b border-border pb-4">
 					<div class="flex flex-col gap-1">
-						<div class="text-xs uppercase tracking-[0.18em] text-accent">Screen @(SafeActiveScreen + 1) of @ScreenTitles.Length</div>
-						<div class="text-[34px] leading-[42px] font-black text-text text-shadow-sm">@ScreenTitles[SafeActiveScreen]</div>
+						<div class="text-xs uppercase tracking-[0.18em] text-accent">Screen @(SafeActiveScreen + 1) of @ScreenCount</div>
+						<div class="text-[34px] leading-[42px] font-black text-text ">@GetScreenTitle( SafeActiveScreen )</div>
 					</div>
 					<div class="flex flex-row items-center gap-2">
 						<button class="@StepperClass" onclick="@Previous">Previous</button>
@@ -45,291 +47,407 @@
 					</div>
 				</header>
 
-				@if ( SafeActiveScreen == 0 )
+				@if ( SafeActiveScreen > 0 )
 				{
-					<section class="@ScreenClass">
-						<div class="@HeroPanelClass">
-							<div class="flex flex-col gap-3 flex-1">
-								<div class="text-xs uppercase tracking-[0.18em] text-accent">Generator pipeline</div>
-								<div class="text-3xl leading-tight font-black text-text">Razor classes in, ordinary SCSS out.</div>
-								<div class="text-base leading-relaxed text-muted max-w-[720px]">
-									The demo uses the same class syntax the generator scans: variants, arbitrary values, spacing, typography, effects, and stable unsupported reporting.
-								</div>
-							</div>
-							<div class="w-1/3 min-w-0 p-4 rounded-xl bg-[#101820] border border-white/10 shadow-lg">
-								<div class="text-xs uppercase tracking-wider text-muted">Current surface</div>
-								<div class="text-2xl font-black text-accent mt-1">ScreenPanel</div>
-								<div class="text-sm text-muted mt-2">Fullscreen menu, mouse-ready, backed by generated utilities.</div>
-							</div>
-						</div>
-
-						<div class="flex flex-row flex-wrap gap-4">
-							@foreach ( var card in OverviewCards )
-							{
-								<div class="@FeatureCardClass">
-									<div class="text-xs uppercase tracking-wider text-accent">@card.Label</div>
-									<div class="text-xl font-bold text-text">@card.Title</div>
-									<div class="text-sm leading-relaxed text-muted">@card.Body</div>
-								</div>
-							}
-						</div>
-					</section>
-				}
-				else if ( SafeActiveScreen == 1 )
-				{
-					<section class="@ScreenClass">
+					var screen = FeatureScreens[SafeActiveScreen - 1];
+					<section @key="SafeActiveScreen" class="@ScreenClass">
 						<div class="@PanelTitleClass">
-							<div>
-								<div class="text-xs uppercase tracking-wider text-accent">Layout</div>
-								<div class="text-2xl font-black">Flex, basis, order, grow, shrink</div>
+							<div class="flex flex-col gap-1">
+								<div class="text-xs uppercase tracking-wider text-accent">@screen.Eyebrow</div>
+								<div class="text-2xl font-black">@screen.Title</div>
 							</div>
-							<div class="text-sm text-muted">s&amp;box-safe display is intentionally focused on flex and none.</div>
+							<div class="text-sm text-muted">@screen.Note</div>
 						</div>
 
-						<div class="flex flex-row gap-4">
-							<div class="basis-1/3 p-4 rounded-lg bg-panel border border-border flex flex-col gap-3">
-								<div class="font-bold text-accent">Column</div>
-								<div class="flex flex-col gap-2 h-[220px] justify-between">
-									<div class="h-[54px] rounded-md bg-accent text-[#0d1418] flex items-center justify-center font-bold">top</div>
-									<div class="h-[54px] rounded-md bg-white/10 flex items-center justify-center">middle</div>
-									<div class="h-[54px] rounded-md bg-panel-strong flex items-center justify-center">bottom</div>
+						@if ( screen.Title == SizingTitle )
+						{
+							<div class="flex flex-col gap-5">
+								<div class="@BoundsWideClass">
+									<div class="flex flex-col gap-1">
+										<div class="text-xs uppercase tracking-wider text-accent">Width ladder</div>
+										<div class="text-sm leading-relaxed text-muted">All bars share the same parent, so fractions are directly comparable.</div>
+									</div>
+									<div class="w-full p-4 rounded-md bg-[#101820] border border-white/10 flex flex-col items-start gap-3">
+										<div class="w-full h-[54px] rounded bg-accent text-[#0d1418] flex items-center justify-center font-black">w-full</div>
+										<div class="w-2/3 h-[54px] rounded bg-panel-strong text-white flex items-center justify-center font-bold">w-2/3</div>
+										<div class="w-1/2 h-[54px] rounded bg-good text-[#0d1418] flex items-center justify-center font-bold">w-1/2</div>
+										<div class="w-1/4 h-[54px] rounded bg-danger text-white flex items-center justify-center font-bold">w-1/4</div>
+									</div>
 								</div>
-							</div>
-							<div class="basis-2/3 p-4 rounded-lg bg-panel border border-border flex flex-col gap-3">
-								<div class="font-bold text-accent">Wrapped row</div>
-								<div class="flex flex-row flex-wrap content-center gap-3 h-[220px]">
-									<div class="order-2 basis-1/3 h-[78px] rounded-md bg-white/10 flex items-center justify-center">order 2</div>
-									<div class="order-1 basis-1/3 h-[78px] rounded-md bg-accent text-[#0d1418] flex items-center justify-center font-bold">order 1</div>
-									<div class="grow h-[78px] rounded-md bg-good text-[#0d1418] flex items-center justify-center font-bold">grow</div>
-									<div class="flex-none w-1/4 h-[78px] rounded-md bg-danger flex items-center justify-center">flex-none</div>
-									<div class="flex-1 h-[78px] rounded-md bg-panel-strong flex items-center justify-center">flex-1</div>
-								</div>
-							</div>
-						</div>
-					</section>
-				}
-				else if ( SafeActiveScreen == 2 )
-				{
-					<section class="@ScreenClass">
-						<div class="@PanelTitleClass">
-							<div>
-								<div class="text-xs uppercase tracking-wider text-accent">Spacing and sizing</div>
-								<div class="text-2xl font-black">Scale tokens, fractions, arbitrary lengths</div>
-							</div>
-							<div class="text-sm text-muted">Padding, margin, gap, width, height, min/max, size, and aspect-ratio.</div>
-						</div>
 
-						<div class="flex flex-row gap-4 items-stretch">
-							<div class="w-1/2 p-6 rounded-lg border border-border bg-panel flex flex-col gap-4">
-								<div class="p-1 bg-white/5 rounded-md">
-									<div class="p-2 bg-white/10 rounded-md">
-										<div class="p-3 bg-white/10 rounded-md">
-											<div class="p-4 bg-accent text-[#0d1418] rounded-md font-bold text-center">p-4 nested scale</div>
+								<div class="flex flex-row flex-wrap gap-5 items-stretch">
+									<div class="@BoundsCardClass">
+										<div class="text-xs uppercase tracking-wider text-accent">Fixed widths</div>
+										<div class="text-sm leading-relaxed text-muted">Arbitrary and token widths sit beside each other instead of filling their cards.</div>
+										<div class="p-4 rounded-md bg-[#101820] border border-white/10 flex flex-col gap-3 overflow-hidden">
+											<div class="w-[284px] max-w-full h-[54px] rounded bg-accent text-[#0d1418] flex items-center justify-center font-bold">w-[284px]</div>
+											<div class="w-[112px] h-[54px] rounded bg-white/10 flex items-center justify-center font-bold">w-[112px]</div>
+											<div class="w-screen max-w-full h-[54px] rounded bg-panel-strong text-muted flex items-center justify-center">w-screen capped</div>
+										</div>
+									</div>
+
+									<div class="@BoundsCardClass">
+										<div class="text-xs uppercase tracking-wider text-accent">Height ladder</div>
+										<div class="text-sm leading-relaxed text-muted">Same width, different heights.</div>
+										<div class="p-4 rounded-md bg-[#101820] border border-white/10 flex flex-row gap-3 items-end">
+											<div class="w-1/4 h-[54px] rounded bg-white/10 flex items-center justify-center text-xs font-bold">54</div>
+											<div class="w-1/4 h-[112px] rounded bg-panel-strong flex items-center justify-center text-xs font-bold">112</div>
+											<div class="w-1/4 h-[160px] rounded bg-accent text-[#0d1418] flex items-center justify-center text-xs font-black">160</div>
+										</div>
+									</div>
+
+									<div class="@BoundsCardClass">
+										<div class="text-xs uppercase tracking-wider text-accent">Size tokens</div>
+										<div class="text-sm leading-relaxed text-muted">The size utility sets width and height together.</div>
+										<div class="p-4 rounded-md bg-[#101820] border border-white/10 flex flex-row gap-4 items-end">
+											<div class="size-4 rounded bg-white/10"></div>
+											<div class="size-6 rounded bg-good"></div>
+											<div class="size-8 rounded bg-panel-strong"></div>
+											<div class="size-10 rounded bg-accent"></div>
 										</div>
 									</div>
 								</div>
-								<div class="flex flex-row gap-x-3 gap-y-2 flex-wrap">
-									<div class="size-6 rounded bg-good"></div>
-									<div class="size-8 rounded bg-accent"></div>
-									<div class="size-10 rounded bg-danger"></div>
-									<div class="w-[1180px] max-w-full h-[54px] rounded-md bg-panel-strong flex items-center justify-center text-muted">w-[1180px] capped by max-w-full</div>
+							</div>
+						}
+						else if ( screen.Title == BoundsTitle )
+						{
+							<div class="flex flex-col gap-5">
+								<div class="@BoundsWideClass">
+									<div class="flex flex-col gap-1">
+										<div class="text-xs uppercase tracking-wider text-accent">max-w-[420px]</div>
+										<div class="text-sm leading-relaxed text-muted">The inner bar asks for 1180px, then max-width caps it.</div>
+									</div>
+									<div class="w-full p-3 rounded-md bg-[#101820] border border-white/10 overflow-hidden">
+										<div class="w-[1180px] max-w-[420px] h-[54px] rounded bg-accent flex items-center justify-center text-[#0d1418] font-bold">capped at max width</div>
+									</div>
+								</div>
+
+								<div class="flex flex-row flex-wrap gap-5 items-stretch">
+									<div class="@BoundsCardClass">
+										<div class="text-xs uppercase tracking-wider text-accent">w-0</div>
+										<div class="text-sm leading-relaxed text-muted">The danger probe has width zero; the accent bar is the reference width.</div>
+										<div class="flex flex-row items-center gap-3 p-3 rounded-md bg-[#101820] border border-white/10 overflow-hidden">
+											<div class="w-0 h-[54px] bg-danger border border-danger"></div>
+											<div class="w-[284px] h-[54px] rounded bg-accent flex items-center justify-center text-[#0d1418] font-bold">reference</div>
+										</div>
+									</div>
+
+									<div class="@BoundsCardClass">
+										<div class="text-xs uppercase tracking-wider text-accent">max-h-full</div>
+										<div class="text-sm leading-relaxed text-muted">The inner panel is capped to its parent height.</div>
+										<div class="h-[150px] p-3 rounded-md bg-[#101820] border border-white/10 overflow-hidden">
+											<div class="h-screen max-h-full rounded bg-accent text-[#0d1418] flex items-center justify-center font-bold">height capped</div>
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class="w-1/2 p-6 rounded-lg border border-border bg-panel flex flex-col gap-4">
-								<div class="aspect-video w-full rounded-lg bg-[#101820] border border-white/10 flex items-center justify-center text-accent font-bold">aspect-video</div>
-								<div class="flex flex-row gap-3 items-end">
-									<div class="w-1/4 h-[78px] rounded-md bg-white/10 flex items-center justify-center">1/4</div>
-									<div class="w-1/3 h-[112px] rounded-md bg-white/10 flex items-center justify-center">1/3</div>
-									<div class="w-1/2 h-[160px] rounded-md bg-accent text-[#0d1418] flex items-center justify-center font-bold">1/2</div>
+						}
+						else if ( screen.Title == GapTitle )
+						{
+							<div class="flex flex-col gap-5">
+								<div class="@BoundsWideClass">
+									<div class="flex flex-col gap-1">
+										<div class="text-xs uppercase tracking-wider text-accent">gap-4</div>
+										<div class="text-sm leading-relaxed text-muted">Uniform shorthand gap on both axes. The constrained row wraps into a visible two-by-two block.</div>
+									</div>
+									<div class="w-[112px] flex flex-row flex-wrap gap-4 p-3 rounded-md bg-[#101820] border border-white/10">
+										<div class="size-10 rounded bg-accent"></div>
+										<div class="size-10 rounded bg-accent"></div>
+										<div class="size-10 rounded bg-accent"></div>
+										<div class="size-10 rounded bg-accent"></div>
+									</div>
+								</div>
+
+								<div class="flex flex-row flex-wrap gap-5 items-stretch">
+									<div class="@BoundsCardClass">
+										<div class="text-xs uppercase tracking-wider text-accent">gap-x-3</div>
+										<div class="text-sm leading-relaxed text-muted">Horizontal spacing only. The boxes stay on one row.</div>
+										<div class="flex flex-row gap-x-3 p-3 rounded-md bg-[#101820] border border-white/10">
+											<div class="size-10 rounded bg-accent"></div>
+											<div class="size-10 rounded bg-accent"></div>
+											<div class="size-10 rounded bg-accent"></div>
+										</div>
+									</div>
+
+									<div class="@BoundsCardClass">
+										<div class="text-xs uppercase tracking-wider text-accent">gap-y-2</div>
+										<div class="text-sm leading-relaxed text-muted">Vertical spacing only. The boxes are in a column.</div>
+										<div class="flex flex-col gap-y-2 p-3 rounded-md bg-[#101820] border border-white/10">
+											<div class="size-10 rounded bg-accent"></div>
+											<div class="size-10 rounded bg-accent"></div>
+											<div class="size-10 rounded bg-accent"></div>
+										</div>
+									</div>
+
+									<div class="@BoundsCardClass">
+										<div class="text-xs uppercase tracking-wider text-accent">gap-x-3 + gap-y-2</div>
+										<div class="text-sm leading-relaxed text-muted">Combined axes use a generated compound rule. The constrained block wraps into rows so both axes are visible.</div>
+										<div class="w-[112px] flex flex-row flex-wrap gap-x-3 gap-y-2 p-3 rounded-md bg-[#101820] border border-white/10">
+											<div class="size-10 rounded bg-accent"></div>
+											<div class="size-10 rounded bg-accent"></div>
+											<div class="size-10 rounded bg-accent"></div>
+											<div class="size-10 rounded bg-accent"></div>
+											<div class="size-10 rounded bg-accent"></div>
+											<div class="size-10 rounded bg-accent"></div>
+										</div>
+									</div>
 								</div>
 							</div>
-						</div>
-					</section>
-				}
-				else if ( SafeActiveScreen == 3 )
-				{
-					<section class="@ScreenClass">
-						<div class="@PanelTitleClass">
-							<div>
-								<div class="text-xs uppercase tracking-wider text-accent">Color</div>
-								<div class="text-2xl font-black">Theme tokens, opacity modifiers, arbitrary colors</div>
+						}
+						else if ( screen.Title == TextColorsTitle )
+						{
+							<div class="flex flex-col gap-5">
+								<div class="@BoundsWideClass">
+									<div class="flex flex-col gap-1">
+										<div class="text-xs uppercase tracking-wider text-accent">Text color tokens</div>
+										<div class="text-sm leading-relaxed text-muted">Only text color utilities are applied here. Backgrounds come from the neutral demo surface.</div>
+									</div>
+									<div class="flex flex-row flex-wrap gap-4">
+										<div class="tb-demo-tile basis-1/3 flex-1 w-[220px] h-[124px] p-5 rounded-lg border border-white/10 flex flex-col gap-2 justify-center">
+											<div class="text-xs uppercase tracking-wider text-muted">text-accent</div>
+											<div class="text-2xl font-black text-accent">Accent text</div>
+										</div>
+										<div class="tb-demo-tile basis-1/3 flex-1 w-[220px] h-[124px] p-5 rounded-lg border border-white/10 flex flex-col gap-2 justify-center">
+											<div class="text-xs uppercase tracking-wider text-muted">text-muted</div>
+											<div class="text-2xl font-black text-muted">Muted text</div>
+										</div>
+										<div class="tb-demo-tile basis-1/3 flex-1 w-[220px] h-[124px] p-5 rounded-lg border border-white/10 flex flex-col gap-2 justify-center">
+											<div class="text-xs uppercase tracking-wider text-muted">text-danger</div>
+											<div class="text-2xl font-black text-danger">Danger text</div>
+										</div>
+										<div class="tb-demo-tile basis-1/3 flex-1 w-[220px] h-[124px] p-5 rounded-lg border border-white/10 flex flex-col gap-2 justify-center">
+											<div class="text-xs uppercase tracking-wider text-muted">text-good</div>
+											<div class="text-2xl font-black text-good">Good text</div>
+										</div>
+										<div class="tb-demo-tile basis-1/3 flex-1 w-[220px] h-[124px] p-5 rounded-lg border border-white/10 flex flex-col gap-2 justify-center">
+											<div class="text-xs uppercase tracking-wider text-muted">text-white</div>
+											<div class="text-2xl font-black text-white">White text</div>
+										</div>
+										<div class="tb-demo-light-surface basis-1/3 flex-1 w-[220px] h-[124px] p-5 rounded-lg border border-white/10 flex flex-col gap-2 justify-center">
+											<div class="tb-demo-dark-label text-xs uppercase tracking-wider">text-[#0d1418]</div>
+											<div class="text-2xl font-black text-[#0d1418]">Arbitrary dark text</div>
+										</div>
+									</div>
+								</div>
 							</div>
-							<div class="text-sm text-muted">The generator resolves configured colors plus Tailwind-style slash alpha.</div>
-						</div>
+						}
+						else if ( screen.Title == BackgroundColorsTitle )
+						{
+							<div class="flex flex-col gap-5">
+								<div class="@BoundsWideClass">
+									<div class="flex flex-col gap-1">
+										<div class="text-xs uppercase tracking-wider text-accent">Background color utilities</div>
+										<div class="text-sm leading-relaxed text-muted">Color utilities are isolated here; image, repeat, position, and size utilities have their own background image page.</div>
+									</div>
+									<div class="flex flex-row flex-wrap gap-4">
+										<div class="basis-1/3 flex-1 w-[220px] h-[124px] p-5 rounded-lg bg-[#101820] border border-white/10 flex flex-col gap-2 justify-center">
+											<div class="tb-demo-label-accent text-xs uppercase tracking-wider">bg-[#101820]</div>
+											<div class="tb-demo-label-light text-xl font-black">Arbitrary color</div>
+										</div>
+										<div class="basis-1/3 flex-1 w-[220px] h-[124px] p-5 rounded-lg bg-[color:#1b2730] border border-white/10 flex flex-col gap-2 justify-center">
+											<div class="tb-demo-label-accent text-xs uppercase tracking-wider">bg-[color:#1b2730]</div>
+											<div class="tb-demo-label-light text-xl font-black">Typed arbitrary color</div>
+										</div>
+										<div class="basis-1/3 flex-1 w-[220px] h-[124px] p-5 rounded-lg bg-accent border border-white/10 flex flex-col gap-2 justify-center">
+											<div class="tb-demo-dark-label text-xs uppercase tracking-wider">bg-accent</div>
+											<div class="tb-demo-dark-label text-xl font-black">Theme color</div>
+										</div>
+										<div class="basis-1/3 flex-1 w-[220px] h-[124px] p-5 rounded-lg bg-good border border-white/10 flex flex-col gap-2 justify-center">
+											<div class="tb-demo-dark-label text-xs uppercase tracking-wider">bg-good</div>
+											<div class="tb-demo-dark-label text-xl font-black">Success color</div>
+										</div>
+										<div class="basis-1/3 flex-1 w-[220px] h-[124px] p-5 rounded-lg bg-danger border border-white/10 flex flex-col gap-2 justify-center">
+											<div class="tb-demo-label-light text-xs uppercase tracking-wider">bg-danger</div>
+											<div class="tb-demo-label-light text-xl font-black">Danger color</div>
+										</div>
+										<div class="basis-1/3 flex-1 w-[220px] h-[124px] p-5 rounded-lg bg-accent/50 border border-white/10 flex flex-col gap-2 justify-center">
+											<div class="tb-demo-label-light text-xs uppercase tracking-wider">bg-accent/50</div>
+											<div class="tb-demo-label-light text-xl font-black">Background opacity</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						}
+						else if ( screen.Title == BorderWidthsTitle )
+						{
+							<div class="flex flex-row flex-wrap gap-5 items-stretch">
+								<div class="@BorderDemoCardClass">
+									<div class="text-xs uppercase tracking-wider text-accent">border</div>
+									<div class="h-[112px] rounded-lg border border-accent bg-[#101820] flex items-center justify-center text-white">full border</div>
+								</div>
+								<div class="@BorderDemoCardClass">
+									<div class="text-xs uppercase tracking-wider text-accent">border-2</div>
+									<div class="h-[112px] rounded-lg border-2 border-accent bg-[#101820] flex items-center justify-center text-white">two pixel border</div>
+								</div>
+								<div class="@BorderDemoCardClass">
+									<div class="text-xs uppercase tracking-wider text-accent">border-t-[8px]</div>
+									<div class="h-[112px] rounded-lg border-t-[8px] border-t-accent bg-[#101820] flex items-center justify-center text-white">top edge only</div>
+								</div>
+								<div class="@BorderDemoCardClass">
+									<div class="text-xs uppercase tracking-wider text-accent">border-b-[8px]</div>
+									<div class="h-[112px] rounded-lg border-b-[8px] border-b-accent bg-[#101820] flex items-center justify-center text-white">bottom edge only</div>
+								</div>
+								<div class="@BorderDemoCardClass">
+									<div class="text-xs uppercase tracking-wider text-accent">border-l-[8px]</div>
+									<div class="h-[112px] rounded-lg border-l-[8px] border-l-accent bg-[#101820] flex items-center justify-center text-white">left edge only</div>
+								</div>
+								<div class="@BorderDemoCardClass">
+									<div class="text-xs uppercase tracking-wider text-accent">border-r-[8px]</div>
+									<div class="h-[112px] rounded-lg border-r-[8px] border-r-accent bg-[#101820] flex items-center justify-center text-white">right edge only</div>
+								</div>
+							</div>
+						}
+						else if ( screen.Title == RadiusTitle )
+						{
+							<div class="flex flex-row flex-wrap gap-5 items-stretch">
+								<div class="@RadiusDemoCardClass">
+									<div class="text-xs uppercase tracking-wider text-accent">rounded-none</div>
+									<div class="tb-radius-sample rounded-none bg-accent text-[#0d1418] flex items-center justify-center font-black">none</div>
+									<div class="text-sm text-muted">Square baseline.</div>
+								</div>
+								<div class="@RadiusDemoCardClass">
+									<div class="text-xs uppercase tracking-wider text-accent">rounded-sm</div>
+									<div class="tb-radius-sample rounded-sm bg-accent text-[#0d1418] flex items-center justify-center font-black">sm</div>
+									<div class="text-sm text-muted">Small all-corner radius.</div>
+								</div>
+								<div class="@RadiusDemoCardClass">
+									<div class="text-xs uppercase tracking-wider text-accent">rounded-md</div>
+									<div class="tb-radius-sample rounded-md bg-accent text-[#0d1418] flex items-center justify-center font-black">md</div>
+									<div class="text-sm text-muted">Medium all-corner radius.</div>
+								</div>
+								<div class="@RadiusDemoCardClass">
+									<div class="text-xs uppercase tracking-wider text-accent">rounded-lg</div>
+									<div class="tb-radius-sample rounded-lg bg-accent text-[#0d1418] flex items-center justify-center font-black">lg</div>
+									<div class="text-sm text-muted">Large all-corner radius.</div>
+								</div>
+								<div class="@RadiusDemoCardClass">
+									<div class="text-xs uppercase tracking-wider text-accent">rounded-xl</div>
+									<div class="tb-radius-sample rounded-xl bg-accent text-[#0d1418] flex items-center justify-center font-black">xl</div>
+									<div class="text-sm text-muted">Extra large all-corner radius.</div>
+								</div>
+								<div class="@RadiusDemoCardClass">
+									<div class="text-xs uppercase tracking-wider text-accent">rounded-[18px]</div>
+									<div class="tb-radius-sample rounded-[18px] bg-accent text-[#0d1418] flex items-center justify-center font-black">18px</div>
+									<div class="text-sm text-muted">Arbitrary all-corner radius.</div>
+								</div>
+								<div class="@RadiusDemoCardClass">
+									<div class="text-xs uppercase tracking-wider text-accent">rounded-full</div>
+									<div class="tb-radius-sample rounded-full bg-accent text-[#0d1418] flex items-center justify-center font-black">full</div>
+									<div class="text-sm text-muted">Full all-corner radius.</div>
+								</div>
+							</div>
+						}
+						else if ( screen.Title == StackTitle )
+						{
+							<div class="@BoundsWideClass">
+								<div class="flex flex-col gap-1">
+									<div class="text-xs uppercase tracking-wider text-accent">z index</div>
+									<div class="text-sm leading-relaxed text-muted">The three panels overlap. Higher z values draw in front.</div>
+								</div>
+								<div class="relative h-[220px] rounded-lg bg-[#101820] border border-white/10 overflow-hidden">
+									<div class="absolute top-3 left-3 z-0 w-[284px] h-[112px] rounded-lg bg-danger text-white border border-white/10 flex items-center justify-center font-bold ">z-0</div>
+									<div class="absolute top-[40px] left-[52px] z-20 w-[284px] h-[112px] rounded-lg bg-panel-strong text-white border border-accent flex items-center justify-center font-bold ">z-20</div>
+									<div class="absolute top-[72px] left-[104px] z-[75] w-[284px] h-[112px] rounded-lg bg-accent text-[#0d1418] border border-white/10 flex items-center justify-center font-black ">z-[75]</div>
+								</div>
+							</div>
+						}
+						else if ( screen.Title == OverflowTitle )
+						{
+							<div class="flex flex-col gap-5">
+								<div class="@BoundsWideClass">
+									<div class="flex flex-col gap-1">
+										<div class="text-xs uppercase tracking-wider text-accent">overflow-hidden</div>
+										<div class="text-sm leading-relaxed text-muted">The child is much wider and taller than its parent, so clipping is visible on both axes.</div>
+									</div>
+									<div class="w-[320px] h-[112px] overflow-hidden rounded-lg bg-[#101820] border border-white/10 p-2">
+										<div class="w-[1180px] h-[220px] rounded-md bg-accent text-[#0d1418] flex items-start justify-start p-4 font-black">wide and tall content clipped</div>
+									</div>
+								</div>
 
-						<div class="flex flex-row flex-wrap gap-4">
-							<div class="@(SwatchClass + " bg-bg text-text")">bg-bg</div>
-							<div class="@(SwatchClass + " bg-panel text-text")">bg-panel</div>
-							<div class="@(SwatchClass + " bg-panel-strong text-text")">panel-strong</div>
-							<div class="@(SwatchClass + " bg-accent text-[#0d1418]")">accent</div>
-							<div class="@(SwatchClass + " bg-danger text-white")">danger</div>
-							<div class="@(SwatchClass + " bg-good text-[#0d1418]")">good</div>
-							<div class="@(SwatchClass + " bg-white/10 text-white")">white/10</div>
-							<div class="@(SwatchClass + " bg-[#101820] text-accent")">arbitrary</div>
-						</div>
+								<div class="flex flex-row flex-wrap gap-5 items-stretch">
+									<div class="@BoundsCardClass">
+										<div class="text-xs uppercase tracking-wider text-accent">overflow-scroll</div>
+										<div class="text-sm leading-relaxed text-muted">Both axes can scroll because the child is larger in both directions.</div>
+										<div class="w-full h-[112px] overflow-scroll rounded-lg bg-[#101820] border border-white/10 p-2">
+											<div class="w-[1180px] h-[220px] rounded-md bg-panel-strong border border-accent flex items-start justify-start p-4 font-bold">scrollable wide and tall content</div>
+										</div>
+									</div>
 
-						<div class="p-5 rounded-xl border border-white/10 bg-[color:#1b2730] flex flex-col gap-3">
-							<div class="text-xl font-bold text-white">Arbitrary color hints</div>
-							<div class="text-sm text-white/70 leading-relaxed">Classes like bg-[color:#1b2730], bg-[#101820], text-white/70, and border-white/10 are parsed, escaped, and emitted as normal SCSS declarations.</div>
-						</div>
-					</section>
-				}
-				else if ( SafeActiveScreen == 4 )
-				{
-					<section class="@ScreenClass">
-						<div class="@PanelTitleClass">
-							<div>
-								<div class="text-xs uppercase tracking-wider text-accent">Borders</div>
-								<div class="text-2xl font-black">Widths, sides, colors, and radii</div>
-							</div>
-							<div class="text-sm text-muted">Border-style stays out because s&amp;box property support is intentionally verified.</div>
-						</div>
+									<div class="@BoundsCardClass">
+										<div class="text-xs uppercase tracking-wider text-accent">overflow-visible</div>
+										<div class="text-sm leading-relaxed text-muted">The child is allowed to paint beyond the panel bounds.</div>
+										<div class="w-[220px] h-[112px] overflow-visible rounded-lg bg-[#101820] border border-white/10 p-2">
+											<div class="w-[320px] h-[160px] rounded-md bg-accent text-[#0d1418] flex items-start justify-start p-4 font-black">visible outside</div>
+										</div>
+									</div>
 
-						<div class="flex flex-row gap-4">
-							<div class="w-1/3 p-5 rounded-sm border border-border bg-panel flex flex-col gap-3">
-								<div class="font-bold text-accent">rounded-sm</div>
-								<div class="h-[112px] border-t border-l border-accent bg-white/5 rounded-sm flex items-center justify-center">top + left</div>
-							</div>
-							<div class="w-1/3 p-5 rounded-lg border-2 border-accent bg-panel flex flex-col gap-3">
-								<div class="font-bold text-accent">border-2</div>
-								<div class="h-[112px] border-b border-r border-white/10 rounded-lg bg-white/5 flex items-center justify-center">bottom + right</div>
-							</div>
-							<div class="w-1/3 p-5 rounded-[18px] border border-white/10 bg-panel flex flex-col gap-3">
-								<div class="font-bold text-accent">rounded-[18px]</div>
-								<div class="h-[112px] rounded-full bg-accent text-[#0d1418] flex items-center justify-center font-bold">rounded-full</div>
-							</div>
-						</div>
-					</section>
-				}
-				else if ( SafeActiveScreen == 5 )
-				{
-					<section class="@ScreenClass">
-						<div class="@PanelTitleClass">
-							<div>
-								<div class="text-xs uppercase tracking-wider text-accent">Typography</div>
-								<div class="text-2xl font-black">Size, line-height, weight, transform, decoration</div>
-							</div>
-							<div class="text-sm text-muted">Text utilities are regular s&amp;box text declarations where supported.</div>
-						</div>
+									<div class="@BoundsCardClass">
+										<div class="text-xs uppercase tracking-wider text-accent">overflow-x-hidden</div>
+										<div class="text-sm leading-relaxed text-muted">Only horizontal overflow is clipped; the content is intentionally too wide.</div>
+										<div class="w-full h-[112px] overflow-x-hidden rounded-lg bg-[#101820] border border-white/10 p-2">
+											<div class="w-[1180px] h-[54px] rounded-md bg-good text-[#0d1418] flex items-center justify-start p-4 font-bold">horizontal overflow clipped</div>
+										</div>
+									</div>
 
-						<div class="p-6 rounded-xl bg-panel border border-border flex flex-col gap-5">
-							<div class="text-[34px] leading-[42px] font-black text-text text-shadow-lg">Tailwind-shaped typography</div>
-							<div class="text-lg leading-relaxed text-muted max-w-[1180px]">This line uses text-lg, leading-relaxed, muted color, and a stable max width. The next row shows casing, tracking, font style, decoration, truncation, and wrapping behavior.</div>
-							<div class="flex flex-row flex-wrap gap-3">
-								<div class="px-4 py-3 rounded-md bg-white/5 uppercase tracking-wider font-bold text-accent">uppercase</div>
-								<div class="px-4 py-3 rounded-md bg-white/5 lowercase italic text-white">LOWERCASE ITALIC</div>
-								<div class="px-4 py-3 rounded-md bg-white/5 capitalize underline decoration-accent decoration-2 underline-offset-4">capitalized underline</div>
-								<div class="px-4 py-3 rounded-md bg-white/5 line-through text-danger">line-through</div>
-								<div class="w-1/3 min-w-0 px-4 py-3 rounded-md bg-white/5 truncate">truncate makes long UI strings stay inside their panel instead of spilling into neighbors</div>
-								<div class="w-1/3 min-w-0 px-4 py-3 rounded-md bg-white/5 whitespace-pre-wrap break-words">whitespace-pre-wrap and break-words keep dense labels readable.</div>
+									<div class="@BoundsCardClass">
+										<div class="text-xs uppercase tracking-wider text-accent">overflow-y-scroll</div>
+										<div class="text-sm leading-relaxed text-muted">Only vertical overflow scrolls; the content is intentionally too tall.</div>
+										<div class="w-full h-[112px] overflow-y-scroll rounded-lg bg-[#101820] border border-white/10 p-2">
+											<div class="w-full h-[220px] rounded-md bg-danger text-white flex items-start justify-start p-4 font-bold">vertical overflow scrolls</div>
+										</div>
+									</div>
+								</div>
 							</div>
-						</div>
-					</section>
-				}
-				else if ( SafeActiveScreen == 6 )
-				{
-					<section class="@ScreenClass">
-						<div class="@PanelTitleClass">
-							<div>
-								<div class="text-xs uppercase tracking-wider text-accent">Position</div>
-								<div class="text-2xl font-black">Absolute overlays, insets, z-index, overflow</div>
+						}
+						else
+						{
+							<div class="flex flex-row flex-wrap gap-5 items-stretch">
+								@foreach ( var tile in screen.Tiles )
+								{
+									<div class="@TileClass( tile )">
+										<div class="@ProbeClass( tile )"></div>
+										<div class="uppercase tracking-wider text-muted leading-snug">@tile.Label</div>
+										<div class="leading-relaxed text-muted text-sm">@tile.Body</div>
+									</div>
+								}
 							</div>
-							<div class="text-sm text-muted">Static, relative, and absolute are the verified position modes.</div>
-						</div>
-
-						<div class="relative h-[220px] rounded-xl bg-panel border border-border overflow-hidden">
-							<div class="absolute inset-0 bg-[#101820] opacity-90"></div>
-							<div class="absolute top-3 left-3 z-10 p-3 rounded-md bg-accent text-[#0d1418] font-bold">top-3 left-3 z-10</div>
-							<div class="absolute top-3 right-3 z-20 p-3 rounded-md bg-panel-strong border border-accent">top-3 right-3 z-20</div>
-							<div class="absolute bottom-3 left-3 right-3 p-4 rounded-lg bg-white/10 border border-white/10">
-								<div class="text-sm text-white/70">Overflow-hidden clips the layer stack, while the active content area uses overflow-y-scroll.</div>
-							</div>
-						</div>
-
-						<div class="flex flex-row gap-4">
-							<div class="w-1/2 h-[160px] overflow-hidden rounded-lg bg-panel border border-border p-4">
-								<div class="w-[1180px] h-[112px] bg-accent text-[#0d1418] rounded-md flex items-center justify-center font-bold">overflow-hidden</div>
-							</div>
-							<div class="w-1/2 h-[160px] overflow-scroll rounded-lg bg-panel border border-border p-4">
-								<div class="w-[1180px] h-[112px] bg-panel-strong rounded-md flex items-center justify-center">overflow-scroll</div>
-							</div>
-						</div>
-					</section>
-				}
-				else if ( SafeActiveScreen == 7 )
-				{
-					<section class="@ScreenClass">
-						<div class="@PanelTitleClass">
-							<div>
-								<div class="text-xs uppercase tracking-wider text-accent">Interaction</div>
-								<div class="text-2xl font-black">Hover, active, focus, intro, outro</div>
-							</div>
-							<div class="text-sm text-muted">Only variants verified against s&amp;box selectors are emitted.</div>
-						</div>
-
-						<div class="flex flex-row flex-wrap gap-4">
-							<button class="p-5 rounded-lg bg-panel border border-border cursor-pointer transition-colors duration-150 hover:bg-accent hover:text-[#0d1418] active:bg-accent-dark active:opacity-70 focus:border-accent">
-								<div class="font-bold">hover + active + focus</div>
-								<div class="text-sm opacity-70 mt-1">Button selectors are escaped like .hover\\:bg-accent:hover</div>
-							</button>
-							<button class="p-5 rounded-lg bg-panel border border-border cursor-pointer transition-shadow duration-300 hover:shadow-lg hover:border-accent">
-								<div class="font-bold">hover shadow</div>
-								<div class="text-sm opacity-70 mt-1">Transitions stay in the s&amp;box subset.</div>
-							</button>
-							<div class="p-5 rounded-lg bg-panel border border-border intro:opacity-0 outro:opacity-0 transition-opacity duration-500">
-								<div class="font-bold text-accent">intro/outro</div>
-								<div class="text-sm text-muted mt-1">s&amp;box UI pseudo states are first-class variants.</div>
-							</div>
-						</div>
-					</section>
-				}
-				else if ( SafeActiveScreen == 8 )
-				{
-					<section class="@ScreenClass">
-						<div class="@PanelTitleClass">
-							<div>
-								<div class="text-xs uppercase tracking-wider text-accent">Effects</div>
-								<div class="text-2xl font-black">Shadows, filters, transforms, transitions</div>
-							</div>
-							<div class="text-sm text-muted">Tailwind transform variables are replaced with direct s&amp;box-safe transform values.</div>
-						</div>
-
-						<div class="flex flex-row flex-wrap gap-4">
-							<div class="@(EffectCardClass + " shadow-sm")">shadow-sm</div>
-							<div class="@(EffectCardClass + " shadow-md")">shadow-md</div>
-							<div class="@(EffectCardClass + " shadow-lg")">shadow-lg</div>
-							<div class="@(EffectCardClass + " blur-sm")">blur-sm</div>
-							<div class="@(EffectCardClass + " brightness-125 contrast-125")">brightness + contrast</div>
-							<div class="@(EffectCardClass + " grayscale")">grayscale</div>
-							<div class="@(EffectCardClass + " invert")">invert</div>
-							<div class="@(EffectCardClass + " hue-rotate-15 saturate-150")">hue + saturate</div>
-							<div class="@(EffectCardClass + " sepia")">sepia</div>
-							<div class="@(EffectCardClass + " transform-[rotate(2deg)_scale(0.98)] origin-top-left")">arbitrary transform</div>
-						</div>
+						}
 					</section>
 				}
 				else
 				{
-					<section class="@ScreenClass">
-						<div class="@PanelTitleClass">
-							<div>
-								<div class="text-xs uppercase tracking-wider text-accent">Arbitrary and important</div>
-								<div class="text-2xl font-black">Bracket syntax, underscores, bang important</div>
+					<section @key="SafeActiveScreen" class="@ScreenClass">
+						<div class="@HeroPanelClass">
+							<div class="flex flex-col gap-3 flex-1">
+								<div class="text-xs uppercase tracking-[0.18em] text-accent">Current support</div>
+								<div class="text-2xl leading-tight font-black text-text">What tailw&amp; emits right now.</div>
+								<div class="text-sm leading-relaxed text-muted max-w-[720px]">
+									This screen is the practical support matrix for the current s&amp;box-safe emitter. Anything outside this surface is parsed and reported instead of being silently generated.
+								</div>
 							</div>
-							<div class="text-sm text-muted">Every parseable candidate emits or reports a deterministic skip reason.</div>
+							<div class="w-[320px] p-4 rounded-xl bg-[#101820] border border-white/10 ">
+								<div class="text-xs uppercase tracking-wider text-muted">Generated demo</div>
+								<div class="text-2xl font-black text-accent mt-1">0 skipped</div>
+								<div class="text-sm text-muted mt-2">The visual screens only use utilities that are meant to render in runtime Razor UI.</div>
+							</div>
 						</div>
 
-						<div class="flex flex-row gap-4">
-							<div class="w-1/2 rounded-xl border border-border p-5 [background-color:#101820] [text-shadow:0_2px_8px_rgba(0,0,0,0.45)] flex flex-col gap-3">
-								<div class="text-xl font-bold text-accent">Arbitrary properties</div>
-								<div class="text-sm leading-relaxed text-white/70">Property utilities use square brackets and decode underscores so values can live inside class attributes.</div>
-								<div class="px-[14px] py-3 rounded-md bg-white/10">px-[14px]</div>
+						<div class="rounded-xl bg-panel border border-border overflow-hidden flex flex-col">
+							<div class="flex flex-row bg-[#101820] border-b border-border p-3 text-xs uppercase tracking-wider text-accent">
+								<div class="w-[220px] shrink-0">Area</div>
+								<div class="w-[160px] shrink-0">Status</div>
+								<div class="flex-1">What works</div>
 							</div>
-							<div class="w-1/2 rounded-xl border border-border p-5 bg-panel flex flex-col gap-3">
-								<div class="text-xl font-bold text-accent">Important and negative</div>
-								<div class="!p-4 -mt-2 rounded-lg border !border-accent bg-white/5 text-sm leading-relaxed">!p-4, !border-accent, and -mt-2 demonstrate important flags and negative spacing.</div>
-								<div class="text-sm text-muted">Unsupported families like grid or responsive media variants are parsed and reported instead of silently generating weird CSS.</div>
-							</div>
+							@foreach ( var row in SupportRows )
+							{
+								<div class="flex flex-row items-start gap-4 border-b border-white/10 p-3">
+									<div class="w-[220px] shrink-0 text-sm font-bold text-text">@row.Area</div>
+									<div class="w-[160px] shrink-0">
+										<div class="@SupportBadgeClass( row.Status )">@row.Status</div>
+									</div>
+									<div class="flex-1 text-sm leading-relaxed text-muted">@row.Notes</div>
+								</div>
+							}
 						</div>
 					</section>
 				}
@@ -340,35 +458,346 @@
 
 @code
 {
-	private static readonly string[] ScreenTitles =
+	private static int ScreenCount => FeatureScreens.Length + 1;
+
+	private static readonly SupportRow[] SupportRows =
 	{
-		"Overview",
-		"Layout",
-		"Spacing",
-		"Color",
-		"Borders",
-		"Typography",
-		"Position",
-		"Interaction",
-		"Effects",
-		"Arbitrary"
+		new( "Scanning and config", "Supported", "Razor classes, safelist comments, config safelist, theme tokens, and editor regeneration." ),
+		new( "Display and flex", "Supported", "flex, hidden, direction, wrapping, grow, shrink, basis, order, alignment, justification, and gap." ),
+		new( "Position and offsets", "Supported", "relative, absolute, inset groups, directional offsets, negative offsets, auto, and full." ),
+		new( "Sizing", "Supported", "width, height, min/max sizing, size, fractions, full, screen, arbitrary lengths, and aspect ratio." ),
+		new( "Spacing", "Supported", "padding, margin, negative margin, auto margin, directional spacing, gap, and arbitrary lengths." ),
+		new( "Colors and backgrounds", "Supported", "theme colors, arbitrary colors, text/background/border alpha, background image, repeat, position, and size." ),
+		new( "Borders and radius", "Limited", "border width, side border shorthands, border color, and all-corner plus side/corner radius shorthands." ),
+		new( "Typography", "Supported", "font size, line height, families, weights, style, casing, tracking, decoration, truncation, whitespace, and word break." ),
+		new( "Overflow and interaction", "Limited", "overflow, pointer events, documented cursors, arbitrary cursor values, opacity, and layering values." ),
+		new( "Effects and motion", "Limited", "filters, shadows, backdrop filters, blend modes, transform, transition, and animation declarations. keyframes stay project-owned." ),
+		new( "Parser syntax", "Supported", "negatives, slash modifiers, important flags, arbitrary values, and arbitrary properties are parsed deterministically." ),
+		new( "Variants", "Limited", "hover, active, focus, intro, and outro emit. browser selector variants and unsupported CSS output are reported with stable skip reasons." )
 	};
 
-	private static readonly DemoCard[] OverviewCards =
+	private static readonly DemoScreen[] FeatureScreens =
 	{
-		new( "Parser", "Tailwind-shaped candidates", "Variants, important flags, negatives, slash modifiers, arbitrary values, and arbitrary properties are understood before generation." ),
-		new( "Theme", "s&box-safe tokens", "Spacing, colors, type, radii, shadows, opacity, z-index, durations, easings, filters, transforms, and animation tokens merge with config overrides." ),
-		new( "Registry", "Supported utility families", "Each utility family owns its s&box declarations and skips browser-only output with structured reasons." ),
-		new( "Editor", "Watch and regenerate", "Razor changes, safelist comments, and config edits regenerate Code/tailbox.generated.scss through the editor watcher." )
+		new( "Display", "Layout", "Flex and hidden display output get isolated here.", new[]
+		{
+			new DemoTile( "flex", "flex items-center justify-center bg-accent text-[#0d1418] font-bold", "Renders as a flex panel." ),
+			new DemoTile( "hidden", "bg-panel-strong border-accent text-muted", "The hidden class is generated; this marker stays shown for the test screen", "hidden" )
+		} ),
+		new( "Flex Direction", "Layout", "Direction utilities can be inspected without alignment noise.", new[]
+		{
+			new DemoTile( "flex-row", "flex-row items-center justify-center bg-white/5", "Main axis runs left to right." ),
+			new DemoTile( "flex-row-reverse", "flex-row-reverse items-center justify-center bg-white/5", "Main axis is reversed." ),
+			new DemoTile( "flex-col", "flex-col items-center justify-center bg-white/5", "Column direction." ),
+			new DemoTile( "flex-col-reverse", "flex-col-reverse items-center justify-center bg-white/5", "Reversed column direction." )
+		} ),
+		new( "Flex Wrapping", "Layout", "Wrap behavior is separated from sizing behavior.", new[]
+		{
+			new DemoTile( "flex-wrap", "flex-wrap content-center bg-white/5", "Children are allowed to wrap." ),
+			new DemoTile( "flex-nowrap", "flex-nowrap overflow-hidden bg-white/5", "Children stay on one row." ),
+			new DemoTile( "flex-wrap-reverse", "flex-wrap-reverse content-end bg-white/5", "Wrap order is reversed." )
+		} ),
+		new( "Flex Alignment", "Layout", "Item, self, content, and justify classes each get their own page.", new[]
+		{
+			new DemoTile( "items-start", "items-start justify-start content-start bg-white/5", "Packed to the start." ),
+			new DemoTile( "items-center", "items-center justify-center content-center bg-white/5", "Centered on both axes." ),
+			new DemoTile( "items-end", "items-end justify-end content-end bg-white/5", "Packed to the end." ),
+			new DemoTile( "items-stretch", "items-stretch justify-between content-between bg-white/5", "Stretch and space between." ),
+			new DemoTile( "self-center", "self-center justify-around bg-white/5", "Self alignment token." ),
+			new DemoTile( "justify-evenly", "justify-evenly content-evenly bg-white/5", "Even distribution." )
+		} ),
+		new( "Flex Sizing", "Layout", "Flex growth, shrink, basis, and order are grouped together.", new[]
+		{
+			new DemoTile( "flex-1", "flex-1 basis-1/2 bg-good text-[#0d1418] font-bold", "Grows and shrinks from zero basis." ),
+			new DemoTile( "flex-auto", "flex-auto basis-1/3 bg-white/10", "Auto basis behavior." ),
+			new DemoTile( "flex-none", "flex-none w-1/4 bg-danger text-white", "Fixed flex item." ),
+			new DemoTile( "grow", "grow bg-accent text-[#0d1418] font-bold", "Can grow." ),
+			new DemoTile( "grow-0", "grow-0 bg-panel-strong", "Growth disabled." ),
+			new DemoTile( "shrink-0", "shrink-0 bg-panel-strong", "Shrink disabled." ),
+			new DemoTile( "order-first", "order-first bg-white/5", "First ordering token." ),
+			new DemoTile( "order-last", "order-last bg-white/5", "Last ordering token." )
+		} ),
+		new( "Position", "Position", "Position mode and offset utilities are tested on a nested marker.", new[]
+		{
+			new DemoTile( "relative", "relative bg-[#101820]", "Relative panel baseline.", "absolute top-3 right-3" ),
+			new DemoTile( "absolute", "relative bg-[#101820]", "Absolute probe at top right.", "absolute top-3 right-3" ),
+			new DemoTile( "inset-0", "relative bg-[#101820]", "Probe fills the card.", "absolute inset-0 bg-accent/50" ),
+			new DemoTile( "inset-x-3", "relative bg-[#101820]", "Horizontal inset probe.", "absolute inset-x-3 top-3 h-[54px]" ),
+			new DemoTile( "inset-y-3", "relative bg-[#101820]", "Vertical inset probe.", "absolute inset-y-3 left-3 w-[54px]" ),
+			new DemoTile( "-left-2", "relative bg-[#101820]", "Negative offset probe.", "absolute top-3 -left-2" )
+		} ),
+		new( SizingTitle, "Sizing", "Width, height, size, fraction, full, screen, and auto classes live here.", new[]
+		{
+			new DemoTile( "w-full", "bg-white/5", "Inner probe fills the card width.", "w-full h-[54px] flex items-center justify-center text-[#0d1418] font-bold", false ),
+			new DemoTile( "w-1/2", "bg-white/5", "Inner probe uses half width.", "w-1/2 h-[54px] flex items-center justify-center text-[#0d1418] font-bold", false ),
+			new DemoTile( "w-auto", "bg-white/5", "Inner probe sizes to its content.", "w-auto px-5 py-2 flex items-center justify-center text-[#0d1418] font-bold", false ),
+			new DemoTile( "h-[112px]", "bg-white/5", "Inner probe is visibly taller.", "w-full h-[112px] flex items-center justify-center text-[#0d1418] font-bold", false ),
+			new DemoTile( "size-10", "bg-white/5", "Inner probe gets paired width and height.", "size-10 flex items-center justify-center text-[#0d1418] font-bold", false ),
+			new DemoTile( "w-screen", "bg-white/5", "Inner probe requests screen width but is capped.", "w-screen max-w-full h-[54px] flex items-center justify-center text-[#0d1418] font-bold", false )
+		} ),
+		new( BoundsTitle, "Sizing", "Bounds utilities are easier to verify in isolation.", new[]
+		{
+			new DemoTile( "max-w-[420px]", "bg-white/5", "Probe is capped at an arbitrary max width.", "w-full max-w-[420px] h-[54px] flex items-center justify-center text-[#0d1418] font-bold", false ),
+			new DemoTile( "max-h-full", "bg-white/5", "Probe is capped to parent height.", "w-full h-screen max-h-full flex items-center justify-center text-[#0d1418] font-bold", false )
+		} ),
+		new( "Padding", "Spacing", "Padding scale, directional padding, and arbitrary padding.", new[]
+		{
+			new DemoTile( "p-1", "p-1 bg-white/5", "Tiny padding." ),
+			new DemoTile( "p-4", "p-4 bg-white/5", "Default panel padding." ),
+			new DemoTile( "p-8", "p-8 bg-white/5", "Large padding." ),
+			new DemoTile( "px-5", "px-5 py-2 bg-white/5", "Horizontal padding." ),
+			new DemoTile( "py-4", "py-4 px-2 bg-white/5", "Vertical padding." ),
+			new DemoTile( "px-[14px]", "px-[14px] py-2 bg-white/5", "Arbitrary horizontal padding." )
+		} ),
+		new( "Margin", "Spacing", "Margin and negative margin are separated from padding.", new[]
+		{
+			new DemoTile( "m-0", "m-0 bg-white/5", "Zero margin token." ),
+			new DemoTile( "mt-2", "mt-2 bg-white/5", "Top margin." ),
+			new DemoTile( "mb-2", "mb-2 bg-white/5", "Bottom margin." ),
+			new DemoTile( "ml-auto", "ml-auto bg-white/5", "Auto margin token." ),
+			new DemoTile( "-mt-2", "-mt-2 bg-white/5", "Negative margin." ),
+			new DemoTile( "m-[18px]", "m-[18px] bg-white/5", "Arbitrary margin." )
+		} ),
+		new( GapTitle, "Spacing", "Gap, row gap, and column gap have a dedicated page.", new[]
+		{
+			new DemoTile( "gap-1", "gap-1 bg-white/5", "Small gap token." ),
+			new DemoTile( "gap-4", "gap-4 bg-white/5", "Medium gap token." ),
+			new DemoTile( "gap-6", "gap-6 bg-white/5", "Large gap token." ),
+			new DemoTile( "gap-x-3", "gap-x-3 bg-white/5", "Column gap token." ),
+			new DemoTile( "gap-y-2", "gap-y-2 bg-white/5", "Row gap token." )
+		} ),
+		new( TextColorsTitle, "Color", "Text color utilities only.", new[]
+		{
+			new DemoTile( "text-accent", "text-accent", "Theme text color." ),
+			new DemoTile( "text-muted", "text-muted", "Muted theme text color." ),
+			new DemoTile( "text-danger", "text-danger", "Danger text color." ),
+			new DemoTile( "text-good", "text-good", "Good text color." ),
+			new DemoTile( "text-white", "text-white", "White text color." ),
+			new DemoTile( "text-[#0d1418]", "text-[#0d1418]", "Arbitrary text color." )
+		} ),
+		new( BackgroundColorsTitle, "Color", "Background color utilities only.", new[]
+		{
+			new DemoTile( "bg-[#101820]", "bg-[#101820]", "Arbitrary background color." ),
+			new DemoTile( "bg-[color:#1b2730]", "bg-[color:#1b2730]", "Typed arbitrary color." ),
+			new DemoTile( "bg-accent", "bg-accent", "Theme background color." ),
+			new DemoTile( "bg-good", "bg-good", "Success background color." ),
+			new DemoTile( "bg-danger", "bg-danger", "Danger background color." ),
+			new DemoTile( "bg-accent/50", "bg-accent/50", "Background opacity modifier." )
+		} ),
+		new( BorderWidthsTitle, "Borders", "Border width, side width, and arbitrary width utilities.", new[]
+		{
+			new DemoTile( "border", "border border-accent bg-panel", "Default border width." ),
+			new DemoTile( "border-0", "border-0 bg-panel-strong", "Zero border width." ),
+			new DemoTile( "border-2", "border-2 border-accent bg-panel", "Two pixel edge" ),
+			new DemoTile( "border-t", "border-t border-accent bg-panel", "Top side edge" ),
+			new DemoTile( "border-b", "border-b border-accent bg-panel", "Bottom side edge" ),
+			new DemoTile( "border-[3px]", "border-[3px] border-accent bg-panel", "Arbitrary border width." )
+		} ),
+		new( RadiusTitle, "Borders", "All-corner radius scale utilities.", new[]
+		{
+			new DemoTile( "rounded-none", "rounded-none bg-accent text-[#0d1418] font-bold", "Square baseline." ),
+			new DemoTile( "rounded-sm", "rounded-sm bg-accent text-[#0d1418] font-bold", "Small radius." ),
+			new DemoTile( "rounded-md", "rounded-md bg-accent text-[#0d1418] font-bold", "Medium radius." ),
+			new DemoTile( "rounded-lg", "rounded-lg bg-accent text-[#0d1418] font-bold", "Large radius." ),
+			new DemoTile( "rounded-xl", "rounded-xl bg-accent text-[#0d1418] font-bold", "Large radius." ),
+			new DemoTile( "rounded-full", "rounded-full bg-accent text-[#0d1418] font-bold", "Full radius." ),
+			new DemoTile( "rounded-[18px]", "rounded-[18px] bg-accent text-[#0d1418] font-bold", "Arbitrary radius." )
+		} ),
+		new( "Text Scale", "Typography", "Text size and line height, including slash modifiers.", new[]
+		{
+			new DemoTile( "text-xs", "text-xs bg-white/5", "Extra small text." ),
+			new DemoTile( "text-base", "text-base bg-white/5", "Base text." ),
+			new DemoTile( "text-xl", "text-xl bg-white/5", "Large text." ),
+			new DemoTile( "text-3xl", "text-3xl bg-white/5", "Display text." ),
+			new DemoTile( "text-lg/7", "text-lg/7 bg-white/5", "Size with line height modifier." ),
+			new DemoTile( "leading-[42px]", "leading-[42px] bg-white/5", "Arbitrary line height." )
+		} ),
+		new( "Font And Tracking", "Typography", "Font families, weights, styles, casing, and tracking.", new[]
+		{
+			new DemoTile( "font-sans", "font-sans bg-white/5", "Sans family token." ),
+			new DemoTile( "font-mono", "font-mono bg-white/5", "Mono family token." ),
+			new DemoTile( "font-bold", "font-bold bg-white/5", "Bold weight." ),
+			new DemoTile( "font-black", "font-black bg-white/5", "Black weight." ),
+			new DemoTile( "italic", "italic bg-white/5", "Italic style." ),
+			new DemoTile( "uppercase", "uppercase tracking-wider bg-white/5", "Uppercase plus tracking." ),
+			new DemoTile( "tracking-[0.18em]", "tracking-[0.18em] bg-white/5", "Arbitrary tracking." )
+		} ),
+		new( "Text Decoration", "Typography", "Decoration line, color, thickness, offset, truncation, and wrapping.", new[]
+		{
+			new DemoTile( "underline", "underline decoration-accent decoration-2 bg-white/5", "Underline line." ),
+			new DemoTile( "overline", "overline decoration-accent bg-white/5", "Overline line." ),
+			new DemoTile( "line-through", "line-through text-danger bg-white/5", "Line through text." ),
+			new DemoTile( "decoration-[3px]", "underline decoration-[3px] decoration-accent bg-white/5", "Arbitrary thickness." ),
+			new DemoTile( "truncate", "truncate bg-white/5", "Long labels stay clipped inside the tile." ),
+			new DemoTile( "whitespace-pre-line", "whitespace-pre-line break-all bg-white/5", "Preserves wrap behavior." )
+		} ),
+		new( "Overflow", "Overflow", "Overflow modes and axis-specific overflow.", new[]
+		{
+			new DemoTile( "overflow-hidden", "overflow-hidden bg-white/5", "Clips content." ),
+			new DemoTile( "overflow-scroll", "overflow-scroll bg-white/5", "Scroll overflow." ),
+			new DemoTile( "overflow-visible", "overflow-visible bg-white/5", "Visible overflow" ),
+			new DemoTile( "overflow-x-scroll", "overflow-x-scroll bg-white/5", "Horizontal scroll" ),
+			new DemoTile( "overflow-x-hidden", "overflow-x-hidden bg-white/5", "Horizontal clip." ),
+			new DemoTile( "overflow-y-scroll", "overflow-y-scroll bg-white/5", "Vertical scroll." )
+		} ),
+		new( StackTitle, "Layering", "Z value utilities are isolated here.", new[]
+		{
+			new DemoTile( "z-0", "relative z-0 bg-white/5", "z value zero." ),
+			new DemoTile( "z-20", "relative z-20 bg-white/5", "z value twenty." ),
+			new DemoTile( "z-[75]", "relative z-[75] bg-white/5", "Arbitrary z value." )
+		} ),
+		new( "Pointer And Cursor", "Interaction", "Pointer event and cursor utilities have their own page.", new[]
+		{
+			new DemoTile( "pointer-events-none", "pointer-events-none bg-white/5", "Pointer events disabled." ),
+			new DemoTile( "pointer-events-auto", "pointer-events-auto bg-white/5", "Automatic pointer events." ),
+			new DemoTile( "pointer-events-all", "pointer-events-all bg-white/5", "All pointer events." ),
+			new DemoTile( "cursor-pointer", "cursor-pointer bg-white/5", "Pointer cursor." ),
+			new DemoTile( "cursor-text", "cursor-text bg-white/5", "Text cursor." ),
+			new DemoTile( "cursor-not-allowed", "cursor-not-allowed bg-white/5", "Not allowed cursor." )
+		} ),
+		new( "Filters", "Effects", "Visual effect utilities that map to s&box effect properties.", new[]
+		{
+			new DemoTile( "blur-sm", "blur-sm", "Small blur effect" ),
+			new DemoTile( "brightness-125", "brightness-125", "Brightness boost." ),
+			new DemoTile( "contrast-125", "contrast-125", "Contrast boost." ),
+			new DemoTile( "grayscale", "grayscale", "Saturate to zero." ),
+			new DemoTile( "hue-rotate-15", "hue-rotate-15", "Hue rotation." ),
+			new DemoTile( "drop-shadow-lg", "drop-shadow-lg", "Drop-shadow filter effect." )
+		} ),
+		new( "Negative Values", "Parser", "Negative spacing, offsets, and stack levels are isolated here.", new[]
+		{
+			new DemoTile( "-mt-2", "-mt-2 bg-white/5", "Negative top margin." ),
+			new DemoTile( "-left-2", "relative -left-2 bg-white/5", "Negative left offset." ),
+			new DemoTile( "z-[-10]", "relative z-[-10] bg-white/5", "Arbitrary negative stack level." )
+		} ),
+		new( "Bounds And Aspect", "Sizing", "Minimum bounds and aspect ratio output are shown independently from max sizing.", new[]
+		{
+			new DemoTile( "min-width", "min-w-[220px] bg-white/5", "Tile keeps a minimum width." ),
+			new DemoTile( "min-height", "min-h-[24px] bg-white/5", "Tile keeps a minimum height." ),
+			new DemoTile( "aspect-ratio: 1", "aspect-square bg-accent text-[#0d1418] font-bold", "Square aspect ratio." ),
+			new DemoTile( "aspect-ratio: 16/9", "aspect-video bg-good text-[#0d1418] font-bold", "Video aspect ratio." ),
+			new DemoTile( "aspect-ratio: 4/3", "aspect-[4/3] bg-panel-strong", "Arbitrary ratio." )
+		} ),
+		new( "Background Images", "Images", "Image, size, position, and repeat utilities map to s&box background properties.", new[]
+		{
+			new DemoTile( "background-image", "bg-[url(/Libraries/TailBoxSandWind/Code/TailBox/untitled.png)] bg-center bg-contain bg-no-repeat", "URL image output." ),
+			new DemoTile( "background-size", "bg-[url(/Libraries/TailBoxSandWind/Code/TailBox/untitled.png)] bg-cover bg-center", "Cover sizing." ),
+			new DemoTile( "background-position", "bg-[url(/Libraries/TailBoxSandWind/Code/TailBox/untitled.png)] bg-center bg-no-repeat", "Centered image." ),
+			new DemoTile( "background-repeat", "bg-[url(/Libraries/TailBoxSandWind/Code/TailBox/untitled.png)] bg-repeat-x", "Repeat on one axis." )
+		} ),
+		new( "Shadows", "Effects", "Box shadow and text shadow emit directly instead of falling back to report-only behavior.", new[]
+		{
+			new DemoTile( "box-shadow", "shadow bg-panel-strong", "Default shadow token." ),
+			new DemoTile( "box-shadow: none", "shadow-none bg-panel-strong", "No shadow token." ),
+			new DemoTile( "arbitrary box-shadow", "shadow-[0_0_12px_black] bg-panel-strong", "Arbitrary shadow." ),
+			new DemoTile( "text-shadow", "text-shadow text-2xl font-black bg-white/5", "Default text shadow." ),
+			new DemoTile( "arbitrary text-shadow", "text-shadow-[0_0_12px_black] text-2xl font-black bg-white/5", "Arbitrary text shadow." )
+		} ),
+		new( "Backdrop Filters", "Effects", "Backdrop filter longhands are generated separately so each value can be inspected.", new[]
+		{
+			new DemoTile( "backdrop-filter", "[backdrop-filter:blur(10px)] bg-white/10", "Filter shorthand." ),
+			new DemoTile( "backdrop-filter-blur", "backdrop-blur-lg bg-white/10", "Blur longhand." ),
+			new DemoTile( "backdrop-filter-brightness", "backdrop-brightness-125 bg-white/10", "Brightness longhand." ),
+			new DemoTile( "backdrop-filter-contrast", "backdrop-contrast-125 bg-white/10", "Contrast longhand." ),
+			new DemoTile( "backdrop-filter-hue-rotate", "backdrop-hue-rotate-15 bg-white/10", "Hue rotation longhand." ),
+			new DemoTile( "backdrop-filter-invert", "backdrop-invert bg-white/10", "Invert longhand." ),
+			new DemoTile( "backdrop-filter-saturate", "backdrop-saturate-150 bg-white/10", "Saturate longhand." ),
+			new DemoTile( "backdrop-filter-sepia", "backdrop-sepia bg-white/10", "Sepia longhand." )
+		} ),
+		new( "Opacity And Blend", "Effects", "Panel opacity and mix blend modes now emit as normal declarations.", new[]
+		{
+			new DemoTile( "opacity", "opacity-75 bg-accent text-[#0d1418] font-bold", "Opacity token." ),
+			new DemoTile( "opacity arbitrary", "opacity-[0.35] bg-danger text-white font-bold", "Arbitrary opacity." ),
+			new DemoTile( "mix-blend-mode: normal", "mix-blend-normal bg-white/10", "Normal blend." ),
+			new DemoTile( "mix-blend-mode: multiply", "mix-blend-multiply bg-accent text-[#0d1418] font-bold", "Multiply blend." )
+		} ),
+		new( "Transform And Perspective", "Motion", "Transform and transform-origin utilities are paired with arbitrary perspective-origin declarations.", new[]
+		{
+			new DemoTile( "transform: none", "transform-none bg-white/5", "Transform reset." ),
+			new DemoTile( "transform arbitrary", "transform-[translateX(4px)_scale(1.1)] bg-accent text-[#0d1418] font-bold", "Arbitrary transform." ),
+			new DemoTile( "transform-origin", "origin-top-left bg-white/5", "Origin utility." ),
+			new DemoTile( "transform-origin-x/y", "[transform-origin-x:50%] [transform-origin-y:50%] bg-white/5", "Axis origin longhands." ),
+			new DemoTile( "perspective-origin", "[perspective-origin:50%_50%] [perspective-origin-x:50%] [perspective-origin-y:50%] bg-white/5", "Perspective origin longhands." )
+		} ),
+		new( "Transitions", "Motion", "Transition property, duration, delay, timing, and shorthand output are all represented.", new[]
+		{
+			new DemoTile( "transition", "transition bg-white/5", "Default transition set." ),
+			new DemoTile( "transition-property", "transition-opacity bg-white/5", "Opacity transition property." ),
+			new DemoTile( "transition-duration", "duration-150 bg-white/5", "Duration token." ),
+			new DemoTile( "transition-delay", "delay-75 bg-white/5", "Delay token." ),
+			new DemoTile( "transition-timing-function", "ease-in-out bg-white/5", "Timing token." ),
+			new DemoTile( "transition variants", "transition-colors transition-shadow transition-transform bg-white/5", "Additional property groups." )
+		} ),
+		new( "Animations", "Motion", "Animation utilities emit declarations only; keyframes stay project-owned.", new[]
+		{
+			new DemoTile( "animation", "animate-[fade_1s_ease] bg-white/5", "Arbitrary animation shorthand." ),
+			new DemoTile( "animation: none", "animate-none bg-white/5", "Animation reset." ),
+			new DemoTile( "animation-delay/duration", "[animation-delay:0.1s] [animation-duration:1s] bg-white/5", "Timing longhands." ),
+			new DemoTile( "animation-direction/fill", "[animation-direction:alternate] [animation-fill-mode:both] bg-white/5", "Direction and fill longhands." ),
+			new DemoTile( "animation-iteration/name", "[animation-iteration-count:infinite] [animation-name:fade] bg-white/5", "Iteration and name longhands." ),
+			new DemoTile( "animation-state/easing", "[animation-play-state:running] [animation-timing-function:ease-out] bg-white/5", "Play state and timing longhands." )
+		} ),
+		new( "Decoration Offset", "Typography", "Underline offset now maps to the s&box text-decoration underline offset property.", new[]
+		{
+			new DemoTile( "text-decoration-underline-offset", "underline underline-offset-4 decoration-accent bg-white/5", "Positive offset." ),
+			new DemoTile( "negative underline offset", "underline -underline-offset-2 decoration-accent bg-white/5", "Negative offset." )
+		} ),
+		new( "Mask Scope", "Masks", "Mask scope can be emitted through arbitrary property syntax.", new[]
+		{
+			new DemoTile( "mask-scope: default", "[mask-scope:default] bg-white/5", "Default mask scope." ),
+			new DemoTile( "mask-scope: filter", "[mask-scope:filter] bg-white/5", "Filter mask scope." )
+		} ),
+		new( "Radius Longhands", "Borders", "Corner radius longhands can be emitted directly for exact s&box parity.", new[]
+		{
+			new DemoTile( "border-top-left-radius", "[border-top-left-radius:18px] bg-accent text-[#0d1418] font-bold", "Top left longhand." ),
+			new DemoTile( "border-top-right-radius", "[border-top-right-radius:18px] bg-accent text-[#0d1418] font-bold", "Top right longhand." ),
+			new DemoTile( "border-bottom-left-radius", "[border-bottom-left-radius:18px] bg-accent text-[#0d1418] font-bold", "Bottom left longhand." ),
+			new DemoTile( "border-bottom-right-radius", "[border-bottom-right-radius:18px] bg-accent text-[#0d1418] font-bold", "Bottom right longhand." )
+		} ),
+		new( "Cursor Values", "Interaction", "All documented cursor values plus arbitrary custom cursor values are accepted.", new[]
+		{
+			new DemoTile( "cursor-none", "cursor-none bg-white/5", "None cursor." ),
+			new DemoTile( "cursor-progress", "cursor-progress bg-white/5", "Progress cursor." ),
+			new DemoTile( "cursor-wait", "cursor-wait bg-white/5", "Wait cursor." ),
+			new DemoTile( "cursor-crosshair", "cursor-crosshair bg-white/5", "Crosshair cursor." ),
+			new DemoTile( "cursor-move", "cursor-move bg-white/5", "Move cursor." ),
+			new DemoTile( "cursor-[crosshair]", "cursor-[crosshair] bg-white/5", "Arbitrary cursor." )
+		} ),
+		new( "Intro And Outro", "Variants", "s&box creation and deletion pseudo-classes now emit generated selectors.", new[]
+		{
+			new DemoTile( "hover", "hover:bg-accent bg-white/5", "Hover selector." ),
+			new DemoTile( "active", "active:bg-accent bg-white/5", "Active selector." ),
+			new DemoTile( "focus", "focus:border-accent border bg-white/5", "Focus selector." ),
+			new DemoTile( "intro", "intro:opacity-0 transition bg-white/5", "Intro selector." ),
+			new DemoTile( "outro", "outro:opacity-0 transition bg-white/5", "Outro selector." )
+		} ),
+		new( "Unsupported Reporting", "Guardrails", "This page documents skip behavior without adding skipped demo classes.", new[]
+		{
+			new DemoTile( "selector prefixes", "border border-danger bg-danger/20 text-white", "Browser-oriented selector prefixes are reported with stable reasons." ),
+			new DemoTile( "layout guards", "border border-danger bg-danger/20 text-white", "Unsupported layout families stay shown in the generation report." ),
+			new DemoTile( "project keyframes", "border border-danger bg-danger/20 text-white", "Animation declarations emit, but keyframes stay in project stylesheets." )
+		} )
 	};
 
 	private const string ScreenClass = "flex flex-col gap-5";
-	private const string HeroPanelClass = "p-6 rounded-xl bg-panel border border-border shadow-lg flex flex-row gap-6 items-stretch";
-	private const string FeatureCardClass = "basis-1/2 flex-1 min-w-0 p-5 rounded-lg bg-panel border border-border flex flex-col gap-3 hover:bg-panel-strong hover:border-accent transition-colors duration-150";
-	private const string PanelTitleClass = "p-5 rounded-xl bg-panel border border-border flex flex-row items-center justify-between gap-4";
-	private const string StepperClass = "px-4 py-2 rounded-md bg-panel border border-border text-text cursor-pointer hover:bg-accent hover:text-[#0d1418] active:bg-accent-dark transition-colors duration-150";
-	private const string SwatchClass = "w-1/4 min-w-0 h-[112px] p-4 rounded-lg border border-white/10 flex flex-col items-center justify-center text-center font-bold shadow-sm";
-	private const string EffectCardClass = "w-1/4 min-w-0 h-[112px] rounded-lg bg-accent text-[#0d1418] border border-white/10 flex items-center justify-center text-center font-bold transition-transform duration-300 hover:transform-[translateX(4px)_scale(1.04)]";
+	private const string SizingTitle = "Sizing";
+	private const string BoundsTitle = "Bounds";
+	private const string GapTitle = "Gap";
+	private const string TextColorsTitle = "Text Colors";
+	private const string BackgroundColorsTitle = "Background Colors";
+	private const string BorderWidthsTitle = "Border Widths";
+	private const string RadiusTitle = "Radius";
+	private const string StackTitle = "Z Layers";
+	private const string OverflowTitle = "Overflow";
+	private const string HeroPanelClass = "p-6 rounded-xl bg-panel border border-border flex flex-row gap-6 items-stretch";
+	private const string PanelTitleClass = "p-5 rounded-xl bg-panel border border-border flex flex-row flex-wrap items-start justify-between gap-4";
+	private const string StepperClass = "px-4 py-2 rounded-md bg-panel border border-border text-text pointer-events-all cursor-pointer";
+	private const string SwatchClass = "basis-1/4 flex-1 w-[220px] h-[124px] p-4 rounded-lg border border-white/10 flex flex-col items-center justify-center text-center font-bold ";
+	private const string EffectCardClass = "tb-demo-tile basis-1/4 flex-1 w-[220px] h-[124px] p-4 rounded-lg border border-white/10 flex items-center justify-center text-center font-bold";
+	private const string TileBaseClass = "tb-demo-tile relative basis-1/3 flex-1 w-[280px] h-[176px] p-5 rounded-lg border border-white/10 text-sm text-text flex flex-col gap-2 justify-start overflow-visible ";
+	private const string BoundsWideClass = "w-full p-5 rounded-lg bg-panel border border-border flex flex-col gap-3 ";
+	private const string BoundsCardClass = "basis-1/3 flex-1 w-[320px] p-5 rounded-lg bg-panel border border-border flex flex-col gap-3 ";
+	private const string BorderDemoCardClass = "basis-1/3 flex-1 w-[280px] p-5 rounded-lg bg-panel border border-border flex flex-col gap-3 ";
+	private const string RadiusDemoCardClass = "basis-1/4 flex-1 w-[220px] p-5 rounded-lg bg-panel border border-border flex flex-col gap-3 items-center justify-center text-center ";
 
 	private int ActiveScreen { get; set; }
 
@@ -379,8 +808,8 @@
 			if ( ActiveScreen < 0 )
 				return 0;
 
-			if ( ActiveScreen >= ScreenTitles.Length )
-				return ScreenTitles.Length - 1;
+			if ( ActiveScreen >= ScreenCount )
+				return ScreenCount - 1;
 
 			return ActiveScreen;
 		}
@@ -389,9 +818,50 @@
 	private string NavClass( int index )
 	{
 		if ( index == SafeActiveScreen )
-			return "w-full p-3 rounded-lg bg-accent text-[#0d1418] cursor-pointer text-left border border-accent shadow-sm transition-colors duration-150";
+			return "tb-demo-nav-button w-full p-4 rounded-lg bg-accent text-[#0d1418] pointer-events-all cursor-pointer text-left border border-accent flex flex-row items-center gap-3";
 
-		return "w-full p-3 rounded-lg bg-white/5 text-muted cursor-pointer text-left border border-white/10 hover:bg-panel-strong hover:text-white hover:border-accent transition-colors duration-150";
+		return "tb-demo-nav-button w-full p-4 rounded-lg bg-white/5 text-muted pointer-events-all cursor-pointer text-left border border-white/10 flex flex-row items-center gap-3";
+	}
+
+	private static string GetScreenTitle( int index )
+	{
+		if ( index <= 0 )
+			return "Overview";
+
+		if ( index > FeatureScreens.Length )
+			return FeatureScreens[FeatureScreens.Length - 1].Title;
+
+		return FeatureScreens[index - 1].Title;
+	}
+
+	private static string TileClass( DemoTile tile )
+	{
+		if ( string.IsNullOrWhiteSpace( tile.Classes ) )
+			return TileBaseClass;
+
+		return TileBaseClass + " " + tile.Classes;
+	}
+
+	private static string ProbeClass( DemoTile tile )
+	{
+		if ( string.IsNullOrWhiteSpace( tile.ProbeClasses ) )
+			return "hidden";
+
+		var baseClass = tile.UseDefaultProbeSize
+			? "size-6 rounded bg-accent "
+			: "rounded bg-accent ";
+
+		return baseClass + tile.ProbeClasses;
+	}
+
+	private static string SupportBadgeClass( string status )
+	{
+		return status switch
+		{
+			"Supported" => "px-3 py-1 rounded-md bg-good text-[#0d1418] text-xs font-bold uppercase tracking-wider text-center",
+			"Limited" => "px-3 py-1 rounded-md bg-accent text-[#0d1418] text-xs font-bold uppercase tracking-wider text-center",
+			_ => "px-3 py-1 rounded-md bg-danger text-white text-xs font-bold uppercase tracking-wider text-center"
+		};
 	}
 
 	private void SelectScreen( int index )
@@ -402,13 +872,13 @@
 
 	private void Previous()
 	{
-		ActiveScreen = SafeActiveScreen == 0 ? ScreenTitles.Length - 1 : SafeActiveScreen - 1;
+		ActiveScreen = SafeActiveScreen == 0 ? ScreenCount - 1 : SafeActiveScreen - 1;
 		StateHasChanged();
 	}
 
 	private void Next()
 	{
-		ActiveScreen = SafeActiveScreen == ScreenTitles.Length - 1 ? 0 : SafeActiveScreen + 1;
+		ActiveScreen = SafeActiveScreen == ScreenCount - 1 ? 0 : SafeActiveScreen + 1;
 		StateHasChanged();
 	}
 
@@ -417,5 +887,7 @@
 		return HashCode.Combine( ActiveScreen, EnableMouseUi, CaptureMouse );
 	}
 
-	private readonly record struct DemoCard( string Label, string Title, string Body );
+	private readonly record struct SupportRow( string Area, string Status, string Notes );
+	private readonly record struct DemoScreen( string Title, string Eyebrow, string Note, DemoTile[] Tiles );
+	private readonly record struct DemoTile( string Label, string Classes, string Body, string ProbeClasses = "", bool UseDefaultProbeSize = true );
 }

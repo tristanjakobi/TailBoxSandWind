@@ -38,17 +38,19 @@ public sealed class TailBoxParserParityTests
 		Assert.AreEqual( "opacity-\\[0\\.5\\]", TailBoxText.EscapeIdentifier( "opacity-[0.5]" ) );
 		Assert.AreEqual( "z-\\[100\\%\\]", TailBoxText.EscapeIdentifier( "z-[100%]" ) );
 		Assert.AreEqual( "\\31 \\/2", TailBoxText.EscapeIdentifier( "1/2" ) );
+		Assert.AreEqual( "-mt-2", TailBoxText.EscapeIdentifier( "-mt-2" ) );
 	}
 
 	[TestMethod]
 	public void EscapesGeneratedSelectorsWithSboxSafeFixedHexEscapes()
 	{
-		Assert.AreEqual( "red-1\\00002f2", TailBoxText.EscapeIdentifierForSboxSelector( "red-1/2" ) );
-		Assert.AreEqual( "hover\\00003abg-\\00005b\\0000230d1418\\00005d", TailBoxText.EscapeIdentifierForSboxSelector( "hover:bg-[#0d1418]" ) );
-		Assert.AreEqual( "opacity-\\00005b0\\00002e5\\00005d", TailBoxText.EscapeIdentifierForSboxSelector( "opacity-[0.5]" ) );
-		Assert.AreEqual( "z-\\00005b100\\000025\\00005d", TailBoxText.EscapeIdentifierForSboxSelector( "z-[100%]" ) );
-		Assert.AreEqual( "\\000031\\00002f2", TailBoxText.EscapeIdentifierForSboxSelector( "1/2" ) );
-		Assert.AreEqual( "active\\00003abg-accent-dark", TailBoxText.EscapeIdentifierForSboxSelector( "active:bg-accent-dark" ) );
+		Assert.AreEqual( "red-1\\00002f 2", TailBoxText.EscapeIdentifierForSboxSelector( "red-1/2" ) );
+		Assert.AreEqual( "hover\\00003a bg-\\00005b \\000023 0d1418\\00005d ", TailBoxText.EscapeIdentifierForSboxSelector( "hover:bg-[#0d1418]" ) );
+		Assert.AreEqual( "opacity-\\00005b 0\\00002e 5\\00005d ", TailBoxText.EscapeIdentifierForSboxSelector( "opacity-[0.5]" ) );
+		Assert.AreEqual( "z-\\00005b 100\\000025 \\00005d ", TailBoxText.EscapeIdentifierForSboxSelector( "z-[100%]" ) );
+		Assert.AreEqual( "\\000031 \\00002f 2", TailBoxText.EscapeIdentifierForSboxSelector( "1/2" ) );
+		Assert.AreEqual( "active\\00003a bg-accent-dark", TailBoxText.EscapeIdentifierForSboxSelector( "active:bg-accent-dark" ) );
+		Assert.AreEqual( "\\00002d mt-2", TailBoxText.EscapeIdentifierForSboxSelector( "-mt-2" ) );
 	}
 
 	[TestMethod]
@@ -83,8 +85,8 @@ public sealed class TailBoxParserParityTests
 	[TestMethod]
 	public void ClassifiesUnsupportedVariantsDeterministically()
 	{
-		Assert.IsTrue( TailBoxCandidateParser.TryParse( "md:flex", out var media, out _ ) );
-		Assert.AreEqual( TailBoxVariantKind.Media, media.Variants.Single().Kind );
+		Assert.IsTrue( TailBoxCandidateParser.TryParse( "unknown:flex", out var unknown, out _ ) );
+		Assert.AreEqual( TailBoxVariantKind.Unsupported, unknown.Variants.Single().Kind );
 
 		Assert.IsTrue( TailBoxCandidateParser.TryParse( "first:flex", out var selector, out _ ) );
 		Assert.AreEqual( TailBoxVariantKind.Selector, selector.Variants.Single().Kind );
