@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Sandbox.TailBox;
@@ -50,7 +51,11 @@ public sealed class TailBoxDemo : Component, Component.ExecuteInEditor
 			return;
 
 		if ( scene.IsEditor && !RunInEditor )
+		{
+			DestroyDemoMenus( scene, null );
+			ensuredOnce = false;
 			return;
+		}
 
 		var screen = ResolveScreenPanel( scene );
 		if ( screen is null )
@@ -61,7 +66,7 @@ public sealed class TailBoxDemo : Component, Component.ExecuteInEditor
 			screen.TargetCamera = camera;
 
 		var menu = ResolveMenu( screen );
-		DisableDuplicateMenus( scene, menu );
+		DestroyDemoMenus( scene, menu );
 		ConfigureMouse();
 
 		ensuredOnce = true;
@@ -69,7 +74,7 @@ public sealed class TailBoxDemo : Component, Component.ExecuteInEditor
 
 	private ScreenPanel ResolveScreenPanel( Scene scene )
 	{
-		var screens = scene.GetAllComponents<ScreenPanel>().ToArray();
+		var screens = FindSceneComponents<ScreenPanel>( scene ).ToArray();
 		var existingScreen = screens
 			.FirstOrDefault( screen => screen.GameObject.GetComponent<TailBoxDemoMenu>( true ) is not null )
 			?? screens.FirstOrDefault( screen => screen.Enabled )
@@ -91,7 +96,7 @@ public sealed class TailBoxDemo : Component, Component.ExecuteInEditor
 
 	private CameraComponent ResolveCamera( Scene scene )
 	{
-		var cameras = scene.GetAllComponents<CameraComponent>().ToArray();
+		var cameras = FindSceneComponents<CameraComponent>( scene ).ToArray();
 		var mainCamera = cameras.FirstOrDefault( camera => camera.IsMainCamera && camera.Enabled );
 		if ( mainCamera is not null )
 			return mainCamera;
@@ -123,15 +128,21 @@ public sealed class TailBoxDemo : Component, Component.ExecuteInEditor
 		return menu;
 	}
 
-	private static void DisableDuplicateMenus( Scene scene, TailBoxDemoMenu activeMenu )
+	private static void DestroyDemoMenus( Scene scene, TailBoxDemoMenu activeMenu )
 	{
-		foreach ( var menu in scene.GetAllComponents<TailBoxDemoMenu>() )
+		foreach ( var menu in FindSceneComponents<TailBoxDemoMenu>( scene ).ToArray() )
 		{
-			if ( menu == activeMenu )
+			if ( activeMenu is not null && menu == activeMenu )
 				continue;
 
-			menu.Enabled = false;
+			menu.Destroy();
 		}
+	}
+
+	private static IEnumerable<T> FindSceneComponents<T>( Scene scene ) where T : Component
+	{
+		return scene.GetAllObjects( true )
+			.SelectMany( gameObject => gameObject.Components.GetAll<T>() );
 	}
 
 	private void ConfigureMouse()

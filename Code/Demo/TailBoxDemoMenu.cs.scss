@@ -31,6 +31,11 @@ root {
 	background-color: rgba( 34, 39, 44, 0.94 );
 }
 
+.tb-demo-codebox {
+	box-shadow: inset 0 0 0 1px rgba( 255, 255, 255, 0.04 );
+	user-select: text;
+}
+
 .tb-demo-light-surface {
 	background-color: #f1f5f7;
 }

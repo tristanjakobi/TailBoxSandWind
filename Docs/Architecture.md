@@ -145,7 +145,7 @@ Scene bootstrap component. When present on a GameObject, it resolves or creates 
 
 `TailBoxDemoMenu`
 
-Razor `PanelComponent` showcase. It is split into screens for display, flex behavior, position, sizing, spacing, text colors, background colors, borders/radius, typography, overflow, z layering, pointer/cursor, filters, negative values, unsupported reporting, and the current support matrix. It uses tailw& utility classes so the normal generator output powers the demo styling.
+Razor `PanelComponent` showcase. It is split into screens for flex behavior, position, sizing, spacing, text colors, background colors, borders/radius, typography, overflow, z layering, pointer/cursor, filters, negative values, unsupported reporting, and the current support matrix. It uses tailw& utility classes so the normal generator output powers the demo styling.
 
 ## Adding A Utility
 
