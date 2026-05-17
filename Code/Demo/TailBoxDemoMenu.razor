@@ -21,10 +21,10 @@
 				@for ( var i = 0; i < ScreenCount; i++ )
 				{
 					var index = i;
-					<button class="@NavClass( index )" onclick="@(() => SelectScreen( index ))">
+					<div class="@NavClass( index )" onclick="@(() => SelectScreen( index ))">
 						<div class="tb-demo-nav-index shrink-0 text-xs leading-normal uppercase tracking-wider whitespace-normal">Screen @(index + 1)</div>
 						<div class="flex-1 text-sm leading-normal font-bold whitespace-normal">@GetScreenTitle( index )</div>
-					</button>
+					</div>
 				}
 			</nav>
 
@@ -42,8 +42,8 @@
 						<div class="text-[34px] leading-[42px] font-black text-text ">@GetScreenTitle( SafeActiveScreen )</div>
 					</div>
 					<div class="flex flex-row items-center gap-2">
-						<button class="@StepperClass" onclick="@Previous">Previous</button>
-						<button class="@StepperClass" onclick="@Next">Next</button>
+						<div class="@StepperClass" onclick="@Previous">Previous</div>
+						<div class="@StepperClass" onclick="@Next">Next</div>
 					</div>
 				</header>
 

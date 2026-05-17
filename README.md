@@ -6,7 +6,7 @@ It is intentionally a compatibility layer, not a full Tailwind CSS port. Support
 
 The C# API still uses the `Sandbox.TailBox` namespace for compatibility.
 
-For the code map and generation flow, see [Docs/Architecture.md](Docs/Architecture.md). For the s&box style-property support surface, see [Docs/StyleProperties.md](Docs/StyleProperties.md).
+For a practical setup walkthrough, see [Docs/UsageGuide.md](Docs/UsageGuide.md). For the code map and generation flow, see [Docs/Architecture.md](Docs/Architecture.md). For the s&box style-property support surface, see [Docs/StyleProperties.md](Docs/StyleProperties.md).
 
 ## Quick Start
 

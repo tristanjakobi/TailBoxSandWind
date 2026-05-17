@@ -23,7 +23,7 @@ public sealed class TailBoxDemo : Component, Component.ExecuteInEditor
 	public bool KeepSceneReady { get; set; } = true;
 
 	[Property]
-	public bool RunInEditor { get; set; } = true;
+	public bool RunInEditor { get; set; }
 
 	private bool ensuredOnce;
 
@@ -45,11 +45,11 @@ public sealed class TailBoxDemo : Component, Component.ExecuteInEditor
 
 	private void EnsureDemo()
 	{
-		if ( Game.IsEditor && !RunInEditor )
-			return;
-
 		var scene = Scene;
 		if ( scene is null )
+			return;
+
+		if ( scene.IsEditor && !RunInEditor )
 			return;
 
 		var screen = ResolveScreenPanel( scene );
@@ -60,7 +60,8 @@ public sealed class TailBoxDemo : Component, Component.ExecuteInEditor
 		if ( camera is not null )
 			screen.TargetCamera = camera;
 
-		ResolveMenu( screen );
+		var menu = ResolveMenu( screen );
+		DisableDuplicateMenus( scene, menu );
 		ConfigureMouse();
 
 		ensuredOnce = true;
@@ -120,6 +121,17 @@ public sealed class TailBoxDemo : Component, Component.ExecuteInEditor
 		menu.CaptureMouse = CaptureMouse;
 		menu.ConfigureMouseInput();
 		return menu;
+	}
+
+	private static void DisableDuplicateMenus( Scene scene, TailBoxDemoMenu activeMenu )
+	{
+		foreach ( var menu in scene.GetAllComponents<TailBoxDemoMenu>() )
+		{
+			if ( menu == activeMenu )
+				continue;
+
+			menu.Enabled = false;
+		}
 	}
 
 	private void ConfigureMouse()
